@@ -47,7 +47,9 @@ func newRootCmd() *cobra.Command {
 		newUpdateCmd(logger, c),
 		newDeleteCmd(logger, c),
 		newApplyCmd(commands.NewApplyResourcesOptions(logger, c)),
+		newCompletionCmd(logger, c),
 
+		ConfigCmd,
 		KubeconfigCmd,
 	)
 

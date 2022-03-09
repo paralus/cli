@@ -12,7 +12,7 @@ func newApplyCmd(applyOption commands.CmdOptions) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "apply",
 		Short: "apply the config of various resource",
-		Long:  `apply the details of various resource such as clusters, users, groups etc.`,
+		Long:  `Apply configuration changes on various resources like clusters, users, groups etc.`,
 		Example: `
   Using config file:
     rctl apply -f cluster-config.yml 
@@ -21,7 +21,5 @@ func newApplyCmd(applyOption commands.CmdOptions) *cobra.Command {
 		RunE: applyOption.Run,
 	}
 
-	// add subcommands
-	//cmd.AddCommand(newApplyResourceCmd(commands.NewApplyResourcesOptions(logger, *config)))
 	return cmd
 }

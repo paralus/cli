@@ -40,6 +40,8 @@ var KubeconfigDownloadCmd = &cobra.Command{
 		}
 		if cluster != "" {
 			params.Add("opts.selector", fmt.Sprintf("rafay.dev/clusterName=%s", cluster))
+			params.Add("opts.ID", config.GetConfig().APIKey)
+			params.Add("opts.organization", config.GetConfig().Organization)
 		}
 
 		uri := fmt.Sprintf("/v2/sentry/kubeconfig/user?%s", params.Encode())
