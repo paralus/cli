@@ -1,9 +1,5 @@
 package models
 
-import (
-	"time"
-)
-
 const (
 	ClusterTypeImport = "imported"
 )
@@ -27,35 +23,19 @@ type ClusterSpec struct {
 }
 
 type ClusterData struct {
-	Provider      string            `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty" yaml:"provider"`
-	Passphrase    string            `protobuf:"bytes,2,opt,name=passphrase,proto3" json:"passphrase,omitempty" yaml:"passphrase"`
-	Cname         string            `protobuf:"bytes,3,opt,name=cname,proto3" json:"cname,omitempty" yaml:"cname"`
-	Arecord       string            `protobuf:"bytes,4,opt,name=arecord,proto3" json:"arecord,omitempty" yaml:"arecord"`
-	DisplayName   string            `protobuf:"bytes,5,opt,name=display_name,json=displayName,proto3" json:"display_name,omitempty" yaml:"displayName"`
-	Health        Health            `protobuf:"varint,6,opt,name=health,proto3,enum=rafay.dev.types.infra.v3.Health" json:"health,omitempty" yaml:"health"`
-	Manufacturer  string            `protobuf:"bytes,7,opt,name=manufacturer,proto3" json:"manufacturer,omitempty" yaml:"manufacturer"`
-	Projects      []*ProjectCluster `protobuf:"bytes,10,rep,name=projects,proto3" json:"projects,omitempty" yaml:"projects"`
-	ClusterStatus *ClusterStatus    `protobuf:"bytes,11,opt,name=cluster_status,json=clusterStatus,proto3" json:"cluster_status,omitempty" yaml:"clusterStatus"`
-}
-
-type ClusterStatus struct {
-	Conditions         []*ClusterCondition `protobuf:"bytes,1,rep,name=conditions,proto3" json:"conditions,omitempty" yaml:"conditions"`
-	Token              string              `protobuf:"bytes,2,opt,name=token,proto3" json:"token,omitempty" yaml:"token"`
-	SystemTaskCount    int64               `protobuf:"zigzag64,4,opt,name=systemTaskCount,proto3" json:"systemTaskCount,omitempty" yaml:"systemTaskCount"`
-	CustomTaskCount    int64               `protobuf:"zigzag64,5,opt,name=customTaskCount,proto3" json:"customTaskCount,omitempty" yaml:"customTaskCount"`
-	AuxiliaryTaskCount int64               `protobuf:"zigzag64,6,opt,name=auxiliaryTaskCount,proto3" json:"auxiliaryTaskCount,omitempty" yaml:"auxiliaryTaskCount"`
+	Provider     string            `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty" yaml:"provider"`
+	Passphrase   string            `protobuf:"bytes,2,opt,name=passphrase,proto3" json:"passphrase,omitempty" yaml:"passphrase"`
+	Cname        string            `protobuf:"bytes,3,opt,name=cname,proto3" json:"cname,omitempty" yaml:"cname"`
+	Arecord      string            `protobuf:"bytes,4,opt,name=arecord,proto3" json:"arecord,omitempty" yaml:"arecord"`
+	DisplayName  string            `protobuf:"bytes,5,opt,name=display_name,json=displayName,proto3" json:"display_name,omitempty" yaml:"displayName"`
+	Health       Health            `protobuf:"varint,6,opt,name=health,proto3,enum=rafay.dev.types.infra.v3.Health" json:"health,omitempty" yaml:"health"`
+	Manufacturer string            `protobuf:"bytes,7,opt,name=manufacturer,proto3" json:"manufacturer,omitempty" yaml:"manufacturer"`
+	Projects     []*ProjectCluster `protobuf:"bytes,10,rep,name=projects,proto3" json:"projects,omitempty" yaml:"projects"`
 }
 
 type ProjectCluster struct {
 	ProjectID string `protobuf:"bytes,1,opt,name=projectID,proto3" json:"projectID,omitempty" yaml:"projectID"`
 	ClusterID string `protobuf:"bytes,2,opt,name=clusterID,proto3" json:"clusterID,omitempty" yaml:"clusterID"`
-}
-
-type ClusterCondition struct {
-	Type        ClusterConditionType `protobuf:"varint,1,opt,name=type,proto3,enum=rafay.dev.types.infra.v3.ClusterConditionType" json:"type,omitempty" yaml:"type"`
-	Status      RafayConditionStatus `protobuf:"varint,2,opt,name=status,proto3,enum=rafay.dev.types.common.v3.RafayConditionStatus" json:"status,omitempty" yaml:"status"`
-	LastUpdated time.Time            `protobuf:"bytes,3,opt,name=lastUpdated,proto3" json:"lastUpdated,omitempty" yaml:"lastUpdated"`
-	Reason      string               `protobuf:"bytes,4,opt,name=reason,proto3" json:"reason,omitempty" yaml:"reason"`
 }
 
 // model for bootstrap file download
@@ -150,55 +130,6 @@ var (
 
 func (x Health) Enum() *Health {
 	p := new(Health)
-	*p = x
-	return p
-}
-
-type ClusterConditionType int32
-
-const (
-	ClusterConditionType_ClusterBlueprintSync     ClusterConditionType = 0
-	ClusterConditionType_ClusterApprove           ClusterConditionType = 1
-	ClusterConditionType_ClusterCheckIn           ClusterConditionType = 2
-	ClusterConditionType_ClusterNodeSync          ClusterConditionType = 3
-	ClusterConditionType_ClusterRegister          ClusterConditionType = 4
-	ClusterConditionType_ClusterNamespaceSync     ClusterConditionType = 5
-	ClusterConditionType_ClusterReady             ClusterConditionType = 6
-	ClusterConditionType_ClusterAuxiliaryTaskSync ClusterConditionType = 7
-	ClusterConditionType_ClusterBootstrapAgent    ClusterConditionType = 8
-	ClusterConditionType_ClusterDelete            ClusterConditionType = 9
-)
-
-// Enum value maps for ClusterConditionType.
-var (
-	ClusterConditionType_name = map[int32]string{
-		0: "ClusterBlueprintSync",
-		1: "ClusterApprove",
-		2: "ClusterCheckIn",
-		3: "ClusterNodeSync",
-		4: "ClusterRegister",
-		5: "ClusterNamespaceSync",
-		6: "ClusterReady",
-		7: "ClusterAuxiliaryTaskSync",
-		8: "ClusterBootstrapAgent",
-		9: "ClusterDelete",
-	}
-	ClusterConditionType_value = map[string]int32{
-		"ClusterBlueprintSync":     0,
-		"ClusterApprove":           1,
-		"ClusterCheckIn":           2,
-		"ClusterNodeSync":          3,
-		"ClusterRegister":          4,
-		"ClusterNamespaceSync":     5,
-		"ClusterReady":             6,
-		"ClusterAuxiliaryTaskSync": 7,
-		"ClusterBootstrapAgent":    8,
-		"ClusterDelete":            9,
-	}
-)
-
-func (x ClusterConditionType) Enum() *ClusterConditionType {
-	p := new(ClusterConditionType)
 	*p = x
 	return p
 }

@@ -107,7 +107,7 @@ func GetProjectIdByNameInConfig(config *Config, name string) (string, error) {
 
 func GetProjectNameById(partner, organization, id string) (string, error) {
 	auth := GetConfig().GetAppAuthProfile()
-	uri := fmt.Sprintf("/auth/v3/partner%s/organization/%s/project/%s/", partner, organization, id)
+	uri := fmt.Sprintf("/auth/v3/partner/%s/organization/%s/project/%s", partner, organization, id)
 	resp, err := auth.AuthAndRequest(uri, "GET", nil)
 	if err != nil {
 		return "", fmt.Errorf("can not find project with id: %s", id)

@@ -182,7 +182,6 @@ func processConfigFile(cmd *cobra.Command) error {
 			}
 
 		} else if gvk.Kind == "OIDCProvider" {
-
 			var oidcp models.OIDCProvider
 			err = yaml.Unmarshal(bytes, &oidcp)
 			if err != nil {

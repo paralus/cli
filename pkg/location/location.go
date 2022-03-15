@@ -42,7 +42,7 @@ func ListLocation(partner string, limit, offset int) ([]*models.Metro, int, erro
 		return nil, 0, fmt.Errorf("provided limit (%d) or offset (%d) cannot be negative", limit, offset)
 	}
 	auth := config.GetConfig().GetAppAuthProfile()
-	uri := fmt.Sprintf("/v3/partner/%s/location", partner)
+	uri := fmt.Sprintf("/infra/v3/partner/%s/location", partner)
 	resp, err := auth.AuthAndRequest(uri, "GET", nil)
 	if err != nil {
 		return nil, 0, rerror.CrudErr{

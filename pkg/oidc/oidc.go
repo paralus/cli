@@ -65,6 +65,10 @@ func NewOIDCFromResponse(json_data []byte) (*models.OIDCProvider, error) {
 func CreateOIDCProvider(oidc *models.OIDCProvider) error {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
+	//set partner and organization
+	oidc.Metadata.Partner = cfg.Partner
+	oidc.Metadata.Organization = cfg.Organization
+
 	uri := "/auth/v3/sso/oidc/provider"
 	_, err := auth.AuthAndRequest(uri, "POST", oidc)
 	if err != nil {
@@ -141,10 +145,12 @@ func Print(cmd *cobra.Command, jsonObj []byte) error {
 func ApplyOIDC(id *models.OIDCProvider) error {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
-
 	idpExisting, _ := GetOIDCProviderByName(id.Metadata.Name)
 	if idpExisting != nil {
 		log.GetLogger().Debugf("updating idp: %s", id.Metadata.Name)
+		//set partner and organization
+		id.Metadata.Partner = cfg.Partner
+		id.Metadata.Organization = cfg.Organization
 		uri := fmt.Sprintf("/auth/v3/sso/oidc/provider/%s", id.Metadata.Name)
 		_, err := auth.AuthAndRequest(uri, "PUT", id)
 		if err != nil {
@@ -156,6 +162,9 @@ func ApplyOIDC(id *models.OIDCProvider) error {
 		}
 	} else {
 		log.GetLogger().Debugf("creating idp: %s", id.Metadata.Name)
+		//set partner and organization
+		id.Metadata.Partner = cfg.Partner
+		id.Metadata.Organization = cfg.Organization
 		uri := "/auth/v3/sso/oidc/provider"
 		_, err := auth.AuthAndRequest(uri, "POST", id)
 		if err != nil {
