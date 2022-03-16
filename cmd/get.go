@@ -27,6 +27,7 @@ func newGetCmd(logger log.Logger, config *config.Config) *cobra.Command {
 		newGetUserCmd(commands.NewGetUserOptions(logger)),
 		newGetGroupCmd(commands.NewGetGroupOptions(logger)),
 		newGetRoleCmd(commands.NewGetRolesOptions(logger)),
+		newGetRolePermissionCmd(commands.NewGetRolePermissionOptions(logger)),
 		newGetIdpCmd(commands.NewGetIdpOptions(logger)),
 		newGetOIDCProviderCmd(commands.NewGetOIDCProviderOptions(logger)),
 	)

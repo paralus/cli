@@ -13,8 +13,15 @@ func newGetRoleCmd(o commands.CmdOptions) *cobra.Command {
 		Aliases: []string{"r", "role"},
 		Short:   "Get a list of roles",
 		Long:    `Retrieves a list of roles.`,
-		Args:    o.Validate,
-		RunE:    o.Run,
+		Example: `
+   List all roles
+     rctl get roles
+
+   Show more about a specific role
+     rctl get role <role-name>
+`,
+		Args: o.Validate,
+		RunE: o.Run,
 	}
 
 	o.AddFlags(cmd)

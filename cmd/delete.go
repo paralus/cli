@@ -23,6 +23,7 @@ func newDeleteCmd(logger log.Logger, config *config.Config) *cobra.Command {
 		newDeleteUserCmd(commands.NewDeleteUserOptions(logger)),
 		newDeleteIdpCmd(commands.NewDeleteIdpOptions(logger, config)),
 		newDeleteOIDCProviderCmd(commands.NewDeleteOIDCProviderOptions(logger, config)),
+		newDeleteRoleCmd(commands.NewDeleteRoleOptions(logger, config)),
 	)
 
 	return cmd

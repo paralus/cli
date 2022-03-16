@@ -16,6 +16,7 @@ import (
 	"github.com/RafaySystems/rcloud-cli/pkg/models"
 	"github.com/RafaySystems/rcloud-cli/pkg/oidc"
 	"github.com/RafaySystems/rcloud-cli/pkg/project"
+	"github.com/RafaySystems/rcloud-cli/pkg/role"
 	"github.com/RafaySystems/rcloud-cli/pkg/user"
 	"github.com/RafaySystems/rcloud-cli/pkg/utils"
 	"github.com/spf13/cobra"
@@ -189,15 +190,28 @@ func processConfigFile(cmd *cobra.Command) error {
 			}
 			err := oidc.ApplyOIDC(&oidcp)
 			if err != nil {
-				fmt.Printf("Error configuring resource %s due to %s \n", gvk.Kind, err.Error())
+				fmt.Printf("Error configuring resource %s error: %s \n", gvk.Kind, err.Error())
 			} else {
 				fmt.Printf("Resource %s of type %s configured.\n", oidcp.Metadata.Name, gvk.Kind)
+			}
+
+		} else if gvk.Kind == "Role" {
+			var r models.Role
+			err = yaml.Unmarshal(bytes, &r)
+			if err != nil {
+				fmt.Errorf("error reading config file, error: %s", err.Error())
+			}
+			err := role.ApplyRole(&r)
+			if err != nil {
+				fmt.Printf("Error configuring resource %s due to %s \n", gvk.Kind, err.Error())
+			} else {
+				fmt.Printf("Resource %s of type %s configured.\n", r.Metadata.Name, gvk.Kind)
 			}
 
 		}
 
 	} else {
-		fmt.Errorf("Unsupported resource kind %s", gvk.Kind)
+		fmt.Errorf("unsupported resource kind %s", gvk.Kind)
 	}
 	return err
 }
