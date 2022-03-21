@@ -35,6 +35,16 @@ func (o *OIDCProviderOptions) Run(cmd *cobra.Command, args []string) (err error)
 			return fmt.Errorf("failed to get OIDC Provider API response")
 		}
 
+		// json or yaml output
+		if flags.Changed("output") {
+			o, err := flags.GetString("output")
+			if err != nil {
+				return err
+			}
+			printer.PrintOutputJsonOrYaml(o, resp, cmd.OutOrStdout())
+			return nil
+		}
+
 		ibytes, err := json.Marshal(resp)
 		if err != nil {
 			return fmt.Errorf("failed to get oidc %s", args[0])

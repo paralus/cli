@@ -20,7 +20,7 @@ const (
 )
 
 // Supported Resources
-var resources = []string{"Cluster", "Project", "User", "Group", "Idp", "OIDC"}
+var resources = []string{"Cluster", "Project", "User", "Group", "Idp", "OIDCProvider", "Role"}
 
 func AddYamlConfigFlag(cmd *cobra.Command, flagHelp string) {
 	cmd.PersistentFlags().StringP(YamlConfigFlag, YamlConfigShorthandFlag, "", flagHelp)

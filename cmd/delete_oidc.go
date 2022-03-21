@@ -5,7 +5,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func newDeleteIdpCmd(o commands.CmdOptions) *cobra.Command {
+func newDeleteOIDCProviderCmd(o commands.CmdOptions) *cobra.Command {
 	// cmd represents the delete command
 	cmd := &cobra.Command{
 		Use:   "oidc <oidc-provider-name>",

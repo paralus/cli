@@ -26,6 +26,7 @@ func newCreateCmd(logger log.Logger, config *config.Config) *cobra.Command {
 		newCreateGroupCmd(commands.NewCreateGroupOptions(logger, config)),
 		newCreateIdpCmd(commands.NewCreateIdpOptions(logger, config)),
 		newCreateOIDCProviderCmd(commands.NewCreateOIDCProviderOptions(logger, config)),
+		newCreateRoleCmd(commands.NewCreateRoleOptions(logger, config)),
 	)
 
 	return cmd
