@@ -46,6 +46,20 @@
       Using command(s):
         rctl get group
         rctl get group sample-group
+- role
+  - create role
+      Using command(s):
+        rctl create role clusterview --permissions project.read,cluster.read,project.clusterctl.read
+      Using file apply:
+        rctl apply -f role-config.yml
+  - list groups
+      Using command(s):
+        rctl get roles
+        rctl get role clusterview
+- rolepermissions
+  - list rolepermissions
+      Using command(s):
+        rctl get rolepermissions
 - oidc
   - create oidc
       Using command(s):

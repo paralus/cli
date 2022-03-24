@@ -3,11 +3,11 @@ package commands
 import (
 	"fmt"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/config"
-	"github.com/RafaySystems/rcloud-cli/pkg/group"
-	"github.com/RafaySystems/rcloud-cli/pkg/log"
-	"github.com/RafaySystems/rcloud-cli/pkg/models"
-	"github.com/RafaySystems/rcloud-cli/pkg/user"
+	"github.com/rafaylabs/rcloud-cli/pkg/config"
+	"github.com/rafaylabs/rcloud-cli/pkg/group"
+	"github.com/rafaylabs/rcloud-cli/pkg/log"
+	"github.com/rafaylabs/rcloud-cli/pkg/models"
+	"github.com/rafaylabs/rcloud-cli/pkg/user"
 	"github.com/spf13/cobra"
 )
 

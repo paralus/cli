@@ -12,14 +12,14 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/authprofile"
+	"github.com/rafaylabs/rcloud-cli/pkg/authprofile"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/context"
+	"github.com/rafaylabs/rcloud-cli/pkg/context"
 
 	oruntime "github.com/go-openapi/runtime"
 	oclient "github.com/go-openapi/runtime/client"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/log"
+	"github.com/rafaylabs/rcloud-cli/pkg/log"
 )
 
 var logger = log.GetLogger()

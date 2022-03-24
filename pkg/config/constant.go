@@ -3,7 +3,7 @@ package config
 import (
 	"path/filepath"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/utils"
+	"github.com/rafaylabs/rcloud-cli/pkg/utils"
 )
 
 var RAFAY_DIR_DEFAULT_LOCATION = filepath.Join(utils.GetUserHome(), ".rafay")

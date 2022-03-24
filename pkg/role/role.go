@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/config"
-	"github.com/RafaySystems/rcloud-cli/pkg/log"
-	"github.com/RafaySystems/rcloud-cli/pkg/models"
-	"github.com/RafaySystems/rcloud-cli/pkg/prefix"
-	"github.com/RafaySystems/rcloud-cli/pkg/rerror"
-	"github.com/RafaySystems/rcloud-cli/pkg/utils"
+	"github.com/rafaylabs/rcloud-cli/pkg/config"
+	"github.com/rafaylabs/rcloud-cli/pkg/log"
+	"github.com/rafaylabs/rcloud-cli/pkg/models"
+	"github.com/rafaylabs/rcloud-cli/pkg/prefix"
+	"github.com/rafaylabs/rcloud-cli/pkg/rerror"
+	"github.com/rafaylabs/rcloud-cli/pkg/utils"
 	"github.com/spf13/cobra"
 )
 

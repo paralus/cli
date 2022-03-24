@@ -13,7 +13,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/log"
+	"github.com/rafaylabs/rcloud-cli/pkg/log"
 
 	"github.com/levigross/grequests"
 	"github.com/spacemonkeygo/httpsig"

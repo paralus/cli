@@ -8,9 +8,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/config"
-	"github.com/RafaySystems/rcloud-cli/pkg/context"
-	"github.com/RafaySystems/rcloud-cli/pkg/log"
+	"github.com/rafaylabs/rcloud-cli/pkg/config"
+	"github.com/rafaylabs/rcloud-cli/pkg/context"
+	"github.com/rafaylabs/rcloud-cli/pkg/log"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 )

@@ -3,8 +3,8 @@ package cmd
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/commands"
-	"github.com/RafaySystems/rcloud-cli/pkg/log"
+	"github.com/rafaylabs/rcloud-cli/pkg/commands"
+	"github.com/rafaylabs/rcloud-cli/pkg/log"
 )
 
 func newCreateClusterCmd(importedOption commands.CmdOptions, logger log.Logger) *cobra.Command {

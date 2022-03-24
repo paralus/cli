@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/config"
-	"github.com/RafaySystems/rcloud-cli/pkg/constants"
-	"github.com/RafaySystems/rcloud-cli/pkg/context"
-	"github.com/RafaySystems/rcloud-cli/pkg/exit"
-	"github.com/RafaySystems/rcloud-cli/pkg/log"
-	"github.com/RafaySystems/rcloud-cli/pkg/output"
+	"github.com/rafaylabs/rcloud-cli/pkg/config"
+	"github.com/rafaylabs/rcloud-cli/pkg/constants"
+	"github.com/rafaylabs/rcloud-cli/pkg/context"
+	"github.com/rafaylabs/rcloud-cli/pkg/exit"
+	"github.com/rafaylabs/rcloud-cli/pkg/log"
+	"github.com/rafaylabs/rcloud-cli/pkg/output"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 )

@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/context"
-	"github.com/RafaySystems/rcloud-cli/pkg/exit"
-	"github.com/RafaySystems/rcloud-cli/pkg/log"
+	"github.com/rafaylabs/rcloud-cli/pkg/context"
+	"github.com/rafaylabs/rcloud-cli/pkg/exit"
+	"github.com/rafaylabs/rcloud-cli/pkg/log"
 )
 
 /* This function exits the rctl program. In case 'exit' is not set,

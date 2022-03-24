@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/commands"
-	"github.com/RafaySystems/rcloud-cli/pkg/config"
-	"github.com/RafaySystems/rcloud-cli/pkg/log"
-	"github.com/RafaySystems/rcloud-cli/pkg/output"
 	"github.com/mitchellh/go-homedir"
+	"github.com/rafaylabs/rcloud-cli/pkg/commands"
+	"github.com/rafaylabs/rcloud-cli/pkg/config"
+	"github.com/rafaylabs/rcloud-cli/pkg/log"
+	"github.com/rafaylabs/rcloud-cli/pkg/output"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

@@ -6,9 +6,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/config"
-	"github.com/RafaySystems/rcloud-cli/pkg/models"
-	"github.com/RafaySystems/rcloud-cli/pkg/rerror"
+	"github.com/rafaylabs/rcloud-cli/pkg/config"
+	"github.com/rafaylabs/rcloud-cli/pkg/models"
+	"github.com/rafaylabs/rcloud-cli/pkg/rerror"
 )
 
 // NewImportCluster will create a new cluster of type import
