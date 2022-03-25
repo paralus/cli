@@ -4,18 +4,18 @@ import (
 	"encoding/json"
 	"fmt"
 
+	systemv3 "github.com/RafayLabs/rcloud-base/proto/types/systempb/v3"
+	"github.com/RafayLabs/rcloud-cli/pkg/config"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/RafayLabs/rcloud-cli/pkg/output"
+	"github.com/RafayLabs/rcloud-cli/pkg/prefix"
+	"github.com/RafayLabs/rcloud-cli/pkg/rerror"
+	"github.com/RafayLabs/rcloud-cli/pkg/utils"
 	"github.com/oliveagle/jsonpath"
-	"github.com/rafaylabs/rcloud-cli/pkg/config"
-	"github.com/rafaylabs/rcloud-cli/pkg/log"
-	"github.com/rafaylabs/rcloud-cli/pkg/models"
-	"github.com/rafaylabs/rcloud-cli/pkg/output"
-	"github.com/rafaylabs/rcloud-cli/pkg/prefix"
-	"github.com/rafaylabs/rcloud-cli/pkg/rerror"
-	"github.com/rafaylabs/rcloud-cli/pkg/utils"
 	"github.com/spf13/cobra"
 )
 
-func ListOIDCWithCmd(cmd *cobra.Command) (*models.OIDCProviderList, error) {
+func ListOIDCWithCmd(cmd *cobra.Command) (*systemv3.OIDCProviderList, error) {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 	uri := "/auth/v3/sso/oidc/provider"
@@ -28,7 +28,7 @@ func ListOIDCWithCmd(cmd *cobra.Command) (*models.OIDCProviderList, error) {
 			Op:   "list",
 		}
 	}
-	oidcs := &models.OIDCProviderList{}
+	oidcs := &systemv3.OIDCProviderList{}
 	err = json.Unmarshal([]byte(resp), oidcs)
 	if err != nil {
 		return nil, fmt.Errorf("there was an error while unmarshalling: %v", err)
@@ -36,14 +36,14 @@ func ListOIDCWithCmd(cmd *cobra.Command) (*models.OIDCProviderList, error) {
 	return oidcs, nil
 }
 
-func GetOIDCProviderByName(name string) (*models.OIDCProvider, error) {
+func GetOIDCProviderByName(name string) (*systemv3.OIDCProvider, error) {
 	auth := config.GetConfig().GetAppAuthProfile()
 	uri := fmt.Sprintf("/auth/v3/sso/oidc/provider/%s", name)
 	resp, err := auth.AuthAndRequest(uri, "GET", nil)
 	if err != nil {
 		return nil, err
 	}
-	oidcProvider := &models.OIDCProvider{}
+	oidcProvider := &systemv3.OIDCProvider{}
 	err = json.Unmarshal([]byte(resp), oidcProvider)
 	if err != nil {
 		return nil, err
@@ -53,8 +53,8 @@ func GetOIDCProviderByName(name string) (*models.OIDCProvider, error) {
 
 }
 
-func NewOIDCFromResponse(json_data []byte) (*models.OIDCProvider, error) {
-	var ur models.OIDCProvider
+func NewOIDCFromResponse(json_data []byte) (*systemv3.OIDCProvider, error) {
+	var ur systemv3.OIDCProvider
 	if err := json.Unmarshal(json_data, &ur); err != nil {
 		return nil, err
 	}
@@ -62,7 +62,7 @@ func NewOIDCFromResponse(json_data []byte) (*models.OIDCProvider, error) {
 	return &ur, nil
 }
 
-func CreateOIDCProvider(oidc *models.OIDCProvider) error {
+func CreateOIDCProvider(oidc *systemv3.OIDCProvider) error {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 	//set partner and organization
@@ -142,7 +142,7 @@ func Print(cmd *cobra.Command, jsonObj []byte) error {
 }
 
 // Apply oidc takes the idp details and sends it to the core
-func ApplyOIDC(id *models.OIDCProvider) error {
+func ApplyOIDC(id *systemv3.OIDCProvider) error {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 	idpExisting, _ := GetOIDCProviderByName(id.Metadata.Name)

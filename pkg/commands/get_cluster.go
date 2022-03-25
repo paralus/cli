@@ -6,10 +6,10 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/rafaylabs/rcloud-cli/pkg/cluster"
-	"github.com/rafaylabs/rcloud-cli/pkg/config"
-	"github.com/rafaylabs/rcloud-cli/pkg/log"
-	"github.com/rafaylabs/rcloud-cli/pkg/printer"
+	"github.com/RafayLabs/rcloud-cli/pkg/cluster"
+	"github.com/RafayLabs/rcloud-cli/pkg/config"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/RafayLabs/rcloud-cli/pkg/printer"
 	"github.com/spf13/cobra"
 )
 
@@ -132,7 +132,6 @@ func (o *GetClusterOptions) Run(cmd *cobra.Command, args []string) error {
 	sort.Slice(rows, func(i, j int) bool {
 		return strings.Compare(rows[i][0], rows[j][0]) == -1
 	})
-
 	printer.PrintTable(c, rows, cmd.OutOrStdout())
 
 	return nil

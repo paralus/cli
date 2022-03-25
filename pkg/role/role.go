@@ -5,16 +5,16 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/rafaylabs/rcloud-cli/pkg/config"
-	"github.com/rafaylabs/rcloud-cli/pkg/log"
-	"github.com/rafaylabs/rcloud-cli/pkg/models"
-	"github.com/rafaylabs/rcloud-cli/pkg/prefix"
-	"github.com/rafaylabs/rcloud-cli/pkg/rerror"
-	"github.com/rafaylabs/rcloud-cli/pkg/utils"
+	rolev3 "github.com/RafayLabs/rcloud-base/proto/types/rolepb/v3"
+	"github.com/RafayLabs/rcloud-cli/pkg/config"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/RafayLabs/rcloud-cli/pkg/prefix"
+	"github.com/RafayLabs/rcloud-cli/pkg/rerror"
+	"github.com/RafayLabs/rcloud-cli/pkg/utils"
 	"github.com/spf13/cobra"
 )
 
-func ListRolesWithCmd(cmd *cobra.Command) (*models.RoleList, error) {
+func ListRolesWithCmd(cmd *cobra.Command) (*rolev3.RoleList, error) {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 	uri := fmt.Sprintf("/auth/v3/partner/%s/organization/%s/roles", cfg.Partner, cfg.Organization)
@@ -27,7 +27,7 @@ func ListRolesWithCmd(cmd *cobra.Command) (*models.RoleList, error) {
 			Op:   "list",
 		}
 	}
-	rls := &models.RoleList{}
+	rls := &rolev3.RoleList{}
 	err = json.Unmarshal([]byte(resp), rls)
 	if err != nil {
 		return nil, fmt.Errorf("there was an error while unmarshalling: %v", err)
@@ -35,7 +35,7 @@ func ListRolesWithCmd(cmd *cobra.Command) (*models.RoleList, error) {
 	return rls, nil
 }
 
-func CreateRole(r *models.Role) error {
+func CreateRole(r *rolev3.Role) error {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 	//set partner and organization
@@ -58,7 +58,7 @@ func DeleteRole(name string) error {
 	return err
 }
 
-func GetRoleByName(name string) (*models.Role, error) {
+func GetRoleByName(name string) (*rolev3.Role, error) {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 	uri := fmt.Sprintf("/auth/v3/partner/%s/organization/%s/role/%s", cfg.Partner, cfg.Organization, name)
@@ -66,7 +66,7 @@ func GetRoleByName(name string) (*models.Role, error) {
 	if err != nil {
 		return nil, err
 	}
-	r := &models.Role{}
+	r := &rolev3.Role{}
 	err = json.Unmarshal([]byte(resp), r)
 	if err != nil {
 		return nil, err
@@ -77,7 +77,7 @@ func GetRoleByName(name string) (*models.Role, error) {
 }
 
 // Apply role takes the role details and sends it to the core
-func ApplyRole(r *models.Role) error {
+func ApplyRole(r *rolev3.Role) error {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 	er, _ := GetRoleByName(r.Metadata.Name)
@@ -113,8 +113,8 @@ func ApplyRole(r *models.Role) error {
 	return nil
 }
 
-func NewRoleFromResponse(json_data []byte) (*models.Role, error) {
-	var gr models.Role
+func NewRoleFromResponse(json_data []byte) (*rolev3.Role, error) {
+	var gr rolev3.Role
 	if err := json.Unmarshal(json_data, &gr); err != nil {
 		return nil, err
 	}

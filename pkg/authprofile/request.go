@@ -10,10 +10,10 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/RafayLabs/rcloud-cli/pkg/versioninfo"
 	"github.com/ghodss/yaml"
 	"github.com/levigross/grequests"
-	"github.com/rafaylabs/rcloud-cli/pkg/log"
-	"github.com/rafaylabs/rcloud-cli/pkg/versioninfo"
 )
 
 type HttpResp struct {

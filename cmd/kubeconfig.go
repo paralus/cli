@@ -6,9 +6,9 @@ import (
 	"io/ioutil"
 	"net/url"
 
-	"github.com/rafaylabs/rcloud-cli/pkg/config"
-	"github.com/rafaylabs/rcloud-cli/pkg/exit"
-	"github.com/rafaylabs/rcloud-cli/pkg/log"
+	"github.com/RafayLabs/rcloud-cli/pkg/config"
+	"github.com/RafayLabs/rcloud-cli/pkg/exit"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
 
 	"github.com/spf13/cobra"
 )

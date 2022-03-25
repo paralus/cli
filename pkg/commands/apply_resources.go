@@ -6,19 +6,22 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/rafaylabs/rcloud-cli/pkg/cluster"
-	"github.com/rafaylabs/rcloud-cli/pkg/config"
-	"github.com/rafaylabs/rcloud-cli/pkg/constants"
-	"github.com/rafaylabs/rcloud-cli/pkg/group"
-	"github.com/rafaylabs/rcloud-cli/pkg/idp"
-	"github.com/rafaylabs/rcloud-cli/pkg/location"
-	"github.com/rafaylabs/rcloud-cli/pkg/log"
-	"github.com/rafaylabs/rcloud-cli/pkg/models"
-	"github.com/rafaylabs/rcloud-cli/pkg/oidc"
-	"github.com/rafaylabs/rcloud-cli/pkg/project"
-	"github.com/rafaylabs/rcloud-cli/pkg/role"
-	"github.com/rafaylabs/rcloud-cli/pkg/user"
-	"github.com/rafaylabs/rcloud-cli/pkg/utils"
+	infrav3 "github.com/RafayLabs/rcloud-base/proto/types/infrapb/v3"
+	rolev3 "github.com/RafayLabs/rcloud-base/proto/types/rolepb/v3"
+	systemv3 "github.com/RafayLabs/rcloud-base/proto/types/systempb/v3"
+	userv3 "github.com/RafayLabs/rcloud-base/proto/types/userpb/v3"
+	"github.com/RafayLabs/rcloud-cli/pkg/cluster"
+	"github.com/RafayLabs/rcloud-cli/pkg/config"
+	"github.com/RafayLabs/rcloud-cli/pkg/constants"
+	"github.com/RafayLabs/rcloud-cli/pkg/group"
+	"github.com/RafayLabs/rcloud-cli/pkg/idp"
+	"github.com/RafayLabs/rcloud-cli/pkg/location"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/RafayLabs/rcloud-cli/pkg/oidc"
+	"github.com/RafayLabs/rcloud-cli/pkg/project"
+	"github.com/RafayLabs/rcloud-cli/pkg/role"
+	"github.com/RafayLabs/rcloud-cli/pkg/user"
+	"github.com/RafayLabs/rcloud-cli/pkg/utils"
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v3"
 )
@@ -80,7 +83,7 @@ func processConfigFile(cmd *cobra.Command) error {
 	if StringInSlice(gvk.Kind, resources) {
 		//process clusters
 		if gvk.Kind == "Cluster" {
-			var clstr models.Cluster
+			var clstr infrav3.Cluster
 			err = yaml.Unmarshal(bytes, &clstr)
 			if err != nil {
 				fmt.Errorf("error reading config file, cause: %s", err.Error())
@@ -128,7 +131,7 @@ func processConfigFile(cmd *cobra.Command) error {
 
 		} else if gvk.Kind == "Project" {
 
-			var proj models.Project
+			var proj systemv3.Project
 			err = yaml.Unmarshal(bytes, &proj)
 			if err != nil {
 				fmt.Errorf("error reading config file, cause: %s", err.Error())
@@ -142,7 +145,7 @@ func processConfigFile(cmd *cobra.Command) error {
 
 		} else if gvk.Kind == "User" {
 
-			var usr models.User
+			var usr userv3.User
 			err = yaml.Unmarshal(bytes, &usr)
 			if err != nil {
 				fmt.Errorf("error reading config file, cause: %s", err.Error())
@@ -156,7 +159,7 @@ func processConfigFile(cmd *cobra.Command) error {
 
 		} else if gvk.Kind == "Group" {
 
-			var grp models.Group
+			var grp userv3.Group
 			err = yaml.Unmarshal(bytes, &grp)
 			if err != nil {
 				fmt.Errorf("error reading config file, cause: %s", err.Error())
@@ -170,7 +173,7 @@ func processConfigFile(cmd *cobra.Command) error {
 
 		} else if gvk.Kind == "Idp" {
 
-			var id models.Idp
+			var id systemv3.Idp
 			err = yaml.Unmarshal(bytes, &id)
 			if err != nil {
 				fmt.Errorf("error reading config file, cause: %s", err.Error())
@@ -183,7 +186,7 @@ func processConfigFile(cmd *cobra.Command) error {
 			}
 
 		} else if gvk.Kind == "OIDCProvider" {
-			var oidcp models.OIDCProvider
+			var oidcp systemv3.OIDCProvider
 			err = yaml.Unmarshal(bytes, &oidcp)
 			if err != nil {
 				fmt.Errorf("error reading config file, cause: %s", err.Error())
@@ -196,7 +199,7 @@ func processConfigFile(cmd *cobra.Command) error {
 			}
 
 		} else if gvk.Kind == "Role" {
-			var r models.Role
+			var r rolev3.Role
 			err = yaml.Unmarshal(bytes, &r)
 			if err != nil {
 				fmt.Errorf("error reading config file, error: %s", err.Error())

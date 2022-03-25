@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/rafaylabs/rcloud-cli/pkg/config"
-	"github.com/rafaylabs/rcloud-cli/pkg/idp"
-	"github.com/rafaylabs/rcloud-cli/pkg/log"
-	"github.com/rafaylabs/rcloud-cli/pkg/models"
+	commonv3 "github.com/RafayLabs/rcloud-base/proto/types/commonpb/v3"
+	systemv3 "github.com/RafayLabs/rcloud-base/proto/types/systempb/v3"
+	"github.com/RafayLabs/rcloud-cli/pkg/config"
+	"github.com/RafayLabs/rcloud-cli/pkg/idp"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
 	"github.com/spf13/cobra"
 )
 
@@ -42,13 +43,13 @@ func (o *CreateIDpOptions) Run(cmd *cobra.Command, args []string) error {
 	domain := args[2]
 	groupname := args[3]
 
-	idprovider := &models.Idp{
+	idprovider := &systemv3.Idp{
 		Kind: "Idp",
-		Metadata: models.Metadata{
+		Metadata: &commonv3.Metadata{
 			Name:         name,
 			Organization: config.GetConfig().Organization,
 		},
-		Spec: models.IdpSpec{
+		Spec: &systemv3.IdpSpec{
 			IdpName:            name,
 			Domain:             domain,
 			GroupAttributeName: groupname,

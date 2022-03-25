@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/rafaylabs/rcloud-cli/pkg/log"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
 	"gopkg.in/yaml.v3"
 )
 

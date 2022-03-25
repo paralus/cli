@@ -3,7 +3,7 @@ package output
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/rafaylabs/rcloud-cli/pkg/log"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
 )
 
 func NewLocationListSpec(obj interface{}) *OutputListSpec {

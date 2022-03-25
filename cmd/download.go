@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	"github.com/rafaylabs/rcloud-cli/pkg/commands"
-	"github.com/rafaylabs/rcloud-cli/pkg/config"
-	"github.com/rafaylabs/rcloud-cli/pkg/log"
+	"github.com/RafayLabs/rcloud-cli/pkg/commands"
+	"github.com/RafayLabs/rcloud-cli/pkg/config"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
 	"github.com/spf13/cobra"
 )
 

@@ -4,14 +4,14 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/rafaylabs/rcloud-cli/pkg/config"
-	"github.com/rafaylabs/rcloud-cli/pkg/models"
-	"github.com/rafaylabs/rcloud-cli/pkg/rerror"
-	"github.com/rafaylabs/rcloud-cli/pkg/utils"
+	rolev3 "github.com/RafayLabs/rcloud-base/proto/types/rolepb/v3"
+	"github.com/RafayLabs/rcloud-cli/pkg/config"
+	"github.com/RafayLabs/rcloud-cli/pkg/rerror"
+	"github.com/RafayLabs/rcloud-cli/pkg/utils"
 	"github.com/spf13/cobra"
 )
 
-func ListRolePermissionWithCmd(cmd *cobra.Command) (*models.RolePermissionList, error) {
+func ListRolePermissionWithCmd(cmd *cobra.Command) (*rolev3.RolePermissionList, error) {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 	uri := "/auth/v3/rolepermissions"
@@ -24,7 +24,7 @@ func ListRolePermissionWithCmd(cmd *cobra.Command) (*models.RolePermissionList, 
 			Op:   "list",
 		}
 	}
-	rps := &models.RolePermissionList{}
+	rps := &rolev3.RolePermissionList{}
 	err = json.Unmarshal([]byte(resp), rps)
 	if err != nil {
 		return nil, fmt.Errorf("there was an error while unmarshalling: %v", err)

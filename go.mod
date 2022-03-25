@@ -1,4 +1,4 @@
-module github.com/rafaylabs/rcloud-cli
+module github.com/RafayLabs/rcloud-cli
 
 go 1.17
 
@@ -11,7 +11,7 @@ require (
 
 require (
 	github.com/tidwall/gjson v1.14.0
-	go.uber.org/atomic v1.7.0 // indirect
+	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
 )
 
@@ -26,7 +26,7 @@ require (
 require (
 	github.com/go-openapi/runtime v0.23.1
 	github.com/segmentio/asm v1.1.3 // indirect
-	golang.org/x/sys v0.0.0-20211216021012-1d35b9e2eb4e // indirect
+	golang.org/x/sys v0.0.0-20220227234510-4e6760a101f9 // indirect
 )
 
 require (
@@ -84,7 +84,27 @@ require (
 )
 
 require (
+	github.com/RafayLabs/rcloud-base v0.0.0-20220324105308-8aa0982e3067
 	github.com/mattn/go-runewidth v0.0.9 // indirect
 	github.com/spf13/pflag v1.0.5
 	google.golang.org/protobuf v1.27.1
+)
+
+require (
+	github.com/go-logr/logr v1.2.0 // indirect
+	github.com/gogo/protobuf v1.3.2 // indirect
+	github.com/google/go-cmp v0.5.7 // indirect
+	github.com/google/gofuzz v1.2.0 // indirect
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.7.3 // indirect
+	github.com/json-iterator/go v1.1.12 // indirect
+	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
+	github.com/modern-go/reflect2 v1.0.2 // indirect
+	google.golang.org/genproto v0.0.0-20220118154757-00ab72f36ad5 // indirect
+	gopkg.in/inf.v0 v0.9.1 // indirect
+	k8s.io/api v0.23.4 // indirect
+	k8s.io/apimachinery v0.23.4 // indirect
+	k8s.io/klog/v2 v2.30.0 // indirect
+	k8s.io/utils v0.0.0-20211116205334-6203023598ed // indirect
+	sigs.k8s.io/json v0.0.0-20211020170558-c049b76a60c6 // indirect
+	sigs.k8s.io/structured-merge-diff/v4 v4.2.1 // indirect
 )

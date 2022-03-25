@@ -6,10 +6,10 @@ import (
 	"net/url"
 	"os"
 
+	"github.com/RafayLabs/rcloud-cli/pkg/constants"
+	"github.com/RafayLabs/rcloud-cli/pkg/exit"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
 	"github.com/oliveagle/jsonpath"
-	"github.com/rafaylabs/rcloud-cli/pkg/constants"
-	"github.com/rafaylabs/rcloud-cli/pkg/exit"
-	"github.com/rafaylabs/rcloud-cli/pkg/log"
 	"github.com/segmentio/encoding/json"
 	"github.com/spf13/cobra"
 )

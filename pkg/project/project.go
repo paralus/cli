@@ -5,19 +5,20 @@ import (
 	"fmt"
 	"strings"
 
+	commonv3 "github.com/RafayLabs/rcloud-base/proto/types/commonpb/v3"
+	systemv3 "github.com/RafayLabs/rcloud-base/proto/types/systempb/v3"
+	"github.com/RafayLabs/rcloud-cli/pkg/config"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/RafayLabs/rcloud-cli/pkg/output"
+	"github.com/RafayLabs/rcloud-cli/pkg/prefix"
+	"github.com/RafayLabs/rcloud-cli/pkg/rerror"
+	"github.com/RafayLabs/rcloud-cli/pkg/utils"
 	"github.com/oliveagle/jsonpath"
-	"github.com/rafaylabs/rcloud-cli/pkg/config"
-	"github.com/rafaylabs/rcloud-cli/pkg/log"
-	"github.com/rafaylabs/rcloud-cli/pkg/models"
-	"github.com/rafaylabs/rcloud-cli/pkg/output"
-	"github.com/rafaylabs/rcloud-cli/pkg/prefix"
-	"github.com/rafaylabs/rcloud-cli/pkg/rerror"
-	"github.com/rafaylabs/rcloud-cli/pkg/utils"
 
 	"github.com/spf13/cobra"
 )
 
-func ListProjectsWithCmd(cmd *cobra.Command) (*models.ProjectList, error) {
+func ListProjectsWithCmd(cmd *cobra.Command) (*systemv3.ProjectList, error) {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 	uri := fmt.Sprintf("/auth/v3/partner/%s/organization/%s/projects", cfg.Partner, cfg.Organization)
@@ -30,7 +31,7 @@ func ListProjectsWithCmd(cmd *cobra.Command) (*models.ProjectList, error) {
 			Op:   "list",
 		}
 	}
-	projs := &models.ProjectList{}
+	projs := &systemv3.ProjectList{}
 	err = json.Unmarshal([]byte(resp), projs)
 	if err != nil {
 		return nil, fmt.Errorf("there was an error while unmarshalling: %v", err)
@@ -38,7 +39,7 @@ func ListProjectsWithCmd(cmd *cobra.Command) (*models.ProjectList, error) {
 	return projs, nil
 }
 
-func GetProjectByName(projectName string) (*models.Project, error) {
+func GetProjectByName(projectName string) (*systemv3.Project, error) {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 	uri := fmt.Sprintf("/auth/v3/partner/%s/organization/%s/project/%s", cfg.Partner, cfg.Organization, projectName)
@@ -46,7 +47,7 @@ func GetProjectByName(projectName string) (*models.Project, error) {
 	if err != nil {
 		return nil, err
 	}
-	proj := &models.Project{}
+	proj := &systemv3.Project{}
 	err = json.Unmarshal([]byte(resp), proj)
 	if err != nil {
 		return nil, err
@@ -89,8 +90,8 @@ func newProjectListSpec(obj interface{}) *output.OutputListSpec {
 	return spec
 }
 
-func NewProjectFromResponse(json_data []byte) (*models.Project, error) {
-	var pr *models.Project
+func NewProjectFromResponse(json_data []byte) (*systemv3.Project, error) {
+	var pr *systemv3.Project
 	if err := json.Unmarshal(json_data, &pr); err != nil {
 		return nil, err
 	}
@@ -138,13 +139,13 @@ func CreateProject(name, description string) error {
 		return fmt.Errorf("name cannot be empty")
 	}
 
-	project := models.Project{
+	project := systemv3.Project{
 		Kind: "Project",
-		Metadata: models.Metadata{
+		Metadata: &commonv3.Metadata{
 			Name:        name,
 			Description: description,
 		},
-		Spec: models.ProjectSpec{
+		Spec: &systemv3.ProjectSpec{
 			Default: false,
 		},
 	}
@@ -166,7 +167,7 @@ func DeleteProject(project string) error {
 }
 
 // Apply project takes the project details and sends it to the core
-func ApplyProject(proj *models.Project) error {
+func ApplyProject(proj *systemv3.Project) error {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 

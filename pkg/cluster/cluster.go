@@ -1,29 +1,30 @@
 package cluster
 
 import (
-	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"fmt"
 
-	"github.com/rafaylabs/rcloud-cli/pkg/config"
-	"github.com/rafaylabs/rcloud-cli/pkg/models"
-	"github.com/rafaylabs/rcloud-cli/pkg/rerror"
+	commonv3 "github.com/RafayLabs/rcloud-base/proto/types/commonpb/v3"
+	infrav3 "github.com/RafayLabs/rcloud-base/proto/types/infrapb/v3"
+	"github.com/RafayLabs/rcloud-cli/pkg/config"
+	"github.com/RafayLabs/rcloud-cli/pkg/constants"
+	"github.com/RafayLabs/rcloud-cli/pkg/rerror"
 )
 
 // NewImportCluster will create a new cluster of type import
 func NewImportCluster(name, location, project string) (string, error) {
-	importCluster := models.Cluster{
+	importCluster := infrav3.Cluster{
 		Kind: "Cluster",
-		Metadata: models.Metadata{
+		Metadata: &commonv3.Metadata{
 			Name:    name,
 			Project: project,
 		},
-		Spec: models.ClusterSpec{
-			Metro: &models.Metro{
+		Spec: &infrav3.ClusterSpec{
+			Metro: &infrav3.Metro{
 				Name: location,
 			},
-			ClusterType: models.ClusterTypeImport,
+			ClusterType: constants.CLUSTER_TYPE_IMPORT,
 		},
 	}
 
@@ -39,18 +40,18 @@ func NewImportCluster(name, location, project string) (string, error) {
 
 // NewImportClusterOpenshift will create a new cluster of type import
 func NewImportClusterOpenshift(name, location, project string) (string, error) {
-	importCluster := models.Cluster{
+	importCluster := infrav3.Cluster{
 		Kind: "Cluster",
-		Metadata: models.Metadata{
+		Metadata: &commonv3.Metadata{
 			Name:    name,
 			Project: project,
 		},
-		Spec: models.ClusterSpec{
-			Metro: &models.Metro{
+		Spec: &infrav3.ClusterSpec{
+			Metro: &infrav3.Metro{
 				Name: location,
 			},
-			ClusterType: models.ClusterTypeImport,
-			Params: &models.ProvisionParams{
+			ClusterType: constants.CLUSTER_TYPE_IMPORT,
+			Params: &infrav3.ProvisionParams{
 				EnvironmentProvider:  "",
 				KubernetesProvider:   "OPENSHIFT",
 				ProvisionEnvironment: "ONPREM",
@@ -73,18 +74,18 @@ func NewImportClusterOpenshift(name, location, project string) (string, error) {
 // NewImportClusterAKS will create a new cluster of type import
 func NewImportClusterAKS(name, location, project string) (string, error) {
 
-	importCluster := models.Cluster{
+	importCluster := infrav3.Cluster{
 		Kind: "Cluster",
-		Metadata: models.Metadata{
+		Metadata: &commonv3.Metadata{
 			Name:    name,
 			Project: project,
 		},
-		Spec: models.ClusterSpec{
-			Metro: &models.Metro{
+		Spec: &infrav3.ClusterSpec{
+			Metro: &infrav3.Metro{
 				Name: location,
 			},
-			ClusterType: models.ClusterTypeImport,
-			Params: &models.ProvisionParams{
+			ClusterType: constants.CLUSTER_TYPE_IMPORT,
+			Params: &infrav3.ProvisionParams{
 				EnvironmentProvider:  "AZURE",
 				KubernetesProvider:   "AKS",
 				ProvisionEnvironment: "CLOUD",
@@ -107,18 +108,18 @@ func NewImportClusterAKS(name, location, project string) (string, error) {
 // NewImportClusterGKE will create a new cluster of type import
 func NewImportClusterGKE(name, location, project string) (string, error) {
 
-	importCluster := models.Cluster{
+	importCluster := infrav3.Cluster{
 		Kind: "Cluster",
-		Metadata: models.Metadata{
+		Metadata: &commonv3.Metadata{
 			Name:    name,
 			Project: project,
 		},
-		Spec: models.ClusterSpec{
-			Metro: &models.Metro{
+		Spec: &infrav3.ClusterSpec{
+			Metro: &infrav3.Metro{
 				Name: location,
 			},
-			ClusterType: models.ClusterTypeImport,
-			Params: &models.ProvisionParams{
+			ClusterType: constants.CLUSTER_TYPE_IMPORT,
+			Params: &infrav3.ProvisionParams{
 				EnvironmentProvider:  "GCP",
 				KubernetesProvider:   "GKE",
 				ProvisionEnvironment: "CLOUD",
@@ -140,18 +141,18 @@ func NewImportClusterGKE(name, location, project string) (string, error) {
 
 func NewImportClusterMKS(name, location, project, K8Sversion, OsVersion, defaultStorageClass string, Storageclassmap map[string]string) (string, error) {
 
-	importCluster := models.Cluster{
+	importCluster := infrav3.Cluster{
 		Kind: "Cluster",
-		Metadata: models.Metadata{
+		Metadata: &commonv3.Metadata{
 			Name:    name,
 			Project: project,
 		},
-		Spec: models.ClusterSpec{
-			Metro: &models.Metro{
+		Spec: &infrav3.ClusterSpec{
+			Metro: &infrav3.Metro{
 				Name: location,
 			},
-			ClusterType: models.ClusterTypeImport,
-			Params: &models.ProvisionParams{
+			ClusterType: constants.CLUSTER_TYPE_IMPORT,
+			Params: &infrav3.ProvisionParams{
 				EnvironmentProvider:  "",
 				KubernetesProvider:   "MKS",
 				ProvisionEnvironment: "ONPREM",
@@ -172,8 +173,8 @@ func NewImportClusterMKS(name, location, project, K8Sversion, OsVersion, default
 }
 
 // ListAllClusters uses the lower level func ListClusters to retrieve a list of all clusters
-func ListAllClusters(projectId string) ([]*models.Cluster, error) {
-	var clusters []*models.Cluster
+func ListAllClusters(projectId string) ([]*infrav3.Cluster, error) {
+	var clusters []*infrav3.Cluster
 	limit := 10000
 	c, count, err := ListClusters(projectId, limit, 0)
 	if err != nil {
@@ -195,7 +196,7 @@ func ListAllClusters(projectId string) ([]*models.Cluster, error) {
 /*
 ListClusters paginates through a list of clusters
 */
-func ListClusters(project string, limit, offset int) ([]*models.Cluster, int, error) {
+func ListClusters(project string, limit, offset int) ([]*infrav3.Cluster, int, error) {
 	// check to make sure the limit or offset is not negative
 	if limit < 0 || offset < 0 {
 		return nil, 0, fmt.Errorf("provided limit (%d) or offset (%d) cannot be negative", limit, offset)
@@ -210,22 +211,19 @@ func ListClusters(project string, limit, offset int) ([]*models.Cluster, int, er
 			Op:   "list",
 		}
 	}
-	a := models.ClusterList{}
-	err = json.Unmarshal([]byte(resp), &a)
-	if err != nil {
-		return nil, -1, fmt.Errorf("there was an error while unmarshalling: %v", err)
-	}
+	a := infrav3.ClusterList{}
+	_ = json.Unmarshal([]byte(resp), &a)
 	return a.Items, int(a.Metadata.Count), nil
 }
 
-func getClusterFast(name, project string) (*models.Cluster, error) {
+func getClusterFast(name, project string) (*infrav3.Cluster, error) {
 	auth := config.GetConfig().GetAppAuthProfile()
 	uri := fmt.Sprintf("/infra/v3/project/%s/cluster/%s", project, name)
 	resp, err := auth.AuthAndRequest(uri, "GET", nil)
 	if err != nil {
 		return nil, errors.New("error fetching cluster details")
 	}
-	var cluster models.Cluster
+	var cluster infrav3.Cluster
 	if err := json.Unmarshal([]byte(resp), &cluster); err != nil {
 		return nil, errors.New("error unmarshalling cluster details")
 	}
@@ -237,7 +235,7 @@ GetCluster gets an cluster based on the name provided. It calls ListAllClusters,
 for the name of the cluster. Returns nil if such addon does not exist, or returns an error if there was
 and error fetching all of the addons
 */
-func GetCluster(name, project string) (*models.Cluster, error) {
+func GetCluster(name, project string) (*infrav3.Cluster, error) {
 
 	// first try using the name filter
 	cluster, err := getClusterFast(name, project)
@@ -296,22 +294,17 @@ func GetBootstrapFile(name, project string) (string, error) {
 		}
 	}
 
-	f := &models.BootstrapFileDownload{}
+	f := &commonv3.HttpBody{}
 	err = json.Unmarshal([]byte(resp), f)
 	if err != nil {
 		return "", err
 	}
 
-	b, err := base64.StdEncoding.DecodeString(f.Data)
-	if err != nil {
-		return "", err
-	}
-
-	return string(b), nil
+	return string(f.Data), nil
 }
 
 // Update cluster takes the updated cluster details and sends it to the core
-func UpdateCluster(cluster *models.Cluster) error {
+func UpdateCluster(cluster *infrav3.Cluster) error {
 	auth := config.GetConfig().GetAppAuthProfile()
 	uri := fmt.Sprintf("/infra/v3/project/%s/cluster/%s", cluster.Metadata.Project, cluster.Metadata.Name)
 	_, err := auth.AuthAndRequest(uri, "PUT", cluster)
@@ -326,7 +319,7 @@ func UpdateCluster(cluster *models.Cluster) error {
 }
 
 // Update cluster takes the updated cluster details and sends it to the core
-func CreateCluster(cluster *models.Cluster) error {
+func CreateCluster(cluster *infrav3.Cluster) error {
 	auth := config.GetConfig().GetAppAuthProfile()
 	uri := fmt.Sprintf("/infra/v3/project/%s/cluster", cluster.Metadata.Project)
 	_, err := auth.AuthAndRequest(uri, "POST", cluster)

@@ -3,7 +3,7 @@ package config
 import (
 	"testing"
 
-	"github.com/rafaylabs/rcloud-cli/pkg/context"
+	"github.com/RafayLabs/rcloud-cli/pkg/context"
 )
 
 func TestGetProjectIdByName(t *testing.T) {

@@ -3,8 +3,8 @@ package main
 import (
 	"runtime"
 
-	"github.com/rafaylabs/rcloud-cli/cmd"
-	"github.com/rafaylabs/rcloud-cli/pkg/versioninfo"
+	"github.com/RafayLabs/rcloud-cli/cmd"
+	"github.com/RafayLabs/rcloud-cli/pkg/versioninfo"
 )
 
 var (

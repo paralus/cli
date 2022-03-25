@@ -3,7 +3,7 @@ package cmd
 import (
 	"os"
 
-	"github.com/rafaylabs/rcloud-cli/pkg/config"
+	"github.com/RafayLabs/rcloud-cli/pkg/config"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 )
