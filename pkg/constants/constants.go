@@ -3,7 +3,7 @@ package constants
 import (
 	"path/filepath"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/utils"
+	"github.com/RafayLabs/rcloud-cli/pkg/utils"
 )
 
 var RAFAY_DIR_DEFAULT_LOCATION = filepath.Join(utils.GetUserHome(), ".rafay")
@@ -39,3 +39,5 @@ var AUTHENTICATION_FAILURE = 401
 
 const DRIFT_ACTION_DETECT_NOTIFY = "DetectAndNotify"
 const DRIFT_ACTION_BLOCK_NOTIFY = "BlockAndNotify"
+
+const CLUSTER_TYPE_IMPORT = "imported"

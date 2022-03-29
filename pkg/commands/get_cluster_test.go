@@ -3,7 +3,7 @@ package commands
 import (
 	"testing"
 
-	"github.com/RafaySystems/rcloud-cli/test"
+	"github.com/RafayLabs/rcloud-cli/test"
 	"github.com/stretchr/testify/assert"
 )
 

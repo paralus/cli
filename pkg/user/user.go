@@ -4,18 +4,18 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/config"
-	"github.com/RafaySystems/rcloud-cli/pkg/log"
-	"github.com/RafaySystems/rcloud-cli/pkg/models"
-	"github.com/RafaySystems/rcloud-cli/pkg/output"
-	"github.com/RafaySystems/rcloud-cli/pkg/prefix"
-	"github.com/RafaySystems/rcloud-cli/pkg/rerror"
-	"github.com/RafaySystems/rcloud-cli/pkg/utils"
+	userv3 "github.com/RafayLabs/rcloud-base/proto/types/userpb/v3"
+	"github.com/RafayLabs/rcloud-cli/pkg/config"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/RafayLabs/rcloud-cli/pkg/output"
+	"github.com/RafayLabs/rcloud-cli/pkg/prefix"
+	"github.com/RafayLabs/rcloud-cli/pkg/rerror"
+	"github.com/RafayLabs/rcloud-cli/pkg/utils"
 	"github.com/oliveagle/jsonpath"
 	"github.com/spf13/cobra"
 )
 
-func ListUsersWithCmd(cmd *cobra.Command) (*models.UserList, error) {
+func ListUsersWithCmd(cmd *cobra.Command) (*userv3.UserList, error) {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 	uri := "/auth/v3/users"
@@ -28,7 +28,7 @@ func ListUsersWithCmd(cmd *cobra.Command) (*models.UserList, error) {
 			Op:   "list",
 		}
 	}
-	users := &models.UserList{}
+	users := &userv3.UserList{}
 	err = json.Unmarshal([]byte(resp), users)
 	if err != nil {
 		return nil, fmt.Errorf("there was an error while unmarshalling: %v", err)
@@ -36,14 +36,14 @@ func ListUsersWithCmd(cmd *cobra.Command) (*models.UserList, error) {
 	return users, nil
 }
 
-func GetUserByName(userName string) (*models.User, error) {
+func GetUserByName(userName string) (*userv3.User, error) {
 	auth := config.GetConfig().GetAppAuthProfile()
 	uri := fmt.Sprintf("/auth/v3/user/%s", userName)
 	resp, err := auth.AuthAndRequest(uri, "GET", nil)
 	if err != nil {
 		return nil, err
 	}
-	user := &models.User{}
+	user := &userv3.User{}
 	err = json.Unmarshal([]byte(resp), user)
 	if err != nil {
 		return nil, err
@@ -53,8 +53,8 @@ func GetUserByName(userName string) (*models.User, error) {
 
 }
 
-func NewUserFromResponse(json_data []byte) (*models.User, error) {
-	var ur models.User
+func NewUserFromResponse(json_data []byte) (*userv3.User, error) {
+	var ur userv3.User
 	if err := json.Unmarshal(json_data, &ur); err != nil {
 		return nil, err
 	}
@@ -62,7 +62,7 @@ func NewUserFromResponse(json_data []byte) (*models.User, error) {
 	return &ur, nil
 }
 
-func CreateUser(usr *models.User) error {
+func CreateUser(usr *userv3.User) error {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 	uri := "/auth/v3/users"
@@ -137,7 +137,7 @@ func Print(cmd *cobra.Command, jsonObj []byte) error {
 }
 
 // Apply user takes the user details and sends it to the core
-func ApplyUser(usr *models.User) error {
+func ApplyUser(usr *userv3.User) error {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 

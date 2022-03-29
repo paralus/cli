@@ -6,8 +6,8 @@ import (
 	"io/ioutil"
 	"net/url"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/config"
-	"github.com/RafaySystems/rcloud-cli/pkg/log"
+	"github.com/RafayLabs/rcloud-cli/pkg/config"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
 	"github.com/spf13/cobra"
 )
 
@@ -43,6 +43,8 @@ func (c *DownloadKubeconfigOptions) Run(cmd *cobra.Command, args []string) error
 	params := url.Values{}
 	if cluster != "" {
 		params.Add("opts.selector", fmt.Sprintf("rafay.dev/clusterName=%s", cluster))
+	} else {
+		return fmt.Errorf("cluster name not provided")
 	}
 
 	uri := fmt.Sprintf("/v2/sentry/kubeconfig/user?%s", params.Encode())

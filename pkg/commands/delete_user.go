@@ -3,8 +3,8 @@ package commands
 import (
 	"fmt"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/log"
-	"github.com/RafaySystems/rcloud-cli/pkg/user"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/RafayLabs/rcloud-cli/pkg/user"
 	"github.com/spf13/cobra"
 )
 

@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/context"
+	"github.com/RafayLabs/rcloud-cli/pkg/context"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -3,11 +3,12 @@ package commands
 import (
 	"fmt"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/config"
-	"github.com/RafaySystems/rcloud-cli/pkg/log"
-	"github.com/RafaySystems/rcloud-cli/pkg/models"
-	"github.com/RafaySystems/rcloud-cli/pkg/role"
-	"github.com/RafaySystems/rcloud-cli/pkg/rolepermission"
+	commonv3 "github.com/RafayLabs/rcloud-base/proto/types/commonpb/v3"
+	rolev3 "github.com/RafayLabs/rcloud-base/proto/types/rolepb/v3"
+	"github.com/RafayLabs/rcloud-cli/pkg/config"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/RafayLabs/rcloud-cli/pkg/role"
+	"github.com/RafayLabs/rcloud-cli/pkg/rolepermission"
 	"github.com/spf13/cobra"
 )
 
@@ -79,12 +80,12 @@ func (o *CreateRoleOptions) Run(cmd *cobra.Command, args []string) error {
 			}
 		}
 
-		cr := &models.Role{
+		cr := &rolev3.Role{
 			Kind: "Role",
-			Metadata: models.Metadata{
+			Metadata: &commonv3.Metadata{
 				Name: name,
 			},
-			Spec: models.RoleSpec{
+			Spec: &rolev3.RoleSpec{
 				Rolepermissions: o.permissions,
 				IsGlobal:        false,
 				Scope:           scope,

@@ -6,9 +6,9 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/log"
-	"github.com/RafaySystems/rcloud-cli/pkg/oidc"
-	"github.com/RafaySystems/rcloud-cli/pkg/printer"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/RafayLabs/rcloud-cli/pkg/oidc"
+	"github.com/RafayLabs/rcloud-cli/pkg/printer"
 	"github.com/spf13/cobra"
 )
 

@@ -4,14 +4,14 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/config"
-	"github.com/RafaySystems/rcloud-cli/pkg/models"
-	"github.com/RafaySystems/rcloud-cli/pkg/rerror"
+	infrav3 "github.com/RafayLabs/rcloud-base/proto/types/infrapb/v3"
+	"github.com/RafayLabs/rcloud-cli/pkg/config"
+	"github.com/RafayLabs/rcloud-cli/pkg/rerror"
 )
 
-func ListAllLocation() ([]*models.Metro, error) {
+func ListAllLocation() ([]*infrav3.Metro, error) {
 	cfg := config.GetConfig()
-	var locations []*models.Metro
+	var locations []*infrav3.Metro
 	limit := 10000
 	b, count, err := ListLocation(cfg.Partner, limit, 0)
 	if err != nil {
@@ -36,7 +36,7 @@ a limit and an offset as inputs. It returns an error if there was a problem whil
 the locations. The function will return the list of locations, total locations count, and an error
 if applicable.
 */
-func ListLocation(partner string, limit, offset int) ([]*models.Metro, int, error) {
+func ListLocation(partner string, limit, offset int) ([]*infrav3.Metro, int, error) {
 	// check to make sure the limit or offset is not negative
 	if limit < 0 || offset < 0 {
 		return nil, 0, fmt.Errorf("provided limit (%d) or offset (%d) cannot be negative", limit, offset)
@@ -51,7 +51,7 @@ func ListLocation(partner string, limit, offset int) ([]*models.Metro, int, erro
 			Op:   "list",
 		}
 	}
-	a := models.LocationList{}
+	a := infrav3.LocationList{}
 	err = json.Unmarshal([]byte(resp), &a)
 	if err != nil {
 		return nil, -1, fmt.Errorf("there was an error while unmarshalling: %v", err)
@@ -60,7 +60,7 @@ func ListLocation(partner string, limit, offset int) ([]*models.Metro, int, erro
 }
 
 // GetLocation fetches a single location
-func GetLocation(locationName string) (*models.Metro, error) {
+func GetLocation(locationName string) (*infrav3.Metro, error) {
 	ls, err := ListAllLocation()
 	if err != nil {
 		return nil, err

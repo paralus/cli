@@ -3,13 +3,13 @@ package commands
 import (
 	"fmt"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/config"
-	"github.com/RafaySystems/rcloud-cli/pkg/group"
-	"github.com/RafaySystems/rcloud-cli/pkg/log"
-	"github.com/RafaySystems/rcloud-cli/pkg/models"
-	"github.com/RafaySystems/rcloud-cli/pkg/project"
-	"github.com/RafaySystems/rcloud-cli/pkg/role"
-	"github.com/RafaySystems/rcloud-cli/pkg/user"
+	userv3 "github.com/RafayLabs/rcloud-base/proto/types/userpb/v3"
+	"github.com/RafayLabs/rcloud-cli/pkg/config"
+	"github.com/RafayLabs/rcloud-cli/pkg/group"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/RafayLabs/rcloud-cli/pkg/project"
+	"github.com/RafayLabs/rcloud-cli/pkg/role"
+	"github.com/RafayLabs/rcloud-cli/pkg/user"
 	"github.com/spf13/cobra"
 )
 
@@ -80,15 +80,15 @@ func UpdateProjectAssociation(cmd *cobra.Command, groupName string, projectName 
 	}
 
 	if len(currGroup.Spec.ProjectNamespaceRoles) == 0 {
-		currGroup.Spec.ProjectNamespaceRoles = make([]*models.ProjectNamespaceRole, 0)
+		currGroup.Spec.ProjectNamespaceRoles = make([]*userv3.ProjectNamespaceRole, 0)
 	}
 	for _, eachRole := range roleList.Items {
 		if StringInSlice(eachRole.Metadata.Name, chosenRoles) {
 			if eachRole.Metadata.Name == "NAMESPACE_READ_ONLY" || eachRole.Metadata.Name == "NAMESPACE_ADMIN" {
 				return fmt.Errorf("feature not supported yet")
 			} else {
-				currGroup.Spec.ProjectNamespaceRoles = append(currGroup.Spec.ProjectNamespaceRoles, &models.ProjectNamespaceRole{
-					Project: projectResp.Metadata.Name,
+				currGroup.Spec.ProjectNamespaceRoles = append(currGroup.Spec.ProjectNamespaceRoles, &userv3.ProjectNamespaceRole{
+					Project: &projectResp.Metadata.Name,
 					Role:    eachRole.Metadata.Name,
 				})
 			}
@@ -96,8 +96,8 @@ func UpdateProjectAssociation(cmd *cobra.Command, groupName string, projectName 
 	}
 
 	if len(chosenRoles) == 0 {
-		currGroup.Spec.ProjectNamespaceRoles = append(currGroup.Spec.ProjectNamespaceRoles, &models.ProjectNamespaceRole{
-			Project: projectResp.Metadata.Name,
+		currGroup.Spec.ProjectNamespaceRoles = append(currGroup.Spec.ProjectNamespaceRoles, &userv3.ProjectNamespaceRole{
+			Project: &projectResp.Metadata.Name,
 		})
 	}
 

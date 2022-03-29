@@ -3,9 +3,9 @@ package location
 import (
 	"testing"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/config"
-	"github.com/RafaySystems/rcloud-cli/pkg/context"
-	"github.com/RafaySystems/rcloud-cli/pkg/models"
+	"github.com/RafayLabs/rcloud-cli/pkg/config"
+	"github.com/RafayLabs/rcloud-cli/pkg/context"
+	"github.com/RafayLabs/rcloud-cli/pkg/models"
 )
 
 func TestListLocations(t *testing.T) {

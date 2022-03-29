@@ -6,9 +6,9 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/group"
-	"github.com/RafaySystems/rcloud-cli/pkg/log"
-	"github.com/RafaySystems/rcloud-cli/pkg/printer"
+	"github.com/RafayLabs/rcloud-cli/pkg/group"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/RafayLabs/rcloud-cli/pkg/printer"
 	"github.com/spf13/cobra"
 )
 
@@ -100,8 +100,8 @@ func (o *GetGroupOptions) Run(cmd *cobra.Command, args []string) (err error) {
 			for _, r := range p.Spec.ProjectNamespaceRoles {
 				prows = append(prows, []string{
 					p.Metadata.Name,
-					r.Project,
-					r.Role,
+					r.GetProject(),
+					r.GetRole(),
 				})
 			}
 		}

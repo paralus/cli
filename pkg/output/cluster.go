@@ -1,7 +1,7 @@
 package output
 
 import (
-	"github.com/RafaySystems/rcloud-cli/pkg/log"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
 
 	"github.com/oliveagle/jsonpath"
 	"github.com/spf13/cobra"

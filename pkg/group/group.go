@@ -4,19 +4,20 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/config"
-	"github.com/RafaySystems/rcloud-cli/pkg/log"
-	"github.com/RafaySystems/rcloud-cli/pkg/models"
-	"github.com/RafaySystems/rcloud-cli/pkg/output"
-	"github.com/RafaySystems/rcloud-cli/pkg/prefix"
-	"github.com/RafaySystems/rcloud-cli/pkg/rerror"
-	"github.com/RafaySystems/rcloud-cli/pkg/utils"
+	commonv3 "github.com/RafayLabs/rcloud-base/proto/types/commonpb/v3"
+	groupv3 "github.com/RafayLabs/rcloud-base/proto/types/userpb/v3"
+	"github.com/RafayLabs/rcloud-cli/pkg/config"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/RafayLabs/rcloud-cli/pkg/output"
+	"github.com/RafayLabs/rcloud-cli/pkg/prefix"
+	"github.com/RafayLabs/rcloud-cli/pkg/rerror"
+	"github.com/RafayLabs/rcloud-cli/pkg/utils"
 	"github.com/oliveagle/jsonpath"
 
 	"github.com/spf13/cobra"
 )
 
-func ListGroupsWithCmd(cmd *cobra.Command) (*models.GroupList, error) {
+func ListGroupsWithCmd(cmd *cobra.Command) (*groupv3.GroupList, error) {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 	uri := fmt.Sprintf("/auth/v3/partner/%s/organization/%s/groups", cfg.Partner, cfg.Organization)
@@ -29,7 +30,7 @@ func ListGroupsWithCmd(cmd *cobra.Command) (*models.GroupList, error) {
 			Op:   "list",
 		}
 	}
-	groups := &models.GroupList{}
+	groups := &groupv3.GroupList{}
 	err = json.Unmarshal([]byte(resp), groups)
 	if err != nil {
 		return nil, fmt.Errorf("there was an error while unmarshalling: %v", err)
@@ -37,7 +38,7 @@ func ListGroupsWithCmd(cmd *cobra.Command) (*models.GroupList, error) {
 	return groups, nil
 }
 
-func GetGroupByName(groupName string) (*models.Group, error) {
+func GetGroupByName(groupName string) (*groupv3.Group, error) {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 	uri := fmt.Sprintf("/auth/v3/partner/%s/organization/%s/group/%s", cfg.Partner, cfg.Organization, groupName)
@@ -45,7 +46,7 @@ func GetGroupByName(groupName string) (*models.Group, error) {
 	if err != nil {
 		return nil, err
 	}
-	grp := &models.Group{}
+	grp := &groupv3.Group{}
 	err = json.Unmarshal([]byte(resp), grp)
 	if err != nil {
 		return nil, err
@@ -88,8 +89,8 @@ func newGroupListSpec(obj interface{}) *output.OutputListSpec {
 	return spec
 }
 
-func NewGroupFromResponse(json_data []byte) (*models.Group, error) {
-	var gr models.Group
+func NewGroupFromResponse(json_data []byte) (*groupv3.Group, error) {
+	var gr groupv3.Group
 	if err := json.Unmarshal(json_data, &gr); err != nil {
 		return nil, err
 	}
@@ -124,9 +125,9 @@ func CreateGroup(name, description string) error {
 		return fmt.Errorf("name cannot be empty")
 	}
 
-	group := models.Group{
+	group := groupv3.Group{
 		Kind: "Group",
-		Metadata: models.Metadata{
+		Metadata: &commonv3.Metadata{
 			Name:        name,
 			Description: description,
 		},
@@ -148,7 +149,7 @@ func DeleteGroup(groupName string) error {
 }
 
 // Update group takes the updated group details and sends it to the core
-func UpdateGroup(grp *models.Group) error {
+func UpdateGroup(grp *groupv3.Group) error {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 	uri := fmt.Sprintf("/auth/v3/partner/%s/organization/%s/group/%s", cfg.Partner, cfg.Organization, grp.Metadata.Name)
@@ -164,7 +165,7 @@ func UpdateGroup(grp *models.Group) error {
 }
 
 // Apply group takes the group details and sends it to the core
-func ApplyGroup(grp *models.Group) error {
+func ApplyGroup(grp *groupv3.Group) error {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 

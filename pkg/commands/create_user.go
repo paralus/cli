@@ -3,11 +3,12 @@ package commands
 import (
 	"fmt"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/config"
-	"github.com/RafaySystems/rcloud-cli/pkg/group"
-	"github.com/RafaySystems/rcloud-cli/pkg/log"
-	"github.com/RafaySystems/rcloud-cli/pkg/models"
-	"github.com/RafaySystems/rcloud-cli/pkg/user"
+	commonv3 "github.com/RafayLabs/rcloud-base/proto/types/commonpb/v3"
+	userv3 "github.com/RafayLabs/rcloud-base/proto/types/userpb/v3"
+	"github.com/RafayLabs/rcloud-cli/pkg/config"
+	"github.com/RafayLabs/rcloud-cli/pkg/group"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/RafayLabs/rcloud-cli/pkg/user"
 	"github.com/spf13/cobra"
 )
 
@@ -48,23 +49,24 @@ func (o *CreateUserOptions) Run(cmd *cobra.Command, args []string) error {
 func CreateUser(cmd *cobra.Command, username string, groups []string, ConsoleAccessInputs []string) error {
 	flags := cmd.Flags()
 
-	newAccount := models.User{
+	newAccount := userv3.User{
 		Kind: "User",
-		Metadata: models.Metadata{
+		Metadata: &commonv3.Metadata{
 			Name:         username,
 			Organization: config.GetConfig().Organization,
 			Partner:      config.GetConfig().Partner,
 		},
+		Spec: &userv3.UserSpec{},
 	}
 	if flags.Changed(CreateConsoleAccessFlag) {
 		if len(ConsoleAccessInputs) <= 2 {
-			newAccount.Spec = models.UserSpec{
+			newAccount.Spec = &userv3.UserSpec{
 				FirstName: ConsoleAccessInputs[0],
 				LastName:  ConsoleAccessInputs[1],
 				Phone:     "",
 			}
 		} else {
-			newAccount.Spec = models.UserSpec{
+			newAccount.Spec = &userv3.UserSpec{
 				FirstName: ConsoleAccessInputs[0],
 				LastName:  ConsoleAccessInputs[1],
 				Phone:     ConsoleAccessInputs[2],

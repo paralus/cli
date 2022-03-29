@@ -7,9 +7,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/log"
-	"github.com/RafaySystems/rcloud-cli/pkg/printer"
-	"github.com/RafaySystems/rcloud-cli/pkg/project"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/RafayLabs/rcloud-cli/pkg/printer"
+	"github.com/RafayLabs/rcloud-cli/pkg/project"
 	"github.com/spf13/cobra"
 )
 

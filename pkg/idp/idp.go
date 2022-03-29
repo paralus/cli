@@ -4,18 +4,18 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/config"
-	"github.com/RafaySystems/rcloud-cli/pkg/log"
-	"github.com/RafaySystems/rcloud-cli/pkg/models"
-	"github.com/RafaySystems/rcloud-cli/pkg/output"
-	"github.com/RafaySystems/rcloud-cli/pkg/prefix"
-	"github.com/RafaySystems/rcloud-cli/pkg/rerror"
-	"github.com/RafaySystems/rcloud-cli/pkg/utils"
+	systemv3 "github.com/RafayLabs/rcloud-base/proto/types/systempb/v3"
+	"github.com/RafayLabs/rcloud-cli/pkg/config"
+	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/RafayLabs/rcloud-cli/pkg/output"
+	"github.com/RafayLabs/rcloud-cli/pkg/prefix"
+	"github.com/RafayLabs/rcloud-cli/pkg/rerror"
+	"github.com/RafayLabs/rcloud-cli/pkg/utils"
 	"github.com/oliveagle/jsonpath"
 	"github.com/spf13/cobra"
 )
 
-func ListIdpWithCmd(cmd *cobra.Command) (*models.IdpList, error) {
+func ListIdpWithCmd(cmd *cobra.Command) (*systemv3.IdpList, error) {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 	uri := "/auth/v3/sso/idp"
@@ -28,7 +28,7 @@ func ListIdpWithCmd(cmd *cobra.Command) (*models.IdpList, error) {
 			Op:   "list",
 		}
 	}
-	idps := &models.IdpList{}
+	idps := &systemv3.IdpList{}
 	err = json.Unmarshal([]byte(resp), idps)
 	if err != nil {
 		return nil, fmt.Errorf("there was an error while unmarshalling: %v", err)
@@ -36,14 +36,14 @@ func ListIdpWithCmd(cmd *cobra.Command) (*models.IdpList, error) {
 	return idps, nil
 }
 
-func GetIdpByName(idpName string) (*models.Idp, error) {
+func GetIdpByName(idpName string) (*systemv3.Idp, error) {
 	auth := config.GetConfig().GetAppAuthProfile()
 	uri := fmt.Sprintf("/auth/v3/sso/idp/%s", idpName)
 	resp, err := auth.AuthAndRequest(uri, "GET", nil)
 	if err != nil {
 		return nil, err
 	}
-	idp := &models.Idp{}
+	idp := &systemv3.Idp{}
 	err = json.Unmarshal([]byte(resp), idp)
 	if err != nil {
 		return nil, err
@@ -53,8 +53,8 @@ func GetIdpByName(idpName string) (*models.Idp, error) {
 
 }
 
-func NewIdpFromResponse(json_data []byte) (*models.Idp, error) {
-	var ur models.Idp
+func NewIdpFromResponse(json_data []byte) (*systemv3.Idp, error) {
+	var ur systemv3.Idp
 	if err := json.Unmarshal(json_data, &ur); err != nil {
 		return nil, err
 	}
@@ -62,7 +62,7 @@ func NewIdpFromResponse(json_data []byte) (*models.Idp, error) {
 	return &ur, nil
 }
 
-func CreateIdp(idp *models.Idp) error {
+func CreateIdp(idp *systemv3.Idp) error {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 	uri := "/auth/v3/sso/idp"
@@ -136,7 +136,7 @@ func Print(cmd *cobra.Command, jsonObj []byte) error {
 }
 
 // Apply idp takes the idp details and sends it to the core
-func ApplyIDP(id *models.Idp) error {
+func ApplyIDP(id *systemv3.Idp) error {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 

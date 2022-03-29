@@ -3,7 +3,7 @@ package cmd
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/RafaySystems/rcloud-cli/pkg/commands"
+	"github.com/RafayLabs/rcloud-cli/pkg/commands"
 )
 
 func newApplyCmd(applyOption commands.CmdOptions) *cobra.Command {
