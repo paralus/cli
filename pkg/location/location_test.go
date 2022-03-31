@@ -5,7 +5,7 @@ import (
 
 	"github.com/RafayLabs/rcloud-cli/pkg/config"
 	"github.com/RafayLabs/rcloud-cli/pkg/context"
-	"github.com/RafayLabs/rcloud-cli/pkg/models"
+	// "github.com/RafayLabs/rcloud-cli/pkg/models"
 )
 
 func TestListLocations(t *testing.T) {
@@ -26,7 +26,7 @@ func TestListLocations(t *testing.T) {
 	tests := []struct {
 		name    string
 		args    args
-		want    []*models.Metro
+		// want    []*models.Metro
 		want1   int
 		wantErr bool
 	}{
