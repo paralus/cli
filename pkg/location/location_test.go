@@ -24,8 +24,8 @@ func TestListLocations(t *testing.T) {
 		offset  int
 	}
 	tests := []struct {
-		name    string
-		args    args
+		name string
+		args args
 		// want    []*models.Metro
 		want1   int
 		wantErr bool
