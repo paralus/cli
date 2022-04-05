@@ -16,14 +16,14 @@ func TestFileExists(t *testing.T) {
 		{
 			name: "Test file exists",
 			args: args{
-				filename: "../testdata/addon/yaml/elastic-op.yml",
+				filename: "../../test/data/config.json",
 			},
 			want: true,
 		},
 		{
 			name: "Test file not exists",
 			args: args{
-				filename: "../testdata/addon/yaml/1234.yml",
+				filename: "../../testdata/addon/yaml/1234.yml",
 			},
 			want: false,
 		},

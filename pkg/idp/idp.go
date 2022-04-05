@@ -58,7 +58,6 @@ func NewIdpFromResponse(json_data []byte) (*systemv3.Idp, error) {
 	if err := json.Unmarshal(json_data, &ur); err != nil {
 		return nil, err
 	}
-	fmt.Println(ur)
 	return &ur, nil
 }
 

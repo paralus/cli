@@ -26,7 +26,7 @@ func TestGetClusterOptions_ValidateArgs(t *testing.T) {
 		{
 			name:    "test get multiple cluster",
 			args:    []string{"c1", "c2"},
-			wantErr: true,
+			wantErr: false,
 		},
 	}
 	for _, tt := range tests {
