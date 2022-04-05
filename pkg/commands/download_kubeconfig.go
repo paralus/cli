@@ -15,7 +15,7 @@ const (
 	DownloadKubeconfigClusterFlag            = "cluster"
 	DownloadKubeconfigNamespaceShorthandFlag = "n"
 	DownloadKubeconfigToFileFlag             = "to-file"
-	DownloadKubeconfigToFileShorthandFlag    = "f"
+	DownloadKubeconfigToFileShorthandFlag    = "s"
 )
 
 type DownloadKubeconfigOptions struct {
@@ -87,5 +87,5 @@ func (c *DownloadKubeconfigOptions) AddFlags(cmd *cobra.Command) {
 	// add flags
 	flagSet := cmd.Flags()
 	flagSet.StringVar(&c.Cluster, "cluster", "", "Set the cluster to get kubeconfig for a specific cluster")
-	flagSet.StringVarP(&c.FileOutput, "to-file", "f", "", "File location to download the kubeconfig to")
+	flagSet.StringVarP(&c.FileOutput, "to-file", "s", "", "File location to download the kubeconfig to")
 }

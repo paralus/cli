@@ -1,0 +1,11 @@
+{
+    "profile": "dev",
+    "skip_server_cert_check": "false",
+    "rest_endpoint": "localhost:11000",
+    "ops_endpoint": "localhost:11000",
+    "api_key": "7719ae598b735dfd1ebb3c35ab9a13bede0882b0",
+    "api_secret": "6430334e3e68bdc815f9559bc16f63695adb120d7e99821f34444127072727ca",
+    "partner": "finman",
+    "organization": "finmanorg",
+    "project": "myproject"
+ }

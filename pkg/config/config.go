@@ -119,14 +119,17 @@ func (c *ConfigTracker) Merge(b *Config, source string, override bool) {
 
 	if len(c.Project) == 0 || (override && len(b.Project) != 0) {
 		c.Project = b.Project
+		c.Source.Project = source
 	}
 
 	if len(c.Organization) == 0 || (override && len(b.Organization) != 0) {
 		c.Organization = b.Organization
+		c.Source.Organization = source
 	}
 
 	if len(c.Partner) == 0 || (override && len(b.Partner) != 0) {
 		c.Partner = b.Partner
+		c.Source.Partner = source
 	}
 
 	if len(c.SkipServerCertValid) == 0 || (override && len(b.SkipServerCertValid) != 0) {

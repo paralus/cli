@@ -36,6 +36,7 @@ func TestPrintTableJsonPath(t *testing.T) {
 | FIRST NAME | LAST NAME |
 +------------+-----------+
 | Janet      | Prichard  |
++------------+-----------+
 | Dale       | Murphy    |
 +------------+-----------+
 `,
@@ -79,6 +80,7 @@ func TestPrintTable(t *testing.T) {
 | FIRST NAME | LAST NAME |
 +------------+-----------+
 | Janet      | Prichard  |
++------------+-----------+
 | Dale       | Murphy    |
 +------------+-----------+
 `,

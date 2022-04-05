@@ -21,7 +21,7 @@ func TestDownloadKubeconfigOptions_ValidateArgs(t *testing.T) {
 		{
 			name:    "test download kubeconfig with arguments",
 			args:    []string{"c1", "c2", "c3"},
-			wantErr: false,
+			wantErr: true,
 		},
 		{
 			name:    "test download kubeconfig with cluster flag",
