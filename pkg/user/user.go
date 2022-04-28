@@ -20,6 +20,7 @@ func ListUsersWithCmd(cmd *cobra.Command) (*userv3.UserList, error) {
 	auth := cfg.GetAppAuthProfile()
 	uri := "/auth/v3/users"
 	uri = utils.AddPagenationToRequestWithCmd(cmd, uri)
+	uri = uri + fmt.Sprintf("&partner=%s&organization=%s", cfg.Partner, cfg.Organization)
 	resp, err := auth.AuthAndRequest(uri, "GET", nil)
 	if err != nil {
 		return nil, rerror.CrudErr{

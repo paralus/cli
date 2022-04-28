@@ -30,6 +30,7 @@ type Details struct {
 var (
 	ResourceNotExists   = errors.New("resource does not exist")
 	OperationNotAllowed = errors.New("operation not allowed")
+	InvalidCredentials  = errors.New("invalid credentials")
 )
 
 func getSession(skipServerCertCheck bool) *grequests.Session {
@@ -102,7 +103,6 @@ func (p *Profile) AuthAndRequestWithHeadersFullResponse(uri, method string, payl
 		JSON:      payload,
 		UserAgent: getUserAgent(),
 	}
-
 	response, err := sub.SendRequest(s, uri, method, ro)
 	if err != nil {
 		log.GetLogger().Debugf("Error in response from core: %s\n", err)
@@ -111,6 +111,11 @@ func (p *Profile) AuthAndRequestWithHeadersFullResponse(uri, method string, payl
 
 	if response != nil && !response.Ok {
 		log.GetLogger().Debugf("response not ok: %s", response.String())
+
+		// check if error type is permission issue
+		if strings.Contains(response.String(), "no or invalid credentials") {
+			return response, InvalidCredentials
+		}
 		// check if error type is resource not found
 		if strings.Contains(response.String(), "pg: no rows in result set") {
 			return response, ResourceNotExists
@@ -119,7 +124,6 @@ func (p *Profile) AuthAndRequestWithHeadersFullResponse(uri, method string, payl
 		if strings.Contains(response.String(), "method or route not allowed") {
 			return response, OperationNotAllowed
 		}
-
 		// check if error type is permission issue
 		if strings.Contains(response.String(), "You do not have enough privileges") {
 			return response, OperationNotAllowed
