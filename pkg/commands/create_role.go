@@ -2,6 +2,7 @@ package commands
 
 import (
 	"fmt"
+	"strings"
 
 	commonv3 "github.com/RafayLabs/rcloud-base/proto/types/commonpb/v3"
 	rolev3 "github.com/RafayLabs/rcloud-base/proto/types/rolepb/v3"
@@ -58,13 +59,13 @@ func (o *CreateRoleOptions) Run(cmd *cobra.Command, args []string) error {
 		if err != nil {
 			return err
 		} else {
-			if scope != "ORGANIZATION" && scope != "PROJECT" && scope != "" {
-				return fmt.Errorf("scope can be either ORGANIZATION or PROJECT, given scope is %s ", scope)
+			if strings.ToLower(scope) != "organization" && strings.ToLower(scope) != "project" && scope != "" {
+				return fmt.Errorf("scope can be either organization or project, given scope is %s ", scope)
 			}
 		}
 
 		//validate provided permissions
-		rps, err := rolepermission.ListRolePermissionWithCmd(cmd)
+		rps, err := rolepermission.ListRolePermissionWithScope(cmd, scope)
 		if err != nil {
 			return fmt.Errorf("unable to verify permissions, error: %s ", err.Error())
 		} else {

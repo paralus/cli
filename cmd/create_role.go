@@ -22,7 +22,7 @@ permissions: List of all the role permissions associated to this role
 
 Examples:
 	Basic Command :
-		rctl create role clusterview --permissions project.read,cluster.read,project.clusterctl.read
+		rctl create role clusterview --scope project --permissions project.read,cluster.read
 `,
 		Args: o.Validate,
 		RunE: o.Run,

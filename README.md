@@ -1,6 +1,27 @@
 # rcloud-cli
 
-# Currently supported
+CLI tool to interact with base api services
+
+# Usage
+
+Add cli binary to your PATH
+export PATH=$PATH:/usr/local/bin/rctl
+
+Download the config from console-ui, this should be placed in the default directory under $HOME/.rafay/cli
+
+sample configuration
+{
+    "profile": "dev",
+    "rest_endpoint": "console-ic-oss.dev.rafay-edge.net",
+    "ops_endpoint": "console-ic-oss.dev.rafay-edge.net",
+    "api_key": "9cfa2b7e009032dd1cd070fff811d59560a5ba28",
+    "api_secret": "76f60059a2b6a97535da1394b57fe520c709e4c7f877ce4a4bd665924f6ced11",
+    "project": "default",
+    "organization": "exampleorg",
+    "partner": "example"
+}
+
+# Currently supported commands
 - clusters
   - create cluster of type import
       Using command(s): 

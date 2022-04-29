@@ -29,7 +29,8 @@ type KeyProfile struct {
 func (p *KeyProfile) Auth(s *grequests.Session) (map[string]string, error) {
 	headers := make(map[string]string)
 
-	headers["KEY"] = p.Key
+	headers["X-API-KEYID"] = p.Key
+	headers["X-API-TOKEN"] = getBodyCheckSum([]byte(p.Secret))
 	log.GetLogger().Infof("creating headers")
 
 	return headers, nil
@@ -68,7 +69,7 @@ func (p *KeyProfile) SendRequest(s *grequests.Session, uri, method string, ro *g
 		r.Header.Add("date", strconv.FormatInt(time.Now().Unix(), 10))
 		r.Header.Add("content-md5", getBodyCheckSum(payload))
 		r.Header.Add("nonce", strconv.Itoa(rand.Int()))
-		r.Header.Add("X-RAFAY-API-KEYID", p.Key)
+		r.Header.Add("X-API-KEYID", p.Key)
 
 		signer := httpsig.NewHMACSHA256Signer(p.Key, []byte(p.Secret),
 			[]string{"content-md5", "date", "host", "nonce"})
