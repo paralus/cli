@@ -65,19 +65,23 @@ func (o *CreateRoleOptions) Run(cmd *cobra.Command, args []string) error {
 		}
 
 		//validate provided permissions
-		rps, err := rolepermission.ListRolePermissionWithScope(cmd, scope)
-		if err != nil {
-			return fmt.Errorf("unable to verify permissions, error: %s ", err.Error())
-		} else {
-			pl := []string{}
-			for _, rp := range rps.Items {
-				pl = append(pl, rp.Metadata.Name)
+		if scope == "project" {
+			rps, err := rolepermission.ListRolePermissionWithScope(cmd, scope)
+			if err != nil {
+				return fmt.Errorf("unable to verify permissions, error: %s ", err.Error())
 			}
-			// check for invalid permissions
-			for _, p := range o.permissions {
-				if !contains(pl, p) {
-					return fmt.Errorf("invalid permission %s ", p)
-				}
+			err = verifyPermissions(rps, o.permissions)
+			if err != nil {
+				return fmt.Errorf("invalid permissions, error: %s ", err.Error())
+			}
+		} else {
+			rps, err := rolepermission.ListRolePermissionWithCmd(cmd)
+			if err != nil {
+				return fmt.Errorf("unable to verify permissions, error: %s ", err.Error())
+			}
+			err = verifyPermissions(rps, o.permissions)
+			if err != nil {
+				return fmt.Errorf("invalid permissions, error: %s ", err.Error())
 			}
 		}
 
@@ -99,6 +103,20 @@ func (o *CreateRoleOptions) Run(cmd *cobra.Command, args []string) error {
 		}
 	} else {
 		return err
+	}
+	return nil
+}
+
+func verifyPermissions(rps *rolev3.RolePermissionList, permissions []string) error {
+	pl := []string{}
+	for _, rp := range rps.Items {
+		pl = append(pl, rp.Metadata.Name)
+	}
+	// check for invalid permissions
+	for _, p := range permissions {
+		if !contains(pl, p) {
+			return fmt.Errorf("invalid permission %s ", p)
+		}
 	}
 	return nil
 }
