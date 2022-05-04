@@ -103,3 +103,5 @@ Global Parameters
   -o, --output string    Print json, yaml or table output. Default is table (default "table")
   -p, --project string   provide a specific project context
   -v, --verbose          Verbose mode. A lot more information output.
+
+ Run CI for testing. Do not merge this commit.
