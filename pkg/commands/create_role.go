@@ -59,13 +59,13 @@ func (o *CreateRoleOptions) Run(cmd *cobra.Command, args []string) error {
 		if err != nil {
 			return err
 		} else {
-			if strings.ToLower(scope) != "organization" && strings.ToLower(scope) != "project" && scope != "" {
-				return fmt.Errorf("scope can be either organization or project, given scope is %s ", scope)
+			if strings.ToLower(scope) != "organization" && strings.ToLower(scope) != "project" && strings.ToLower(scope) != "namespace" && scope != "" {
+				return fmt.Errorf("scope can be either organization, project or namespace, given scope is %s ", scope)
 			}
 		}
 
 		//validate provided permissions
-		if scope == "project" {
+		if scope == "project" || scope == "namespace" {
 			rps, err := rolepermission.ListRolePermissionWithScope(cmd, scope)
 			if err != nil {
 				return fmt.Errorf("unable to verify permissions, error: %s ", err.Error())
