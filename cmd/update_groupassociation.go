@@ -16,6 +16,7 @@ func newUpdateGroupassociationCmd(o commands.CmdOptions) *cobra.Command {
 Using command to associate project:
 	rctl update groupassociation sample-group --associateproject sample-proj --roles ADMIN
 	rctl update groupassociation sample-group --associateproject sample-proj --roles PROJECT_READ_ONLY,INFRA_ADMIN 
+	rctl update groupassociation sample-group --associateproject sample-proj --roles NAMESPACE_READ_ONLY --namespace samplens
 
 roles:
 	ADMIN

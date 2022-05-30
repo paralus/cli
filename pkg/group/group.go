@@ -182,7 +182,7 @@ func ApplyGroup(grp *groupv3.Group) error {
 			}
 		}
 	} else {
-		log.GetLogger().Debugf("creating user: %s", grp.Metadata.Name)
+		log.GetLogger().Debugf("creating group: %s", grp.Metadata.Name)
 		uri := fmt.Sprintf("/auth/v3/partner/%s/organization/%s/groups", cfg.Partner, cfg.Organization)
 		_, err := auth.AuthAndRequest(uri, "POST", grp)
 		if err != nil {

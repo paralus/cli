@@ -36,7 +36,7 @@ require (
 require github.com/olekukonko/tablewriter v0.0.5
 
 require (
-	github.com/RafayLabs/rcloud-base v0.0.0-20220324105308-8aa0982e3067
+	github.com/RafayLabs/rcloud-base v0.0.0-20220530054756-13415df504a1
 	github.com/spf13/pflag v1.0.5
 )
 
