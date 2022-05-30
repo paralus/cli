@@ -16,6 +16,7 @@ import (
 const (
 	UpdateGroupProjectFlag    = "associateproject"
 	UpdateGroupRolesFlag      = "roles"
+	UpdateNamespacesFlag      = "namespace"
 	UpdateGroupUserFlag       = "associateuser"
 	UpdateAddGroupUserFlag    = "addusers"
 	UpdateRemoveGroupUserFlag = "removeusers"
@@ -25,7 +26,7 @@ type UpdateGroupassociationOptions struct {
 	Project     string
 	Roles       []string
 	Scope       string
-	Namespaces  []string
+	Namespace   string
 	User        string
 	AddUsers    []string
 	RemoveUsers []string
@@ -54,7 +55,7 @@ func (o *UpdateGroupassociationOptions) Run(cmd *cobra.Command, args []string) e
 			return err
 		}
 	} else if flagSet.Changed(UpdateGroupProjectFlag) {
-		err = UpdateProjectAssociation(cmd, name, o.Project, o.Roles)
+		err = UpdateProjectAssociation(cmd, name, o.Project, o.Roles, o.Namespace)
 		if err != nil {
 			return err
 		}
@@ -63,7 +64,7 @@ func (o *UpdateGroupassociationOptions) Run(cmd *cobra.Command, args []string) e
 	return err
 }
 
-func UpdateProjectAssociation(cmd *cobra.Command, groupName string, projectName string, chosenRoles []string) error {
+func UpdateProjectAssociation(cmd *cobra.Command, groupName string, projectName string, chosenRoles []string, namespace string) error {
 	currGroup, err := group.GetGroupByName(groupName)
 	if err != nil {
 		return fmt.Errorf("group %s does not exist", groupName)
@@ -84,8 +85,15 @@ func UpdateProjectAssociation(cmd *cobra.Command, groupName string, projectName 
 	}
 	for _, eachRole := range roleList.Items {
 		if StringInSlice(eachRole.Metadata.Name, chosenRoles) {
-			if eachRole.Metadata.Name == "NAMESPACE_READ_ONLY" || eachRole.Metadata.Name == "NAMESPACE_ADMIN" {
-				return fmt.Errorf("feature not supported yet")
+			if eachRole.Spec.Scope == "namespace" {
+				if namespace == "" {
+					return fmt.Errorf("namespace not specified for a namespaced role")
+				}
+				currGroup.Spec.ProjectNamespaceRoles = append(currGroup.Spec.ProjectNamespaceRoles, &userv3.ProjectNamespaceRole{
+					Project:   &projectResp.Metadata.Name,
+					Role:      eachRole.Metadata.Name,
+					Namespace: &namespace,
+				})
 			} else {
 				currGroup.Spec.ProjectNamespaceRoles = append(currGroup.Spec.ProjectNamespaceRoles, &userv3.ProjectNamespaceRole{
 					Project: &projectResp.Metadata.Name,
@@ -166,6 +174,8 @@ func (o *UpdateGroupassociationOptions) AddFlags(cmd *cobra.Command) {
 		"Project to assign to the Group.")
 	flagSet.StringSliceVar(&o.Roles, UpdateGroupRolesFlag, nil,
 		"Select Roles to assign for Project.")
+	flagSet.StringVar(&o.Namespace, UpdateNamespacesFlag, "",
+		"Select Namespace to assign for Project.")
 	//User Flags
 	flagSet.StringVar(&o.User, UpdateGroupUserFlag, "",
 		"Declare associated users to be edited.")
