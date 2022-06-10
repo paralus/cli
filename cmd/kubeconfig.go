@@ -6,9 +6,9 @@ import (
 	"io/ioutil"
 	"net/url"
 
-	"github.com/RafayLabs/rcloud-cli/pkg/config"
-	"github.com/RafayLabs/rcloud-cli/pkg/exit"
-	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/paralus/cli/pkg/config"
+	"github.com/paralus/cli/pkg/exit"
+	"github.com/paralus/cli/pkg/log"
 
 	"github.com/spf13/cobra"
 )
@@ -39,7 +39,7 @@ var KubeconfigDownloadCmd = &cobra.Command{
 			params.Add("namespace", defaultNamespace)
 		}
 		if cluster != "" {
-			params.Add("opts.selector", fmt.Sprintf("rafay.dev/clusterName=%s", cluster))
+			params.Add("opts.selector", fmt.Sprintf("paralus.dev/clusterName=%s", cluster))
 			params.Add("opts.ID", config.GetConfig().APIKey)
 			params.Add("opts.organization", config.GetConfig().Organization)
 		}

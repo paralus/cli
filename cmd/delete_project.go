@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/RafayLabs/rcloud-cli/pkg/commands"
+	"github.com/paralus/cli/pkg/commands"
 	"github.com/spf13/cobra"
 )
 
@@ -14,9 +14,9 @@ func newDeleteProjectCmd(o commands.CmdOptions) *cobra.Command {
 		Long:    "Delete a project by name, or multiple projects by entering the names in a space-separated list",
 		Example: `
 Using command:
-	rctl delete p project1
+	pctl delete p project1
 Using file:
-	rctl delete p -f <path-to-namespace-yaml> --v3
+	pctl delete p -f <path-to-namespace-yaml> --v3
 	`,
 		Args: o.Validate,
 		RunE: o.Run,

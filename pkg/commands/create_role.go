@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"strings"
 
-	commonv3 "github.com/RafayLabs/rcloud-base/proto/types/commonpb/v3"
-	rolev3 "github.com/RafayLabs/rcloud-base/proto/types/rolepb/v3"
-	"github.com/RafayLabs/rcloud-cli/pkg/config"
-	"github.com/RafayLabs/rcloud-cli/pkg/log"
-	"github.com/RafayLabs/rcloud-cli/pkg/role"
-	"github.com/RafayLabs/rcloud-cli/pkg/rolepermission"
+	"github.com/paralus/cli/pkg/config"
+	"github.com/paralus/cli/pkg/log"
+	"github.com/paralus/cli/pkg/role"
+	"github.com/paralus/cli/pkg/rolepermission"
+	commonv3 "github.com/paralus/paralus/proto/types/commonpb/v3"
+	rolev3 "github.com/paralus/paralus/proto/types/rolepb/v3"
 	"github.com/spf13/cobra"
 )
 

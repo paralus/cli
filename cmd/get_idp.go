@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/RafayLabs/rcloud-cli/pkg/commands"
+	"github.com/paralus/cli/pkg/commands"
 	"github.com/spf13/cobra"
 )
 
@@ -14,10 +14,10 @@ func newGetIdpCmd(o commands.CmdOptions) *cobra.Command {
 		Long:  "Get list of all Idp names, domains and group attribute names",
 		Example: `
  List specific Identify Provider details
-     rctl get idp <idpname>
+     pctl get idp <idpname>
 
-List all Identify Providers details
-     rctl get idp
+List all Identify Providers detailss
+     pctl get idp
 `,
 		Args: o.Validate,
 		RunE: o.Run,

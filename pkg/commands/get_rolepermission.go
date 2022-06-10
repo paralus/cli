@@ -4,9 +4,9 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/RafayLabs/rcloud-cli/pkg/log"
-	"github.com/RafayLabs/rcloud-cli/pkg/printer"
-	"github.com/RafayLabs/rcloud-cli/pkg/rolepermission"
+	"github.com/paralus/cli/pkg/log"
+	"github.com/paralus/cli/pkg/printer"
+	"github.com/paralus/cli/pkg/rolepermission"
 	"github.com/spf13/cobra"
 )
 

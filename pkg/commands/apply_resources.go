@@ -6,22 +6,22 @@ import (
 	"os"
 	"path/filepath"
 
-	infrav3 "github.com/RafayLabs/rcloud-base/proto/types/infrapb/v3"
-	rolev3 "github.com/RafayLabs/rcloud-base/proto/types/rolepb/v3"
-	systemv3 "github.com/RafayLabs/rcloud-base/proto/types/systempb/v3"
-	userv3 "github.com/RafayLabs/rcloud-base/proto/types/userpb/v3"
-	"github.com/RafayLabs/rcloud-cli/pkg/cluster"
-	"github.com/RafayLabs/rcloud-cli/pkg/config"
-	"github.com/RafayLabs/rcloud-cli/pkg/constants"
-	"github.com/RafayLabs/rcloud-cli/pkg/group"
-	"github.com/RafayLabs/rcloud-cli/pkg/idp"
-	"github.com/RafayLabs/rcloud-cli/pkg/location"
-	"github.com/RafayLabs/rcloud-cli/pkg/log"
-	"github.com/RafayLabs/rcloud-cli/pkg/oidc"
-	"github.com/RafayLabs/rcloud-cli/pkg/project"
-	"github.com/RafayLabs/rcloud-cli/pkg/role"
-	"github.com/RafayLabs/rcloud-cli/pkg/user"
-	"github.com/RafayLabs/rcloud-cli/pkg/utils"
+	"github.com/paralus/cli/pkg/cluster"
+	"github.com/paralus/cli/pkg/config"
+	"github.com/paralus/cli/pkg/constants"
+	"github.com/paralus/cli/pkg/group"
+	"github.com/paralus/cli/pkg/idp"
+	"github.com/paralus/cli/pkg/location"
+	"github.com/paralus/cli/pkg/log"
+	"github.com/paralus/cli/pkg/oidc"
+	"github.com/paralus/cli/pkg/project"
+	"github.com/paralus/cli/pkg/role"
+	"github.com/paralus/cli/pkg/user"
+	"github.com/paralus/cli/pkg/utils"
+	infrav3 "github.com/paralus/paralus/proto/types/infrapb/v3"
+	rolev3 "github.com/paralus/paralus/proto/types/rolepb/v3"
+	systemv3 "github.com/paralus/paralus/proto/types/systempb/v3"
+	userv3 "github.com/paralus/paralus/proto/types/userpb/v3"
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v3"
 )
@@ -62,7 +62,7 @@ func (o *ApplyResourcesOptions) Run(cmd *cobra.Command, args []string) error {
 	if flagSet.Changed(constants.FILE_FLAG_NAME) {
 		return processConfigFile(cmd)
 	} else {
-		return fmt.Errorf("invalid command! example usage: rctl apply -f file.yml")
+		return fmt.Errorf("invalid command! example usage: pctl apply -f file.yml")
 	}
 }
 

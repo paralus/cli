@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/RafayLabs/rcloud-cli/pkg/commands"
-	"github.com/RafayLabs/rcloud-cli/pkg/config"
-	"github.com/RafayLabs/rcloud-cli/pkg/log"
-	"github.com/RafayLabs/rcloud-cli/pkg/output"
 	"github.com/mitchellh/go-homedir"
+	"github.com/paralus/cli/pkg/commands"
+	"github.com/paralus/cli/pkg/config"
+	"github.com/paralus/cli/pkg/log"
+	"github.com/paralus/cli/pkg/output"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -21,7 +21,7 @@ func newRootCmd() *cobra.Command {
 	o := commands.NewGlobalOptions(logger, c)
 	// this cmd represents the base command when called without any subcommands
 	cmd := &cobra.Command{
-		Use:               "rctl",
+		Use:               "pctl",
 		Short:             "A CLI tool to manage resources.",
 		Long:              `A CLI tool to manage resources.`,
 		TraverseChildren:  true,
@@ -93,9 +93,9 @@ func initConfig() {
 			os.Exit(1)
 		}
 
-		// Search config in home directory with name ".rctl" (without extension).
+		// Search config in home directory with name ".pctl" (without extension).
 		viper.AddConfigPath(home)
-		viper.SetConfigName(".rctl")
+		viper.SetConfigName(".pctl")
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match

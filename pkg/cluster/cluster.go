@@ -5,11 +5,11 @@ import (
 	"errors"
 	"fmt"
 
-	commonv3 "github.com/RafayLabs/rcloud-base/proto/types/commonpb/v3"
-	infrav3 "github.com/RafayLabs/rcloud-base/proto/types/infrapb/v3"
-	"github.com/RafayLabs/rcloud-cli/pkg/config"
-	"github.com/RafayLabs/rcloud-cli/pkg/constants"
-	"github.com/RafayLabs/rcloud-cli/pkg/rerror"
+	"github.com/paralus/cli/pkg/config"
+	"github.com/paralus/cli/pkg/constants"
+	"github.com/paralus/cli/pkg/rerror"
+	commonv3 "github.com/paralus/paralus/proto/types/commonpb/v3"
+	infrav3 "github.com/paralus/paralus/proto/types/infrapb/v3"
 )
 
 // NewImportCluster will create a new cluster of type import

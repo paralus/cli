@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/RafayLabs/rcloud-cli/pkg/commands"
+	"github.com/paralus/cli/pkg/commands"
 	"github.com/spf13/cobra"
 )
 
@@ -14,7 +14,7 @@ func newDeleteUserCmd(o commands.CmdOptions) *cobra.Command {
 		Long:    "Delete a new user",
 		Example: `
 Using command:
-	rctl delete user john.doe@example.com 
+	pctl delete user john.doe@example.com 
 
 `,
 

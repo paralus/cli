@@ -12,14 +12,14 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/RafayLabs/rcloud-cli/pkg/authprofile"
+	"github.com/paralus/cli/pkg/authprofile"
 
-	"github.com/RafayLabs/rcloud-cli/pkg/context"
+	"github.com/paralus/cli/pkg/context"
 
 	oruntime "github.com/go-openapi/runtime"
 	oclient "github.com/go-openapi/runtime/client"
 
-	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/paralus/cli/pkg/log"
 )
 
 var logger = log.GetLogger()
@@ -46,8 +46,8 @@ var config ConfigTracker = ConfigTracker{}
 func NewProductionConfig() *Config {
 	return &Config{
 		Profile:             "prod",
-		RESTEndpoint:        "console.rafay.dev",
-		OPSEndpoint:         "ops.rafay.dev",
+		RESTEndpoint:        "console.paralus.dev",
+		OPSEndpoint:         "ops.paralus.dev",
 		SkipServerCertValid: "false",
 	}
 }
@@ -55,8 +55,8 @@ func NewProductionConfig() *Config {
 func NewStageConfig() *Config {
 	return &Config{
 		Profile:             "staging",
-		RESTEndpoint:        "console.stage.rafay.dev",
-		OPSEndpoint:         "ops.stage.rafay.dev",
+		RESTEndpoint:        "console.stage.paralus.dev",
+		OPSEndpoint:         "ops.stage.paralus.dev",
 		SkipServerCertValid: "false",
 	}
 }
@@ -176,12 +176,12 @@ func InitConfig(ctx *context.CliContext) error {
 	// configTracker.SkipServerCertValid = "false"
 
 	fromEnv := &Config{
-		Profile:             os.Getenv("RCTL_PROFILE"),
-		RESTEndpoint:        os.Getenv("RCTL_REST_ENDPOINT"),
-		OPSEndpoint:         os.Getenv("RCTL_OPS_ENDPOINT"),
-		APIKey:              os.Getenv("RCTL_API_KEY"),
-		APISecret:           os.Getenv("RCTL_API_SECRET"),
-		SkipServerCertValid: os.Getenv("RCTL_SKIP_SERVER_CERT_VALIDATION"),
+		Profile:             os.Getenv("PCTL_PROFILE"),
+		RESTEndpoint:        os.Getenv("PCTL_REST_ENDPOINT"),
+		OPSEndpoint:         os.Getenv("PCTL_OPS_ENDPOINT"),
+		APIKey:              os.Getenv("PCTL_API_KEY"),
+		APISecret:           os.Getenv("PCTL_API_SECRET"),
+		SkipServerCertValid: os.Getenv("PCTL_SKIP_SERVER_CERT_VALIDATION"),
 	}
 	configTracker.Merge(fromEnv, "Environment variable", true)
 
@@ -229,7 +229,7 @@ func (c *Config) Save(filename string) error {
 	if _, err := os.Stat(parentDir); os.IsNotExist(err) {
 		dirCreateError := os.MkdirAll(parentDir, os.ModePerm)
 		if dirCreateError != nil {
-			return fmt.Errorf("RCTL config director path [%s] doesn't exist and attempt to create it failed with error [%s]", parentDir, err.Error())
+			return fmt.Errorf("PCTL config director path [%s] doesn't exist and attempt to create it failed with error [%s]", parentDir, err.Error())
 		}
 	}
 	f, err := os.Create(filename)
@@ -276,7 +276,7 @@ func (c *Config) DLog(title string) {
 }
 
 func (c *Config) OpenAPIAuthInfo() oruntime.ClientAuthInfoWriter {
-	return oclient.APIKeyAuth("X-RAFAY-API-KEYID", "header", c.APIKey)
+	return oclient.APIKeyAuth("X-PARALUS-API-KEYID", "header", c.APIKey)
 }
 
 func endpointURL(endpoint string) string {
@@ -318,7 +318,7 @@ func (c *Config) GetOpsAuthProfile() *authprofile.Profile {
 func (c *Config) Output() {
 	projectName, err := GetProjectNameById(c.Partner, c.Organization, c.Project)
 	if err != nil {
-		fmt.Println("Failed to verify project referred by the config. Please make sure API is valid and/or use \"rctl config set project <project name>\" to set valid Project.")
+		fmt.Println("Failed to verify project referred by the config. Please make sure API is valid and/or use \"pctl config set project <project name>\" to set valid Project.")
 		projectName = "[Error: invalid]"
 	}
 	fmt.Printf("%-39s %64s\n", "Profile:", c.Profile)
@@ -333,7 +333,7 @@ func (c *Config) Output() {
 func (t *ConfigTracker) Output() {
 	projectName, err := GetProjectNameById(t.Partner, t.Organization, t.Project)
 	if err != nil {
-		fmt.Println("Project referred by the config doesn't exist or you don't have access to it. Please use \"rctl config set project <project name>\" to set valid Project.")
+		fmt.Println("Project referred by the config doesn't exist or you don't have access to it. Please use \"pctl config set project <project name>\" to set valid Project.")
 		projectName = "[Error: invalid]"
 	}
 

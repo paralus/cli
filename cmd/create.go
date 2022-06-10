@@ -3,16 +3,16 @@ package cmd
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/RafayLabs/rcloud-cli/pkg/commands"
-	"github.com/RafayLabs/rcloud-cli/pkg/config"
-	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/paralus/cli/pkg/commands"
+	"github.com/paralus/cli/pkg/config"
+	"github.com/paralus/cli/pkg/log"
 )
 
 func newCreateCmd(logger log.Logger, config *config.Config) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create various resources in Console",
-		Long:  `Create clusters, namespaces, blueprints, and addons in your current project`,
+		Long:  `Create clusters, namespaces in your current project`,
 	}
 
 	// add subcommands here

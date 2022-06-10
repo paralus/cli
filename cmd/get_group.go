@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/RafayLabs/rcloud-cli/pkg/commands"
+	"github.com/paralus/cli/pkg/commands"
 	"github.com/spf13/cobra"
 )
 
@@ -15,10 +15,10 @@ func newGetGroupCmd(o commands.CmdOptions) *cobra.Command {
 		Long:    `Retrieves a list of groups or a single group.`,
 		Example: `
    List all groups
-     rctl get groups
+     pctl get groups
 
    Show more about a specific groups
-     rctl get group <group-name>
+     pctl get group <group-name>
 `,
 		Args: o.Validate,
 		RunE: o.Run,

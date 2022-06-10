@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/RafayLabs/rcloud-cli/pkg/commands"
+	"github.com/paralus/cli/pkg/commands"
 	"github.com/spf13/cobra"
 )
 
@@ -14,8 +14,8 @@ func newDeleteClusterCmd(o commands.CmdOptions) *cobra.Command {
 		Long:    `Delete a cluster`,
 		Example: `
   Using command(s):
-	rctl delete cluster <cluster1> [<cluster2> ...]
-	rctl delete cluster <cluster1> [<cluster2> ...] -t gke --gkeproject <project-name> --zone <compute-zone> --region <compute-region>
+	pctl delete cluster <cluster1> [<cluster2> ...]
+	pctl delete cluster <cluster1> [<cluster2> ...] -t gke --gkeproject <project-name> --zone <compute-zone> --region <compute-region>
   `,
 		Args: o.Validate,
 		RunE: o.Run,

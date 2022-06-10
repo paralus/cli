@@ -10,10 +10,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/RafayLabs/rcloud-cli/pkg/log"
-	"github.com/RafayLabs/rcloud-cli/pkg/versioninfo"
 	"github.com/ghodss/yaml"
 	"github.com/levigross/grequests"
+	"github.com/paralus/cli/pkg/log"
+	"github.com/paralus/cli/pkg/versioninfo"
 )
 
 type HttpResp struct {
@@ -148,7 +148,7 @@ func (p *Profile) AuthAndRequestWithHeadersFullResponse(uri, method string, payl
 
 func getUserAgent() string {
 	version := versioninfo.Get()
-	return fmt.Sprintf("RCTL/%s %s", version.Version, version.Arch)
+	return fmt.Sprintf("PCTL/%s %s", version.Version, version.Arch)
 }
 
 func (p *Profile) AuthAndPostMultipartFile(uri, fileLocation, fileKeyName string) (string, error) {

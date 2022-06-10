@@ -3,10 +3,10 @@ package commands
 import (
 	"fmt"
 
-	"github.com/RafayLabs/rcloud-cli/pkg/config"
-	"github.com/RafayLabs/rcloud-cli/pkg/log"
-	"github.com/RafayLabs/rcloud-cli/pkg/role"
-	"github.com/RafayLabs/rcloud-cli/pkg/utils"
+	"github.com/paralus/cli/pkg/config"
+	"github.com/paralus/cli/pkg/log"
+	"github.com/paralus/cli/pkg/role"
+	"github.com/paralus/cli/pkg/utils"
 	"github.com/spf13/cobra"
 )
 

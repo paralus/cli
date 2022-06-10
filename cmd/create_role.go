@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/RafayLabs/rcloud-cli/pkg/commands"
+	"github.com/paralus/cli/pkg/commands"
 	"github.com/spf13/cobra"
 )
 
@@ -22,7 +22,7 @@ permissions: List of all the role permissions associated to this role
 
 Examples:
 	Basic Command :
-		rctl create role clusterview --scope project --permissions project.read,cluster.read
+		pctl create role clusterview --scope project --permissions project.read,cluster.read
 `,
 		Args: o.Validate,
 		RunE: o.Run,

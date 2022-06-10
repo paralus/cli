@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/RafayLabs/rcloud-cli/pkg/context"
-	"github.com/RafayLabs/rcloud-cli/pkg/exit"
-	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/paralus/cli/pkg/context"
+	"github.com/paralus/cli/pkg/exit"
+	"github.com/paralus/cli/pkg/log"
 )
 
-/* This function exits the rctl program. In case 'exit' is not set,
+/* This function exits the pctl program. In case 'exit' is not set,
    nothing will be printed to the console. The return code of
    program is set to zero.
 

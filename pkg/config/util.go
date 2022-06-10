@@ -6,10 +6,10 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/RafayLabs/rcloud-cli/pkg/constants"
-	"github.com/RafayLabs/rcloud-cli/pkg/exit"
-	"github.com/RafayLabs/rcloud-cli/pkg/log"
 	"github.com/oliveagle/jsonpath"
+	"github.com/paralus/cli/pkg/constants"
+	"github.com/paralus/cli/pkg/exit"
+	"github.com/paralus/cli/pkg/log"
 	"github.com/segmentio/encoding/json"
 	"github.com/spf13/cobra"
 )
@@ -47,7 +47,7 @@ func GetProjectIdFromFlagAndConfig(cmd *cobra.Command) (string, error) {
 		project = GetConfig().Project
 	}
 	if project == "" {
-		return "", fmt.Errorf("project context couldn't be determined. Please use --project argument or init rctl with the project context using \"rctl config set project <project name>\"")
+		return "", fmt.Errorf("project context couldn't be determined. Please use --project argument or init pctl with the project context using \"pctl config set project <project name>\"")
 	}
 	return project, nil
 }
@@ -67,7 +67,7 @@ func GetProjectIdFromFlag(cmd *cobra.Command) (string, error) {
 		}
 	}
 	if projectId == "" {
-		return "", fmt.Errorf("project context couldn't be determined. Please use --project argument or init rctl with the project context using \"rctl config set project <project name>\"")
+		return "", fmt.Errorf("project context couldn't be determined. Please use --project argument or init pctl with the project context using \"pctl config set project <project name>\"")
 	}
 	return projectId, nil
 }

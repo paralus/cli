@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/RafayLabs/rcloud-cli/pkg/commands"
+	"github.com/paralus/cli/pkg/commands"
 	"github.com/spf13/cobra"
 )
 
@@ -10,7 +10,7 @@ func newCreateIdpCmd(o commands.CmdOptions) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "idp <idp-name>",
 		Short: "Create a new idp config",
-		Long:  "rctl create idp <idp-name> <domain-name> <group-name>",
+		Long:  "pctl create idp <idp-name> <domain-name> <group-name>",
 		Example: `
 
 Basic Info : This command is used to configure Identity providers (IDP)
@@ -27,8 +27,8 @@ group-name : Set the name of the Group Attribute Statement to the group with ass
 
 Examples:
 	Basic Command :
-		rctl create idp <idp-name> <idp-type> <domain-name> <group-name>
-		rctl create idp rafay custom rafay.com rafaysuperadmins
+		pctl create idp <idp-name> <idp-type> <domain-name> <group-name>
+		pctl create idp paralus custom paalus.com paralussuperadmins
 
 `,
 

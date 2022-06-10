@@ -3,11 +3,11 @@ package constants
 import (
 	"path/filepath"
 
-	"github.com/RafayLabs/rcloud-cli/pkg/utils"
+	"github.com/paralus/cli/pkg/utils"
 )
 
-var RAFAY_DIR_DEFAULT_LOCATION = filepath.Join(utils.GetUserHome(), ".rafay")
-var CLI_DIR_DEFAULT_LOCATION = filepath.Join(RAFAY_DIR_DEFAULT_LOCATION, "cli")
+var PARALUS_DIR_DEFAULT_LOCATION = filepath.Join(utils.GetUserHome(), ".paralus")
+var CLI_DIR_DEFAULT_LOCATION = filepath.Join(PARALUS_DIR_DEFAULT_LOCATION, "cli")
 var CONFIG_FILE_DEFAULT_NAME = "config"
 var LOG_FILE_DEFAULT_NAME = "cli.log"
 var CONFIG_FILE_DEFAULT_LOCATION = filepath.Join(CLI_DIR_DEFAULT_LOCATION, CONFIG_FILE_DEFAULT_NAME)

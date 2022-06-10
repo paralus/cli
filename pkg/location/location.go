@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	infrav3 "github.com/RafayLabs/rcloud-base/proto/types/infrapb/v3"
-	"github.com/RafayLabs/rcloud-cli/pkg/config"
-	"github.com/RafayLabs/rcloud-cli/pkg/rerror"
+	"github.com/paralus/cli/pkg/config"
+	"github.com/paralus/cli/pkg/rerror"
+	infrav3 "github.com/paralus/paralus/proto/types/infrapb/v3"
 )
 
 func ListAllLocation() ([]*infrav3.Metro, error) {

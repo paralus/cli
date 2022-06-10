@@ -19,7 +19,7 @@ type ErrorDetails struct {
 	Info      string `json:"info,omitempty" yaml:"info,omitempty"`
 }
 
-type RafayErrorMessage struct {
+type ParalusErrorMessage struct {
 	StatusCode int            `json:"status_code,omitempty" yaml:"status_code,omitempty"`
 	Details    []ErrorDetails `json:"details,omitempty" yaml:"details,omitempty"`
 }

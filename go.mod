@@ -1,4 +1,4 @@
-module github.com/RafayLabs/rcloud-cli
+module github.com/paralus/cli
 
 go 1.17
 
@@ -36,7 +36,7 @@ require (
 require github.com/olekukonko/tablewriter v0.0.5
 
 require (
-	github.com/RafayLabs/rcloud-base v0.0.0-20220530054756-13415df504a1
+	github.com/paralus/paralus v0.0.0-20220610083417-845812b5f7f2
 	github.com/spf13/pflag v1.0.5
 )
 

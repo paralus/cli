@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/RafayLabs/rcloud-cli/pkg/commands"
+	"github.com/paralus/cli/pkg/commands"
 	"github.com/spf13/cobra"
 )
 
@@ -14,9 +14,9 @@ func newUpdateGroupassociationCmd(o commands.CmdOptions) *cobra.Command {
 		Long:    "Update a group association",
 		Example: `
 Using command to associate project:
-	rctl update groupassociation sample-group --associateproject sample-proj --roles ADMIN
-	rctl update groupassociation sample-group --associateproject sample-proj --roles PROJECT_READ_ONLY,INFRA_ADMIN 
-	rctl update groupassociation sample-group --associateproject sample-proj --roles NAMESPACE_READ_ONLY --namespace samplens
+	pctl update groupassociation sample-group --associateproject sample-proj --roles ADMIN
+	pctl update groupassociation sample-group --associateproject sample-proj --roles PROJECT_READ_ONLY,INFRA_ADMIN 
+	pctl update groupassociation sample-group --associateproject sample-proj --roles NAMESPACE_READ_ONLY --namespace samplens
 
 roles:
 	ADMIN
@@ -28,8 +28,8 @@ roles:
 	NAMESPACE_ADMIN
 
 Using command to associate user:
-	rctl update groupassociation sample-group  --associateuser y --addusers example.user@company.co
-	rctl update groupassociation sample-group  --associateuser y --addusers example.user@company.co,example.user-two@company.co --removeusers example.user-three@company.co 
+	pctl update groupassociation sample-group  --associateuser y --addusers example.user@company.co
+	pctl update groupassociation sample-group  --associateuser y --addusers example.user@company.co,example.user-two@company.co --removeusers example.user-three@company.co 
 
 
 `,

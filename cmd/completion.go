@@ -3,7 +3,7 @@ package cmd
 import (
 	"os"
 
-	"github.com/RafayLabs/rcloud-cli/pkg/config"
+	"github.com/paralus/cli/pkg/config"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 )
@@ -16,13 +16,13 @@ func newCompletionCmd(*zap.SugaredLogger, *config.Config) *cobra.Command {
 
 Bash:
 
-$ source <(rctl completion bash)
+$ source <(pctl completion bash)
 
 # To load completions for each session, execute once:
 Linux:
-  $ rctl completion bash > /etc/bash_completion.d/rctl
+  $ pctl completion bash > /etc/bash_completion.d/pctl
 MacOS:
-  $ rctl completion bash > /usr/local/etc/bash_completion.d/rctl
+  $ pctl completion bash > /usr/local/etc/bash_completion.d/pctl
 
 Zsh:
 
@@ -32,16 +32,16 @@ Zsh:
 $ echo "autoload -U compinit; compinit" >> ~/.zshrc
 
 # To load completions for each session, execute once:
-$ rctl completion zsh > "${fpath[1]}/_rctl"
+$ pctl completion zsh > "${fpath[1]}/_pctl"
 
 # You will need to start a new shell for this setup to take effect.
 
 Fish:
 
-$ rctl completion fish | source
+$ pctl completion fish | source
 
 # To load completions for each session, execute once:
-$ rctl completion fish > ~/.config/fish/completions/rctl.fish
+$ pctl completion fish > ~/.config/fish/completions/pctl.fish
 `,
 		DisableFlagsInUseLine: true,
 		ValidArgs:             []string{"bash", "zsh", "fish", "powershell"},

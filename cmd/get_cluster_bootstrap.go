@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/RafayLabs/rcloud-cli/pkg/commands"
+	"github.com/paralus/cli/pkg/commands"
 	"github.com/spf13/cobra"
 )
 
@@ -13,7 +13,7 @@ func newGetClusterBootstrapCmd(o commands.CmdOptions) *cobra.Command {
 		Aliases: []string{"cb"},
 		Short:   "Get a cluster bootstrap for clusters of type import",
 		Long:    `Get a cluster bootstrap for clusters of type import.`,
-		Example: "rctl get cb <cluster-name> | kubectl apply -f -",
+		Example: "pctl get cb <cluster-name> | kubectl apply -f -",
 		Args:    o.Validate,
 		RunE:    o.Run,
 	}

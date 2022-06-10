@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/RafayLabs/rcloud-cli/pkg/commands"
+	"github.com/paralus/cli/pkg/commands"
 	"github.com/spf13/cobra"
 )
 
@@ -14,9 +14,9 @@ func newCreateProjectCmd(o commands.CmdOptions) *cobra.Command {
 		Long:    "Create a new project",
 		Example: `
 Using command:
-	rctl create p project1 --desc "Description of the project"
+	pctl create p project1 --desc "Description of the project"
 Using file:
-	rctl create p -f <path-to-namespace-yaml> --v3
+	pctl create p -f <path-to-namespace-yaml> --v3
 	`,
 		Args: o.Validate,
 		RunE: o.Run,

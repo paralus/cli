@@ -37,5 +37,5 @@ func (v VersionInfo) Output() {
 
 func GetUserAgent() string {
 	version := Get()
-	return fmt.Sprintf("RCTL/%s %s", version.Version, version.Arch)
+	return fmt.Sprintf("PCTL/%s %s", version.Version, version.Arch)
 }
