@@ -12,6 +12,8 @@ builds:
       - CGO_ENABLED=0
     goos:
       - linux
+  - ldflags:
+      - -X main.version={{.Version}} -X 'main.time={{.CommitTimestamp }}' -X 'main.buildNum={{.Version}}'
 archives:
   - replacements:
       linux: Linux
