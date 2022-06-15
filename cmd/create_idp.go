@@ -28,7 +28,7 @@ group-name : Set the name of the Group Attribute Statement to the group with ass
 Examples:
 	Basic Command :
 		pctl create idp <idp-name> <idp-type> <domain-name> <group-name>
-		pctl create idp paralus custom paalus.com paralussuperadmins
+		pctl create idp paralus custom paralus.com paralussuperadmins
 
 `,
 

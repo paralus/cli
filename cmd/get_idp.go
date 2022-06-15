@@ -16,7 +16,7 @@ func newGetIdpCmd(o commands.CmdOptions) *cobra.Command {
  List specific Identify Provider details
      pctl get idp <idpname>
 
-List all Identify Providers detailss
+List all Identify Providers details
      pctl get idp
 `,
 		Args: o.Validate,

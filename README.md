@@ -1,4 +1,4 @@
-# paralus cli
+# Paralus cli
 
 CLI tool to interact with base api services
 

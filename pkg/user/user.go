@@ -67,10 +67,15 @@ func CreateUser(usr *userv3.User) error {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 	uri := "/auth/v3/users"
-	_, err := auth.AuthAndRequest(uri, "POST", usr)
+	resp, err := auth.AuthAndRequest(uri, "POST", usr)
 	if err != nil {
 		return err
 	}
+	var ur userv3.User
+	if err := json.Unmarshal([]byte(resp), &ur); err != nil {
+		return err
+	}
+	fmt.Println("Recovery URL: ", ur.GetSpec().GetRecoveryUrl())
 	return nil
 }
 
