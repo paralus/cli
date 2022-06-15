@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"io/ioutil"
 
-	"github.com/RafayLabs/rcloud-cli/pkg/config"
-	"github.com/RafayLabs/rcloud-cli/pkg/context"
-	"github.com/RafayLabs/rcloud-cli/pkg/exit"
-	"github.com/RafayLabs/rcloud-cli/pkg/log"
-	"github.com/RafayLabs/rcloud-cli/pkg/output"
+	"github.com/paralus/cli/pkg/config"
+	"github.com/paralus/cli/pkg/context"
+	"github.com/paralus/cli/pkg/exit"
+	"github.com/paralus/cli/pkg/log"
+	"github.com/paralus/cli/pkg/output"
 	"github.com/spf13/cobra"
 )
 
@@ -93,14 +93,14 @@ var ConfigShowCmd = &cobra.Command{
 
 var ConfigSetCmd = &cobra.Command{
 	Use:   "set",
-	Short: "Set rctl config",
-	Long:  "Set various parameters of rctl config",
+	Short: "Set pctl config",
+	Long:  "Set various parameters of pctl config",
 }
 
 var ConfigSetProjectCmd = &cobra.Command{
 	Use:   "project <project name>",
 	Short: "set the project to be used",
-	Long:  "set the project under which all applicable rctl command will be executed",
+	Long:  "set the project under which all applicable pctl command will be executed",
 	Args:  cobra.MaximumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) <= 0 {

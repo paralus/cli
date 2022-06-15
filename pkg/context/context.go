@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/RafayLabs/rcloud-cli/pkg/log"
-	"github.com/RafayLabs/rcloud-cli/pkg/utils"
+	"github.com/paralus/cli/pkg/log"
+	"github.com/paralus/cli/pkg/utils"
 )
 
 type CliContext struct {
@@ -21,7 +21,7 @@ type CliContext struct {
 }
 
 var context = &CliContext{
-	ConfigDir:        filepath.Join(utils.GetUserHome(), ".rafay", "cli"),
+	ConfigDir:        filepath.Join(utils.GetUserHome(), ".paralus", "cli"),
 	ConfigFile:       "config.json",
 	Verbose:          false,
 	Debug:            false,

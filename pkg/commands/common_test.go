@@ -1,8 +1,8 @@
 package commands
 
 import (
-	"github.com/RafayLabs/rcloud-cli/pkg/config"
-	"github.com/RafayLabs/rcloud-cli/test"
+	"github.com/paralus/cli/pkg/config"
+	"github.com/paralus/cli/test"
 	"github.com/spf13/cobra"
 )
 

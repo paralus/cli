@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"strings"
 
-	commonv3 "github.com/RafayLabs/rcloud-base/proto/types/commonpb/v3"
-	systemv3 "github.com/RafayLabs/rcloud-base/proto/types/systempb/v3"
-	"github.com/RafayLabs/rcloud-cli/pkg/config"
-	"github.com/RafayLabs/rcloud-cli/pkg/idp"
-	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/paralus/cli/pkg/config"
+	"github.com/paralus/cli/pkg/idp"
+	"github.com/paralus/cli/pkg/log"
+	commonv3 "github.com/paralus/paralus/proto/types/commonpb/v3"
+	systemv3 "github.com/paralus/paralus/proto/types/systempb/v3"
 	"github.com/spf13/cobra"
 )
 

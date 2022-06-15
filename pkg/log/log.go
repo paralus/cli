@@ -47,10 +47,10 @@ func init() {
 	cfg.Encoding = "console"
 	atom = zap.NewAtomicLevelAt(zap.WarnLevel)
 	cfg.Level = atom
-	if rafayLogger, err := cfg.Build(); err == nil {
+	if paralusLogger, err := cfg.Build(); err == nil {
 		// if there was no error, use the custom config, otherwise
 		// use the default config
-		logger = rafayLogger
+		logger = paralusLogger
 	}
 
 	// flush buffer, if any

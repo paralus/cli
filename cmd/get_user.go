@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/RafayLabs/rcloud-cli/pkg/commands"
+	"github.com/paralus/cli/pkg/commands"
 	"github.com/spf13/cobra"
 )
 
@@ -15,10 +15,10 @@ func newGetUserCmd(o commands.CmdOptions) *cobra.Command {
 		Long:    `Retrieves a list of users or a single user.`,
 		Example: `
    List all user
-     rctl get users
+     pctl get users
 
    Show more about a specific groups
-     rctl get user <user_name>
+     pctl get user <user_name>
 `,
 		Args: o.Validate,
 		RunE: o.Run,

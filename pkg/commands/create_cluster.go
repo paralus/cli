@@ -9,8 +9,8 @@ import (
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v3"
 
-	"github.com/RafayLabs/rcloud-cli/pkg/log"
-	"github.com/RafayLabs/rcloud-cli/pkg/utils"
+	"github.com/paralus/cli/pkg/log"
+	"github.com/paralus/cli/pkg/utils"
 )
 
 // define flags names here

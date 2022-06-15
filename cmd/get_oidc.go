@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/RafayLabs/rcloud-cli/pkg/commands"
+	"github.com/paralus/cli/pkg/commands"
 	"github.com/spf13/cobra"
 )
 
@@ -14,10 +14,10 @@ func newGetOIDCProviderCmd(o commands.CmdOptions) *cobra.Command {
 		Long:  "Get list of all OIDC names, domains and group attribute names",
 		Example: `
  List specific Identify Provider details
-     rctl get oidc <oidcname>
+     pctl get oidc <oidcname>
 
 List all Identify Providers details
-     rctl get oidc
+     pctl get oidc
 `,
 		Args: o.Validate,
 		RunE: o.Run,

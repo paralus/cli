@@ -4,14 +4,14 @@ import (
 	"encoding/json"
 	"fmt"
 
-	userv3 "github.com/RafayLabs/rcloud-base/proto/types/userpb/v3"
-	"github.com/RafayLabs/rcloud-cli/pkg/config"
-	"github.com/RafayLabs/rcloud-cli/pkg/log"
-	"github.com/RafayLabs/rcloud-cli/pkg/output"
-	"github.com/RafayLabs/rcloud-cli/pkg/prefix"
-	"github.com/RafayLabs/rcloud-cli/pkg/rerror"
-	"github.com/RafayLabs/rcloud-cli/pkg/utils"
 	"github.com/oliveagle/jsonpath"
+	"github.com/paralus/cli/pkg/config"
+	"github.com/paralus/cli/pkg/log"
+	"github.com/paralus/cli/pkg/output"
+	"github.com/paralus/cli/pkg/prefix"
+	"github.com/paralus/cli/pkg/rerror"
+	"github.com/paralus/cli/pkg/utils"
+	userv3 "github.com/paralus/paralus/proto/types/userpb/v3"
 	"github.com/spf13/cobra"
 )
 
@@ -67,10 +67,15 @@ func CreateUser(usr *userv3.User) error {
 	cfg := config.GetConfig()
 	auth := cfg.GetAppAuthProfile()
 	uri := "/auth/v3/users"
-	_, err := auth.AuthAndRequest(uri, "POST", usr)
+	resp, err := auth.AuthAndRequest(uri, "POST", usr)
 	if err != nil {
 		return err
 	}
+	var ur userv3.User
+	if err := json.Unmarshal([]byte(resp), &ur); err != nil {
+		return err
+	}
+	fmt.Println("Recovery URL: ", ur.GetSpec().GetRecoveryUrl())
 	return nil
 }
 

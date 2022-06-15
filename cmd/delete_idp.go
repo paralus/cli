@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/RafayLabs/rcloud-cli/pkg/commands"
+	"github.com/paralus/cli/pkg/commands"
 	"github.com/spf13/cobra"
 )
 
@@ -15,10 +15,10 @@ func newDeleteIdpCmd(o commands.CmdOptions) *cobra.Command {
 		RunE:  o.Run,
 		Example: `
 Delete Identify Provider
-	rctl delete idp name1
+	pctl delete idp name1
 
 Delete Identify Provider(s)
-	rctl delete idp name1 name2 name13 
+	pctl delete idp name1 name2 name13 
 
 `,
 	}

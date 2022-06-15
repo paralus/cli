@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/RafayLabs/rcloud-cli/pkg/commands"
+	"github.com/paralus/cli/pkg/commands"
 	"github.com/spf13/cobra"
 )
 
@@ -15,10 +15,10 @@ func newDeleteRoleCmd(o commands.CmdOptions) *cobra.Command {
 		RunE:  o.Run,
 		Example: `
 Delete Role
-	rctl delete role customrole
+	pctl delete role customrole
 
 Delete Role(s)
-	rctl delete role name1 name2 name3
+	pctl delete role name1 name2 name3
 `,
 	}
 

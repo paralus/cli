@@ -3,13 +3,13 @@ package commands
 import (
 	"fmt"
 
-	userv3 "github.com/RafayLabs/rcloud-base/proto/types/userpb/v3"
-	"github.com/RafayLabs/rcloud-cli/pkg/config"
-	"github.com/RafayLabs/rcloud-cli/pkg/group"
-	"github.com/RafayLabs/rcloud-cli/pkg/log"
-	"github.com/RafayLabs/rcloud-cli/pkg/project"
-	"github.com/RafayLabs/rcloud-cli/pkg/role"
-	"github.com/RafayLabs/rcloud-cli/pkg/user"
+	"github.com/paralus/cli/pkg/config"
+	"github.com/paralus/cli/pkg/group"
+	"github.com/paralus/cli/pkg/log"
+	"github.com/paralus/cli/pkg/project"
+	"github.com/paralus/cli/pkg/role"
+	"github.com/paralus/cli/pkg/user"
+	userv3 "github.com/paralus/paralus/proto/types/userpb/v3"
 	"github.com/spf13/cobra"
 )
 

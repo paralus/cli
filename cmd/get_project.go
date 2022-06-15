@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/RafayLabs/rcloud-cli/pkg/commands"
+	"github.com/paralus/cli/pkg/commands"
 	"github.com/spf13/cobra"
 )
 
@@ -15,10 +15,10 @@ func newGetProjectCmd(o commands.CmdOptions) *cobra.Command {
 		Long:    `Retrieves a list of projects or a single project.`,
 		Example: `
    List all projects
-     rctl get projects
+     pctl get projects
 
    Show more about a specific project
-     rctl get project <project-name>
+     pctl get project <project-name>
 `,
 		Args: o.Validate,
 		RunE: o.Run,

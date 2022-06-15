@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/RafayLabs/rcloud-cli/pkg/commands"
+	"github.com/paralus/cli/pkg/commands"
 	"github.com/spf13/cobra"
 )
 
@@ -15,10 +15,10 @@ func newGetRoleCmd(o commands.CmdOptions) *cobra.Command {
 		Long:    `Retrieves a list of roles.`,
 		Example: `
    List all roles
-     rctl get roles
+     pctl get roles
 
    Show more about a specific role
-     rctl get role <role-name>
+     pctl get role <role-name>
 `,
 		Args: o.Validate,
 		RunE: o.Run,

@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	"github.com/RafayLabs/rcloud-cli/pkg/commands"
-	"github.com/RafayLabs/rcloud-cli/pkg/config"
-	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/paralus/cli/pkg/commands"
+	"github.com/paralus/cli/pkg/config"
+	"github.com/paralus/cli/pkg/log"
 	"github.com/spf13/cobra"
 )
 
@@ -21,7 +21,6 @@ func newDeleteCmd(logger log.Logger, config *config.Config) *cobra.Command {
 		newDeleteProjectCmd(commands.NewDeleteProjectOptions(logger, config)),
 		newDeleteGroupCmd(commands.NewDeleteGroupOptions(logger, config)),
 		newDeleteUserCmd(commands.NewDeleteUserOptions(logger)),
-		newDeleteIdpCmd(commands.NewDeleteIdpOptions(logger, config)),
 		newDeleteOIDCProviderCmd(commands.NewDeleteOIDCProviderOptions(logger, config)),
 		newDeleteRoleCmd(commands.NewDeleteRoleOptions(logger, config)),
 	)

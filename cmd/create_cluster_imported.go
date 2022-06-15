@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/RafayLabs/rcloud-cli/pkg/commands"
+	"github.com/paralus/cli/pkg/commands"
 	"github.com/spf13/cobra"
 )
 
@@ -13,10 +13,10 @@ func newCreateClusterImportCmd(o commands.CmdOptions) *cobra.Command {
 		Long:  `Import an existing cluster.`,
 		Example: `
   Using command(s):
-    rctl create cluster imported sample-imported-cluster -l sample-location
+    pctl create cluster imported sample-imported-cluster -l sample-location
 	
   Using config file:
-    rctl create cluster imported -f cluster-config.yml 
+    pctl create cluster imported -f cluster-config.yml 
 `,
 		Args: o.Validate,
 		RunE: o.Run,

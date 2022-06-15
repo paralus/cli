@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/RafayLabs/rcloud-cli/pkg/config"
-	"github.com/RafayLabs/rcloud-cli/pkg/constants"
-	"github.com/RafayLabs/rcloud-cli/pkg/context"
-	"github.com/RafayLabs/rcloud-cli/pkg/exit"
-	"github.com/RafayLabs/rcloud-cli/pkg/log"
-	"github.com/RafayLabs/rcloud-cli/pkg/output"
+	"github.com/paralus/cli/pkg/config"
+	"github.com/paralus/cli/pkg/constants"
+	"github.com/paralus/cli/pkg/context"
+	"github.com/paralus/cli/pkg/exit"
+	"github.com/paralus/cli/pkg/log"
+	"github.com/paralus/cli/pkg/output"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 )
@@ -130,14 +130,14 @@ func (g *GlobalOptions) Run(cmd *cobra.Command, _ []string) error {
 	if err != nil {
 		path := cliCtx.ConfigFilename()
 
-		if cmd.CommandPath() != "rctl config init" {
+		if cmd.CommandPath() != "pctl config init" {
 			// Ignore this error in case of 'config init', this error will be ignored.
 			exit.SetExitWithError(err, fmt.Sprintf("Failed to load config file from %s. "+
-				"Please use 'rctl config init' to install the config file", path))
+				"Please use 'pctl config init' to install the config file", path))
 			output.Exit()
 		}
 	}
-	if cmd.CommandPath() != "rctl config init" && cmd.CommandPath() != "rctl version" {
+	if cmd.CommandPath() != "pctl config init" && cmd.CommandPath() != "pctl version" {
 		err := g.config.MiniCheck()
 		if err != nil {
 			// Ignore this error in case of 'config init' or 'version', this error will be ignored.

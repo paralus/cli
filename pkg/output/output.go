@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/RafayLabs/rcloud-cli/pkg/log"
+	"github.com/paralus/cli/pkg/log"
 
 	"github.com/ghodss/yaml"
 	"github.com/liggitt/tabwriter"

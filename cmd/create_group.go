@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/RafayLabs/rcloud-cli/pkg/commands"
+	"github.com/paralus/cli/pkg/commands"
 	"github.com/spf13/cobra"
 )
 
@@ -14,7 +14,7 @@ func newCreateGroupCmd(o commands.CmdOptions) *cobra.Command {
 		Long:    "Create a new group",
 		Example: `
 Using command:
-	rctl create group sample-group --desc "Description of the group"`,
+	pctl create group sample-group --desc "Description of the group"`,
 		Args: o.Validate,
 		RunE: o.Run,
 	}

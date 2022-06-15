@@ -4,24 +4,24 @@ import (
 	"os"
 	"testing"
 
-	"github.com/RafayLabs/rcloud-cli/pkg/context"
+	"github.com/paralus/cli/pkg/context"
 	"github.com/stretchr/testify/assert"
 )
 
 func unsetEnvs() {
-	os.Unsetenv("RCTL_PROFILE")
-	os.Unsetenv("RCTL_REST_ENDPOINT")
-	os.Unsetenv("RCTL_OPS_ENDPOINT")
-	os.Unsetenv("RCTL_API_KEY")
-	os.Unsetenv("RCTL_API_SECRET")
+	os.Unsetenv("PCTL_PROFILE")
+	os.Unsetenv("PCTL_REST_ENDPOINT")
+	os.Unsetenv("PCTL_OPS_ENDPOINT")
+	os.Unsetenv("PCTL_API_KEY")
+	os.Unsetenv("PCTL_API_SECRET")
 }
 
 func setEnvs() {
-	os.Setenv("RCTL_PROFILE", "test_env_val")
-	os.Setenv("RCTL_REST_ENDPOINT", "test_env_val")
-	os.Setenv("RCTL_OPS_ENDPOINT", "test_env_val")
-	os.Setenv("RCTL_API_KEY", "test_env_val")
-	os.Setenv("RCTL_API_SECRET", "test_env_val")
+	os.Setenv("PCTL_PROFILE", "test_env_val")
+	os.Setenv("PCTL_REST_ENDPOINT", "test_env_val")
+	os.Setenv("PCTL_OPS_ENDPOINT", "test_env_val")
+	os.Setenv("PCTL_API_KEY", "test_env_val")
+	os.Setenv("PCTL_API_SECRET", "test_env_val")
 }
 
 func TestInitConfig(t *testing.T) {
