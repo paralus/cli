@@ -135,6 +135,7 @@ func Print(cmd *cobra.Command, jsonObj []byte) error {
 	w.Write(0, "Provider Name: %s\n", g.Spec.ProviderName)
 	w.Write(0, "Mapper URL: %s\n", g.Spec.MapperUrl)
 	w.Write(0, "Callback URL: %s\n", g.Spec.CallbackUrl)
+	w.Write(0, "Issuer URL: %s\n", g.Spec.IssuerUrl)
 
 	w.Flush()
 
