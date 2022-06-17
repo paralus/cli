@@ -12,17 +12,23 @@ import (
 )
 
 const (
-	ClientIDFlag    = "clientid"
-	CallbackUrlFlag = "callback-url"
-	ScopesFlag      = "scopes"
+	ClientIDFlag     = "clientid"
+	ClientSecretFlag = "clientsecret"
+	CallbackUrlFlag  = "callback-url"
+	IssuerUrlFlag    = "issuer-url"
+	MapperUrlFlag    = "mapper-url"
+	ScopesFlag       = "scopes"
 )
 
 type CreateOIDCProviderOptions struct {
-	clientId    string
-	callbackUrl string
-	scopes      []string
-	logger      log.Logger
-	config      *config.Config
+	clientId     string
+	clientSecret string
+	callbackUrl  string
+	issuerUrl    string
+	mapperUrl    string
+	scopes       []string
+	logger       log.Logger
+	config       *config.Config
 }
 
 func NewCreateOIDCProviderOptions(logger log.Logger, config *config.Config) *CreateOIDCProviderOptions {
@@ -36,8 +42,14 @@ func (c *CreateOIDCProviderOptions) AddFlags(cmd *cobra.Command) {
 	flagSet := cmd.PersistentFlags()
 	flagSet.StringVar(&c.clientId, ClientIDFlag, "",
 		"Client Id generated during for Oauth provider registration.")
+	flagSet.StringVar(&c.clientSecret, ClientSecretFlag, "",
+		"Client secret generated during for Oauth provider registration.")
 	flagSet.StringVar(&c.callbackUrl, CallbackUrlFlag, "",
 		"Callback URL to be configured during Oauth Registration.")
+	flagSet.StringVar(&c.issuerUrl, IssuerUrlFlag, "",
+		"Issuer URL of the Oauth provider.")
+	flagSet.StringVar(&c.mapperUrl, MapperUrlFlag, "",
+		"Mapper URL which maps the scopes to kratos fields.")
 	flagSet.StringSliceVar(&c.scopes, ScopesFlag, nil,
 		"Scopes that are required from OIDC Provider.")
 }
@@ -54,7 +66,8 @@ func (o *CreateOIDCProviderOptions) Run(cmd *cobra.Command, args []string) error
 	flagSet := cmd.Flags()
 	err := fmt.Errorf("flags not triggered")
 
-	if flagSet.Changed(ClientIDFlag) && flagSet.Changed(CallbackUrlFlag) && flagSet.Changed(ScopesFlag) {
+	if flagSet.Changed(ClientIDFlag) && flagSet.Changed(CallbackUrlFlag) && flagSet.Changed(ScopesFlag) &&
+		flagSet.Changed(ClientSecretFlag) && flagSet.Changed(IssuerUrlFlag) && flagSet.Changed(MapperUrlFlag) {
 		oidcProvider := &systemv3.OIDCProvider{
 			Kind: "OIDCProvider",
 			Metadata: &commonv3.Metadata{
@@ -64,7 +77,10 @@ func (o *CreateOIDCProviderOptions) Run(cmd *cobra.Command, args []string) error
 			Spec: &systemv3.OIDCProviderSpec{
 				ProviderName: name,
 				ClientId:     o.clientId,
+				ClientSecret: o.clientSecret,
 				CallbackUrl:  o.callbackUrl,
+				IssuerUrl:    o.issuerUrl,
+				MapperUrl:    o.mapperUrl,
 				Scopes:       o.scopes,
 				Predefined:   false,
 			},
