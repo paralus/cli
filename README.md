@@ -1,15 +1,18 @@
 # Paralus cli
 
-CLI tool to interact with base api services
+CLI tool to interact with Paralus.
 
-# Usage
+## Usage
 
-Add cli binary to your PATH
-export PATH=$PATH:/usr/local/bin/pctl
+[Download](https://github.com/paralus/cli/releases) the latest CLI binary and add it to your PATH.
 
-Download the config from dashboard, this should be placed in the default directory under $HOME/.paralus/cli
+`export PATH=$PATH:/usr/local/bin/pctl`
 
-sample configuration
+Download the config from Paralus dashboard (*My Tools -> Download CLI Config*), this should be placed in the default directory under `$HOME/.paralus/cli`. *Create the directory if it doesn't exist.*
+
+Sample configuration file looks like below:
+
+```json
 {
     "profile": "dev",
     "rest_endpoint": "console-ic-oss.dev.paralus-edge.net",
@@ -20,86 +23,29 @@ sample configuration
     "organization": "exampleorg",
     "partner": "example"
 }
+```
 
-# Currently supported commands
-- clusters
-  - create cluster of type import
-      Using command(s): 
-        pctl create cluster imported sample-imported-cluster -l sample-location
-      Using file apply: 
-        pctl apply -f cluster-config.yml
-  - list clusters
-      Using command(s): 
-        pctl get cluster
-        pctl get cluster sample-imported-cluster
-  - download bootstrap (separate command)
-      Using command(s): 
-        pctl kubeconfig download --cluster sample-imported-cluster
-- project
-  - create project with basic information
-      Using command(s): 
-        pctl create p project1 --desc "Description of the project"
-      Using file apply: 
-        pctl apply -f project-config.yml
-  - list projects
-      Using command(s): 
-        pctl get project
-        pctl get project project1
-- user
-  - create user
-      Using command(s):
-        pctl create user john.doe@example.com
-        pctl create user john.doe@example.com --console John, Doe
-        pctl create user john.doe@example.com  --groups testingGroup, productionGroup --console John, Doe, 4089382091
-      Using file apply:
-        pctl apply -f user-config.yml
-  - list users
-      Using command(s):
-        pctl get users
-        pctl get user john.dow@example.com
-- group
-  - create group
-      Using command(s):
-        pctl create group sample-group --desc "Description of the group"
-      Using file apply:
-        pctl apply -f group-config.yml
-  - list groups
-      Using command(s):
-        pctl get group
-        pctl get group sample-group
-- role
-  - create role
-      Using command(s):
-        pctl create role clusterview --permissions project.read,cluster.read,project.clustepctl.read
-      Using file apply:
-        pctl apply -f role-config.yml
-  - list groups
-      Using command(s):
-        pctl get roles
-        pctl get role clusterview
-- rolepermissions
-  - list rolepermissions
-      Using command(s):
-        pctl get rolepermissions
-- oidc
-  - create oidc
-      Using command(s):
-        pctl create oidc github 721396hsad8721wjhad8 http://myownweburl.com/cb
-      Using file apply:
-        pctl apply -f oidc-config.yml
-  - list oidc providers
-      Using command(s):
-        pctl get oidc
-        pctl get oidc github
-- groupassociation
-  - update group association to projects and users
-    Using command(s):
-      pctl update groupassociation sample-group --associateproject sample-proj --roles PROJECT_READ_ONLY,INFRA_ADMIN
-      pctl update groupassociation sample-group  --associateuser y --addusers example.user@company.co,example.user-two@company.co --removeusers example.user-three@company.co
-Global Parameters
-  -c, --config string    Customize cli config file
-  -d, --debug            Enable debug logs
-  -f, --file string      provide file with resource to be created
-  -o, --output string    Print json, yaml or table output. Default is table (default "table")
-  -p, --project string   provide a specific project context
-  -v, --verbose          Verbose mode. A lot more information output.
+## Features
+
+The CLI allows you an additional way to interact with Paralus. There are commands that you can use to perform certain tasks, for example:
+
+- `pctl create p project --desc "Description of the project"` to create a project
+- `pctl create cluster imported sample-imported-cluster` to import a cluster
+- `pctl get users` to list all users
+
+For a complete list of commands, refer to our [CLI documentation](https://www.paralus.io/docs/usage/cli).
+
+## Community & Support
+
+- Visit [Paralus website](https://paralus.io) for the complete documentation and helpful links.
+- Join our [Slack channel](https://join.slack.com/t/paralus/shared_invite/zt-1a9x6y729-ySmAq~I3tjclEG7nDoXB0A) to post your queries and discuss features.
+- Tweet to [@paralus_](https://twitter.com/paralus_/) on Twitter.
+- Create [GitHub Issues](https://github.com/paralus/cli/issues) to report bugs or request features.
+
+## Contributing
+
+The easiest way to start is to look at existing issues and see if there’s something there that you’d like to work on. You can filter issues with the label “Good first issue” which are relatively self sufficient issues and great for first time contributors.
+
+Once you decide on an issue, please comment on it so that all of us know that you’re on it.
+
+If you’re looking to add a new feature, raise a [new issue](https://github.com/paralus/cli/issues) and start a discussion with the community. Engage with the maintainers of the project and work your way through.
