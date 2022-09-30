@@ -67,11 +67,6 @@ func (o *CreateClusterImportedOptions) Run(cmd *cobra.Command, args []string) er
 	// get location
 	l, _ := flagSet.GetString(CreateClusterImportedLocationFlag)
 
-	// check if location exists
-	if _, err := location.GetLocation(l); err != nil {
-		return err
-	}
-
 	// get type
 	cType, err := flagSet.GetString(CreateClusterImportedTypeFlag)
 	if err != nil {
@@ -201,6 +196,6 @@ func (o *CreateClusterImportedOptions) AddFlags(cmd *cobra.Command) {
 	// define flags
 	flagSet := cmd.PersistentFlags()
 	flagSet.StringP(CreateClusterImportedTypeFlag, "", "", "type of imported cluster aks|gke|openshift")
-	flagSet.StringP(CreateClusterImportedLocationFlag, CreateClusterImportedLocationShorthandFlag, "sanjose-us",
+	flagSet.StringP(CreateClusterImportedLocationFlag, CreateClusterImportedLocationShorthandFlag, "",
 		"Location to set. Will cause the command to error out if the location doesn't exist")
 }
