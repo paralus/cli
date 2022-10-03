@@ -13,7 +13,7 @@ func newCreateClusterImportCmd(o commands.CmdOptions) *cobra.Command {
 		Long:  `Import an existing cluster.`,
 		Example: `
   Using command(s):
-    pctl create cluster imported sample-imported-cluster -l sample-location
+    pctl create cluster imported sample-imported-cluster
 	
   Using config file:
     pctl create cluster imported -f cluster-config.yml 
