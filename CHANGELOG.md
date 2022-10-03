@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
+- Fix kubeconfig download error from [akshay196](https://github.com/akshay196)
+
 ### Added
 ### Changed
 ### Fixed
