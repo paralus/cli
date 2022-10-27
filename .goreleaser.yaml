@@ -49,8 +49,8 @@ builds:
       - arm64
     env:
       - CGO_ENABLED=0
-    flags:
-      - -mod=vendor
+    ldflags:
+      - -s -w -X main.version={{.Version}} -X main.time={{.CommitTimestamp }} -X main.buildNum={{.Version}}
 
 release:
   prerelease: auto
