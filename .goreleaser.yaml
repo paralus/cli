@@ -12,8 +12,8 @@ builds:
       - CGO_ENABLED=0
     goos:
       - linux
-      - windows
-      - darwin
+      # - windows
+      # - darwin
     ldflags:
       - -s -w -X main.version={{.Version}} -X main.time={{.CommitTimestamp }} -X main.buildNum={{.Version}}
 archives:
@@ -35,7 +35,7 @@ brews:
     homepage: "https://github.com/paralus/cli"
     tap:
       owner: rustiever
-      name: cli # we need to create a repository in paralus organisation
+      name: homebrew-rustiever # we need to create a repository in paralus organisation
     commit_author:
       name: rustiever # bot name or person name
       email: sharanrdude@gmail.com # bot mail address or person mail
