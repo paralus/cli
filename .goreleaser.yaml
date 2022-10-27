@@ -38,4 +38,4 @@ brews:
       name: cli # we need to create a repository in paralus organisation
     commit_author:
       name: rustiever # bot name or person name
-      email: sharanrdude@gmail.com # bot mail address or person mail address
+      email: sharanrdude@gmail.com # bot mail address or person mail
