@@ -21,3 +21,6 @@ func main() {
 	versioninfo.Init(version, buildNum, time, arch)
 	cmd.Execute()
 }
+
+
+// test 
