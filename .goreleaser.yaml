@@ -47,7 +47,7 @@ before:
     - go generate ./...
 builds:
   - binary: pctl
-  - env:
+    env:
       - CGO_ENABLED=0
     goos:
       - linux
