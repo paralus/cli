@@ -16,7 +16,6 @@ func newApplyCmd(applyOption commands.CmdOptions) *cobra.Command {
 		Example: `
   Using config file:
     pctl apply -f cluster-config.yml 
-    pctl apply -f cluster-config.yml
 `,
 		Args: applyOption.Validate,
 		RunE: applyOption.Run,
