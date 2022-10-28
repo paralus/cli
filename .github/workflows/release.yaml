@@ -37,10 +37,10 @@ jobs:
         run: go test -v ./...
 
       - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@0110a4acb73fda6a2c401b6d1cb70a11d5b0fadf
+        uses: goreleaser/goreleaser-action@v2
         with:
           distribution: goreleaser
           version: latest
           args: release --rm-dist
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }} # token with repo scope permissions 
