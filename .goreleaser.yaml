@@ -44,7 +44,7 @@ brews:
     license: "Apache License 2.0"
     tap:
       owner: rustiever
-      name: homebrew-rustiever
+      name: homebrew-paralus
     # Git author used to commit to the repository.
     # Defaults are shown below
     # commit_author:
