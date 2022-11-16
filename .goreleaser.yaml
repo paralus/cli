@@ -47,6 +47,6 @@ brews:
       name: homebrew-paralus
     # Git author used to commit to the repository.
     # Defaults are shown below
-    # commit_author:
-    #   name: goreleaserbot
-    #   email: bot@goreleaser.com
+    commit_author:
+      name: rustiever
+      email: sharanrdude@gmail.com
