@@ -43,7 +43,7 @@ brews:
     description: "Command Line Interface tool for Paralus"
     license: "Apache License 2.0"
     tap:
-      owner: rustiever
+      owner: paralus
       name: homebrew-paralus
     # Git author used to commit to the repository.
     # Defaults are shown below
