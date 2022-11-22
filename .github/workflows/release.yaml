@@ -3,6 +3,9 @@ name: goreleaser
 on:
   push:
     tags: [ 'v*.*.*' ]
+    
+permissions:
+  contents: write
 
 jobs:
 
@@ -37,7 +40,7 @@ jobs:
         run: go test -v ./...
 
       - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@0110a4acb73fda6a2c401b6d1cb70a11d5b0fadf
+        uses: goreleaser/goreleaser-action@b508e2e3ef3b19d4e4146d4f8fb3ba9db644a757 # V3.2.0
         with:
           distribution: goreleaser
           version: latest
