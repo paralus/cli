@@ -3,9 +3,11 @@ name: goreleaser
 on:
   push:
     tags: [ 'v*.*.*' ]
-    
-permissions:
-  contents: write
+  pull_request:
+    branches:
+      - main
+
+permissions: read-all|write-all
 
 jobs:
 
