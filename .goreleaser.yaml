@@ -45,7 +45,7 @@ brews:
     tap:
       owner: rustiever
       name: homebrew-rustiever
-      token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
+      token: "{{ .Env.GITHUB_TOKEN }}"
     commit_author:
       name: goreleaserbot
       email: bot@goreleaser.com
