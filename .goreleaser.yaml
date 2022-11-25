@@ -43,8 +43,8 @@ brews:
     description: "Command Line Interface tool for Paralus"
     license: "Apache License 2.0"
     tap:
-      owner: rustiever
-      name: homebrew-rustiever
+      owner: paralus
+      name: homebrew-paralus
       token: "{{ .Env.TOKEN }}"
     commit_author:
       name: goreleaserbot

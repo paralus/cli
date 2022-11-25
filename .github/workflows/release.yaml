@@ -3,8 +3,6 @@ name: goreleaser
 on:
   push:
     tags: [ 'v*.*.*' ]
-    
-permissions: {}
 
 jobs:
 
