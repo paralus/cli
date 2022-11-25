@@ -45,6 +45,7 @@ brews:
     tap:
       owner: paralus
       name: homebrew-paralus
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
     commit_author:
       name: goreleaserbot
       email: bot@goreleaser.com
