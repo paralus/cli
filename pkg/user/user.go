@@ -75,7 +75,7 @@ func CreateUser(usr *userv3.User) error {
 	if err := json.Unmarshal([]byte(resp), &ur); err != nil {
 		return err
 	}
-	fmt.Println("Recovery URL: ", ur.GetSpec().GetRecoveryUrl())
+	fmt.Println("Default Password: ", ur.GetSpec().GetPassword())
 	return nil
 }
 
