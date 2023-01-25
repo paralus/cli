@@ -75,7 +75,7 @@ func CreateUser(usr *userv3.User) error {
 	if err := json.Unmarshal([]byte(resp), &ur); err != nil {
 		return err
 	}
-	fmt.Println("Default Password: ", ur.GetSpec().GetPassword())
+	fmt.Println("User registered. Use the following default pass phrase: ", ur.GetSpec().GetPassword())
 	return nil
 }
 
