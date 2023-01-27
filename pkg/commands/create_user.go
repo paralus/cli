@@ -56,7 +56,9 @@ func CreateUser(cmd *cobra.Command, username string, groups []string, ConsoleAcc
 			Organization: config.GetConfig().Organization,
 			Partner:      config.GetConfig().Partner,
 		},
-		Spec: &userv3.UserSpec{},
+		Spec: &userv3.UserSpec{
+			ForceReset: true,
+		},
 	}
 	if flags.Changed(CreateConsoleAccessFlag) {
 		if len(ConsoleAccessInputs) <= 2 {

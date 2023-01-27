@@ -36,7 +36,7 @@ require (
 require github.com/olekukonko/tablewriter v0.0.5
 
 require (
-	github.com/paralus/paralus v0.0.0-20220610083417-845812b5f7f2
+	github.com/paralus/paralus v0.1.10-0.20230127131419-80f7a148b0b6
 	github.com/spf13/pflag v1.0.5
 )
 

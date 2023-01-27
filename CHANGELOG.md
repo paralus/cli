@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### Fixed
+- Added support for forcereset and default password [mabhi](https://github.com/mabhi)
+
 ## [0.1.1] - 2022-10-14
 ### Fixed
 - Fix kubeconfig download error from [akshay196](https://github.com/akshay196)
