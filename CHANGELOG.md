@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## [0.1.2] - 2023-01-27
+
 ### Fixed
 - Added support for forcereset and default password [mabhi](https://github.com/mabhi)
 
@@ -15,6 +17,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Initial release
 
-[Unreleased]: https://github.com/paralus/cli/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/paralus/cli/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/paralus/cli/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/paralus/cli/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/paralus/cli/releases/tag/v0.1.0
