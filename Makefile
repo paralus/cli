@@ -1,26 +1,21 @@
 BIN="./bin"
 
-.PHONY: tidy
-tidy:
-	GOPRIVATE=github.com/paralus/* go mod tidy
-
-.PHONY: vendor
-vendor:
-  GOPRIVATE=github.com/paralus/* go mod vendor
+## Build
 
 .PHONY: build
 build:
-	# Omit the symbol table and debug information to reduce the
-	# size of binary.
+	@echo 'Building pctl...'
 	go build -ldflags "-s" -o $(BIN)/pctl
 
-.PHONY: build-proto
-build-proto:
-  buf build
+## Quality control
 
-.PHONY: gen-proto
-gen-proto:
-	buf generate
+.PHONY: tidy
+tidy:
+	go mod tidy
+
+.PHONY: vendor
+vendor:
+	go mod vendor
 
 .PHONY: test
 test:
@@ -30,7 +25,6 @@ test:
 check:
 	go fmt ./...
 	go vet ./...
-
 	$(MAKE) tidy
 
 .PHONY: clean
