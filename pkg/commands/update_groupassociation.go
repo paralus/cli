@@ -85,7 +85,7 @@ func UpdateProjectAssociation(cmd *cobra.Command, groupName string, projectName 
 		currGroup.Spec.ProjectNamespaceRoles = make([]*userv3.ProjectNamespaceRole, 0)
 	}
 
-	regexc := regexp.MustCompile(`[^a-z0-9-]+`)
+	regexc := regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?$`)
 
 	for _, eachRole := range roleList.Items {
 		if StringInSlice(eachRole.Metadata.Name, chosenRoles) {
@@ -94,10 +94,10 @@ func UpdateProjectAssociation(cmd *cobra.Command, groupName string, projectName 
 					return fmt.Errorf("namespace not specified for a namespaced role")
 				}
 				match := regexc.MatchString(namespace)
-				if match {
+				if !match {
 					return fmt.Errorf("namespace %q is invalid", namespace)
 				}
-				if !(len(namespace) >= 1 && len(namespace) <= 63) {
+				if len(namespace) < 1 || len(namespace) > 63 {
 					return fmt.Errorf("namespace %q is invalid. must be no more than 63 characters", namespace)
 				}
 				currGroup.Spec.ProjectNamespaceRoles = append(currGroup.Spec.ProjectNamespaceRoles, &userv3.ProjectNamespaceRole{
