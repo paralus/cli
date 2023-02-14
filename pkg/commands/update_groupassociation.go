@@ -2,6 +2,7 @@ package commands
 
 import (
 	"fmt"
+	"regexp"
 
 	"github.com/paralus/cli/pkg/config"
 	"github.com/paralus/cli/pkg/group"
@@ -83,11 +84,21 @@ func UpdateProjectAssociation(cmd *cobra.Command, groupName string, projectName 
 	if len(currGroup.Spec.ProjectNamespaceRoles) == 0 {
 		currGroup.Spec.ProjectNamespaceRoles = make([]*userv3.ProjectNamespaceRole, 0)
 	}
+
+	regexc := regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?$`)
+
 	for _, eachRole := range roleList.Items {
 		if StringInSlice(eachRole.Metadata.Name, chosenRoles) {
 			if eachRole.Spec.Scope == "namespace" {
 				if namespace == "" {
 					return fmt.Errorf("namespace not specified for a namespaced role")
+				}
+				match := regexc.MatchString(namespace)
+				if !match {
+					return fmt.Errorf("namespace %q is invalid", namespace)
+				}
+				if len(namespace) < 1 || len(namespace) > 63 {
+					return fmt.Errorf("namespace %q is invalid. must be no more than 63 characters", namespace)
 				}
 				currGroup.Spec.ProjectNamespaceRoles = append(currGroup.Spec.ProjectNamespaceRoles, &userv3.ProjectNamespaceRole{
 					Project:   &projectResp.Metadata.Name,
