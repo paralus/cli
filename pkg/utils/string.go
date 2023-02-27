@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 
 	"github.com/paralus/cli/pkg/log"
@@ -163,4 +164,16 @@ func ReadYAMLFileContents(filePath string) ([]byte, error) {
 	}
 	log.GetLogger().Debugf("YAML File Contents: %s: %#v", filePath, string(fileBytes))
 	return fileBytes, nil
+}
+
+func MatchStringToRegx(matchString, regex string) (error, bool) {
+	re, err := regexp.Compile(regex)
+	if err != nil {
+		log.GetLogger().Errorf("Error while commpling regex %s : %s", regex, err.Error())
+		return err, false
+	}
+	if re.MatchString(matchString) {
+		return nil, true
+	}
+	return nil, false
 }

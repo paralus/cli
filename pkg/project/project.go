@@ -138,6 +138,12 @@ func CreateProject(name, description string) error {
 	if name == "" {
 		return fmt.Errorf("name cannot be empty")
 	}
+	
+	regexProject := `^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$`
+	err, matched := utils.MatchStringToRegx(name, regexProject)
+	if err != nil || !matched {
+		return fmt.Errorf("invalid project name. Valid project name must be like demo-proj-test3")
+	}
 
 	project := systemv3.Project{
 		Kind: "Project",
@@ -151,7 +157,7 @@ func CreateProject(name, description string) error {
 	}
 
 	uri := fmt.Sprintf("/auth/v3/partner/%s/organization/%s/project", cfg.Partner, cfg.Organization)
-	_, err := auth.AuthAndRequest(uri, "POST", project)
+	_, err = auth.AuthAndRequest(uri, "POST", project)
 	if err != nil {
 		return err
 	}
