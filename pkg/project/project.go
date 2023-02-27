@@ -7,6 +7,7 @@ import (
 
 	"github.com/oliveagle/jsonpath"
 	"github.com/paralus/cli/pkg/config"
+	"github.com/paralus/cli/pkg/constants"
 	"github.com/paralus/cli/pkg/log"
 	"github.com/paralus/cli/pkg/output"
 	"github.com/paralus/cli/pkg/prefix"
@@ -138,9 +139,8 @@ func CreateProject(name, description string) error {
 	if name == "" {
 		return fmt.Errorf("name cannot be empty")
 	}
-	
-	regexProject := `^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$`
-	err, matched := utils.MatchStringToRegx(name, regexProject)
+
+	err, matched := utils.MatchStringToRegx(name, constants.PROJECT_NAME_REGEX)
 	if err != nil || !matched {
 		return fmt.Errorf("invalid project name. Valid project name must be like demo-proj-test3")
 	}

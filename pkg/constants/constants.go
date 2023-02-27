@@ -41,3 +41,4 @@ const DRIFT_ACTION_DETECT_NOTIFY = "DetectAndNotify"
 const DRIFT_ACTION_BLOCK_NOTIFY = "BlockAndNotify"
 
 const CLUSTER_TYPE_IMPORT = "imported"
+const PROJECT_NAME_REGEX = `^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$`
