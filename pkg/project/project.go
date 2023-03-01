@@ -142,7 +142,7 @@ func CreateProject(name, description string) error {
 
 	err, matched := utils.MatchStringToRegx(name, constants.PROJECT_NAME_REGEX)
 	if err != nil || !matched {
-		return fmt.Errorf("invalid project name. Valid project name must be like demo-proj-test3")
+		return fmt.Errorf("cluster name contains invalid characters. valid characters are `%s`", constants.PROJECT_NAME_REGEX)
 	}
 
 	project := systemv3.Project{
