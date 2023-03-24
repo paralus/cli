@@ -137,7 +137,7 @@ func (g *GlobalOptions) Run(cmd *cobra.Command, _ []string) error {
 			output.Exit()
 		}
 	}
-	if cmd.CommandPath() != "pctl config init" && cmd.CommandPath() != "pctl version" {
+	if cmd.CommandPath() != "pctl config init" && cmd.CommandPath() != "pctl version" && cmd.CommandPath() != "pctl config download" {
 		err := g.config.MiniCheck()
 		if err != nil {
 			// Ignore this error in case of 'config init' or 'version', this error will be ignored.
