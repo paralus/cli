@@ -1,10 +1,12 @@
 package commands
 
 import (
+	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/url"
 	"os"
+	"path"
 	"syscall"
 
 	"github.com/paralus/cli/pkg/kratos"
@@ -13,12 +15,20 @@ import (
 	"golang.org/x/term"
 )
 
+// defaultConfigDirPath is the default directory to download config to.
+var defaultConfigDirPath = path.Join(".paralus", "cli")
+
 const (
 	downloadConfigFilePathFlag = "to-file"
+	emailFlag                  = "email"
+	passwordFlag               = "password"
+	defaultConfigFileName      = "config.json"
 )
 
 type DownloadConfigsOptions struct {
 	downloadConfigFilePath string
+	email                  string
+	password               string
 	logger                 log.Logger
 }
 
@@ -38,36 +48,48 @@ func (o *DownloadConfigsOptions) Validate(cmd *cobra.Command, args []string) err
 		return err
 	}
 
+	if fi, err := os.Stat(o.downloadConfigFilePath); err == nil && fi.IsDir() {
+		return fmt.Errorf("%s is a directory", o.downloadConfigFilePath)
+	}
+
+	if o.email == "" && o.password != "" || o.email != "" && o.password == "" {
+		return errors.New("please provide both email and password to login")
+	}
+
 	return nil
 }
 
 func (o *DownloadConfigsOptions) Run(cmd *cobra.Command, args []string) error {
-	var email string
-	var password string
 
-	fmt.Print("Requesting credentials from user.\n")
-	fmt.Print("Enter Email: ")
-	fmt.Scanf("%s", &email)
+	if o.email == "" && o.password == "" {
+		fmt.Print("Requesting credentials from user.\n")
+		fmt.Print("Enter Email: ")
+		fmt.Scanf("%s", &o.email)
 
-	fmt.Print("Enter Password: ")
-	bytePassword, err := term.ReadPassword(syscall.Stdin)
-	if err != nil {
-		return err
+		fmt.Print("Enter Password: ")
+		bytePassword, err := term.ReadPassword(syscall.Stdin)
+		if err != nil {
+			return err
+		}
+		o.password = string(bytePassword)
 	}
-	password = string(bytePassword)
 
-	kc, err := kratos.Login(args[0], email, password)
+	kc, err := kratos.Login(args[0], o.email, o.password)
 	if err != nil {
-		return fmt.Errorf("failed to login. You may have entered an invalid username or password or paralus host endpoint :: %v", err.Error())
+		o.logger.Errorf("failed to login :: %v", err.Error())
+		return errors.New("failed to login. You may have entered an invalid username or password or paralus host endpoint")
 	}
 
 	o.logger.Debug("Fetching CLI config for user.")
 	res, err := kc.HttpGet(fmt.Sprintf("%s/auth/v3/cli/config", args[0]))
 	if err != nil {
-		return fmt.Errorf("failed to download cli config : %v", err.Error())
+		o.logger.Errorf("Error while download cli config : %v ", res.StatusCode)
+		return errors.New("failed to download cli config ")
 	}
 
-	cliConfig, err := ioutil.ReadAll(res.Body)
+	defer res.Body.Close()
+
+	cliConfig, err := io.ReadAll(res.Body)
 	if err != nil {
 		return err
 	}
@@ -76,11 +98,12 @@ func (o *DownloadConfigsOptions) Run(cmd *cobra.Command, args []string) error {
 		if err != nil {
 			return err
 		}
-		err = os.MkdirAll(fmt.Sprintf("%s/.paralus/cli/", userHomeDir), os.ModePerm)
+		downloadDirPath := path.Join(userHomeDir, defaultConfigDirPath)
+		err = os.MkdirAll(downloadDirPath, os.ModePerm)
 		if err != nil {
 			return err
 		}
-		o.downloadConfigFilePath = fmt.Sprintf("%s/.paralus/cli/config.json", userHomeDir)
+		o.downloadConfigFilePath = path.Join(downloadDirPath, defaultConfigFileName)
 	}
 
 	file, err := os.Create(o.downloadConfigFilePath)
@@ -102,4 +125,8 @@ func (o *DownloadConfigsOptions) AddFlags(cmd *cobra.Command) {
 	flagSet := cmd.PersistentFlags()
 	flagSet.StringVar(&o.downloadConfigFilePath, downloadConfigFilePathFlag, "",
 		"File location to download CLI config")
+	flagSet.StringVar(&o.email, emailFlag, "",
+		"Email for login to Paralus")
+	flagSet.StringVar(&o.password, passwordFlag, "",
+		"Password for login to Paralus")
 }

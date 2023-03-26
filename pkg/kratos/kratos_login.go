@@ -26,7 +26,7 @@ func Login(clientURL, email, password string) (KratosLoginClient, error) {
 	if err != nil {
 		return nil, err
 	}
-	log.GetLogger().Debug("Flow id fetched successfully issued_at: %v, expires_at: %v", flow.IssuedAt, flow.ExpiresAt)
+	log.GetLogger().Debugf("Flow id fetched successfully issued_at: %v, expires_at: %v", flow.IssuedAt, flow.ExpiresAt)
 	log.GetLogger().Debug("Logging in using user credentials.")
 	result, _, err := client.V0alpha2Api.SubmitSelfServiceLoginFlow(ctx).Flow(flow.Id).SubmitSelfServiceLoginFlowBody(
 		ory.SubmitSelfServiceLoginFlowWithPasswordMethodBodyAsSubmitSelfServiceLoginFlowBody(&ory.SubmitSelfServiceLoginFlowWithPasswordMethodBody{
@@ -41,7 +41,7 @@ func Login(clientURL, email, password string) (KratosLoginClient, error) {
 	}
 
 	log.GetLogger().Debug("User credentials validated successfully.")
-	log.GetLogger().Debug("User logged in successfully, session_id: %v, issued_at: %v, expires_at: %v, identity_id: %v, state: %v", result.Session.Id, result.Session.IssuedAt, result.Session.Identity.Id, result.Session.Identity.State)
+	log.GetLogger().Debugf("User logged in successfully, session_id: %v, issued_at: %v, expires_at: %v, identity_id: %v, state: %v", result.Session.Id, result.Session.IssuedAt, result.Session.Identity.Id, result.Session.Identity.State)
 
 	return kratosLogin{*result}, nil
 }
