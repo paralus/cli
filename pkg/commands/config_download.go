@@ -62,7 +62,6 @@ func (o *DownloadConfigsOptions) Validate(cmd *cobra.Command, args []string) err
 func (o *DownloadConfigsOptions) Run(cmd *cobra.Command, args []string) error {
 
 	if o.email == "" && o.password == "" {
-		fmt.Print("Requesting credentials from user.\n")
 		fmt.Print("Enter Email: ")
 		fmt.Scanf("%s", &o.email)
 
@@ -71,12 +70,13 @@ func (o *DownloadConfigsOptions) Run(cmd *cobra.Command, args []string) error {
 		if err != nil {
 			return err
 		}
+		fmt.Println() // add newline after password
 		o.password = string(bytePassword)
 	}
 
 	kc, err := kratos.Login(args[0], o.email, o.password)
 	if err != nil {
-		o.logger.Errorf("failed to login :: %v", err.Error())
+		o.logger.Infof("failed to login :: %v", err.Error())
 		return errors.New("failed to login. You may have entered an invalid username or password or paralus host endpoint")
 	}
 
@@ -116,8 +116,7 @@ func (o *DownloadConfigsOptions) Run(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	fmt.Printf("\nCLI config stored at `%s`\n", o.downloadConfigFilePath)
-
+	fmt.Printf("CLI config stored at `%s`\n", o.downloadConfigFilePath)
 	return nil
 }
 

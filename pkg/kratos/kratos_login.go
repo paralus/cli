@@ -9,7 +9,7 @@ import (
 )
 
 type kratosLogin struct {
-	ory.SuccessfulSelfServiceLoginWithoutBrowser
+	ory.SuccessfulNativeLogin
 }
 
 type KratosLoginClient interface {
@@ -20,40 +20,45 @@ func Login(clientURL, email, password string) (KratosLoginClient, error) {
 	ctx := context.Background()
 	client := getNewAPIClient(clientURL)
 
-	// Initialize a registration flow
 	log.GetLogger().Debug("Initializing the login flow.")
-	flow, _, err := client.V0alpha2Api.InitializeSelfServiceLoginFlowWithoutBrowser(ctx).Execute()
+	flow, _, err := client.FrontendApi.CreateNativeLoginFlow(ctx).Execute()
 	if err != nil {
 		return nil, err
 	}
-	log.GetLogger().Debugf("Flow id fetched successfully issued_at: %v, expires_at: %v", flow.IssuedAt, flow.ExpiresAt)
+	log.GetLogger().Debugf("Flow id fetched successfully issued_at: %v, expires_at: %v", flow.GetIssuedAt(), flow.GetExpiresAt())
+
 	log.GetLogger().Debug("Logging in using user credentials.")
-	result, _, err := client.V0alpha2Api.SubmitSelfServiceLoginFlow(ctx).Flow(flow.Id).SubmitSelfServiceLoginFlowBody(
-		ory.SubmitSelfServiceLoginFlowWithPasswordMethodBodyAsSubmitSelfServiceLoginFlowBody(&ory.SubmitSelfServiceLoginFlowWithPasswordMethodBody{
+	body := ory.UpdateLoginFlowBody{
+		UpdateLoginFlowWithPasswordMethod: &ory.UpdateLoginFlowWithPasswordMethod{
 			Method:             "password",
 			Password:           password,
 			Identifier:         email,
 			PasswordIdentifier: &email,
-		}),
-	).Execute()
+		},
+	}
+	login, _, err := client.FrontendApi.UpdateLoginFlow(ctx).UpdateLoginFlowBody(body).Flow(flow.GetId()).Execute()
 	if err != nil {
 		return nil, err
 	}
 
-	log.GetLogger().Debug("User credentials validated successfully.")
-	log.GetLogger().Debugf("User logged in successfully, session_id: %v, issued_at: %v, expires_at: %v, identity_id: %v, state: %v", result.Session.Id, result.Session.IssuedAt, result.Session.Identity.Id, result.Session.Identity.State)
-
-	return kratosLogin{*result}, nil
+	info := map[string]interface{}{
+		"session_id":  login.Session.GetId(),
+		"issued_at":   login.Session.GetIssuedAt(),
+		"expires_at":  login.Session.GetExpiresAt(),
+		"identity_id": login.Session.Identity.GetId(),
+		"user_state":  login.Session.GetActive(),
+	}
+	log.GetLogger().Debugf("User logged in successfully. User info: %v", info)
+	return kratosLogin{*login}, nil
 }
 
 func (k kratosLogin) HttpGet(url string) (*http.Response, error) {
-
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("X-Session-Token", *k.SessionToken)
+	req.Header.Set("X-Session-Token", k.GetSessionToken())
 	res, err := client.Do(req)
 	if err != nil {
 		return nil, err
