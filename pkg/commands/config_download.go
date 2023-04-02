@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net/http"
 	"net/url"
 	"os"
 	"path"
@@ -45,7 +46,7 @@ func (o *DownloadConfigsOptions) Validate(cmd *cobra.Command, args []string) err
 	}
 	_, err := url.ParseRequestURI(args[0])
 	if err != nil {
-		return err
+		return errors.New("invalid console URL.")
 	}
 
 	if fi, err := os.Stat(o.downloadConfigFilePath); err == nil && fi.IsDir() {
@@ -76,15 +77,17 @@ func (o *DownloadConfigsOptions) Run(cmd *cobra.Command, args []string) error {
 
 	kc, err := kratos.Login(args[0], o.email, o.password)
 	if err != nil {
-		o.logger.Infof("failed to login :: %v", err.Error())
-		return errors.New("failed to login. You may have entered an invalid username or password or paralus host endpoint")
+		if errors.Is(err, kratos.ErrKratosFlow) {
+			return fmt.Errorf("failed to login. Please verify console host")
+		}
+		return fmt.Errorf("failed to login. Reason: %s", err.Error())
 	}
 
-	o.logger.Debug("Fetching CLI config for user.")
+	o.logger.Info("Fetching CLI config for user.")
 	res, err := kc.HttpGet(fmt.Sprintf("%s/auth/v3/cli/config", args[0]))
-	if err != nil {
-		o.logger.Errorf("Error while download cli config : %v ", res.StatusCode)
-		return errors.New("failed to download cli config ")
+	if err != nil || (res.StatusCode != http.StatusOK) {
+		o.logger.Infof("Error while download cli config : %v ", res.StatusCode)
+		return errors.New("failed to download cli config.")
 	}
 
 	defer res.Body.Close()

@@ -122,8 +122,12 @@ func (g *GlobalOptions) Run(cmd *cobra.Command, _ []string) error {
 	cliCtx.Debug = isDebug
 	cliCtx.StructuredOutput = isStructuredOutput
 
-	log.GetLogger().Debugf("Prerun")
+	if cmd.CommandPath() == "pctl config download" {
+		// Skip config preruns for config download
+		return nil
+	}
 
+	log.GetLogger().Debugf("Prerun")
 	// Log the context
 	cliCtx.Log("Context: ")
 	err = config.InitConfig(cliCtx)
@@ -137,7 +141,7 @@ func (g *GlobalOptions) Run(cmd *cobra.Command, _ []string) error {
 			output.Exit()
 		}
 	}
-	if cmd.CommandPath() != "pctl config init" && cmd.CommandPath() != "pctl version" && cmd.CommandPath() != "pctl config download" {
+	if cmd.CommandPath() != "pctl config init" && cmd.CommandPath() != "pctl version" {
 		err := g.config.MiniCheck()
 		if err != nil {
 			// Ignore this error in case of 'config init' or 'version', this error will be ignored.

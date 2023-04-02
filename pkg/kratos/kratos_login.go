@@ -2,10 +2,16 @@ package kratos
 
 import (
 	"context"
+	"errors"
 	"net/http"
 
 	ory "github.com/ory/kratos-client-go"
 	"github.com/paralus/cli/pkg/log"
+)
+
+var (
+	ErrInvalidCreds = errors.New("invalid credentials")
+	ErrKratosFlow   = errors.New("flow initialization error")
 )
 
 type kratosLogin struct {
@@ -20,14 +26,15 @@ func Login(clientURL, email, password string) (KratosLoginClient, error) {
 	ctx := context.Background()
 	client := getNewAPIClient(clientURL)
 
-	log.GetLogger().Debug("Initializing the login flow.")
+	log.GetLogger().Info("Initializing the login flow.")
 	flow, _, err := client.FrontendApi.CreateNativeLoginFlow(ctx).Execute()
 	if err != nil {
-		return nil, err
+		log.GetLogger().Infof("flow initialization error: %s", err.Error())
+		return nil, ErrKratosFlow
 	}
 	log.GetLogger().Debugf("Flow id fetched successfully issued_at: %v, expires_at: %v", flow.GetIssuedAt(), flow.GetExpiresAt())
 
-	log.GetLogger().Debug("Logging in using user credentials.")
+	log.GetLogger().Info("Logging in using user credentials.")
 	body := ory.UpdateLoginFlowBody{
 		UpdateLoginFlowWithPasswordMethod: &ory.UpdateLoginFlowWithPasswordMethod{
 			Method:             "password",
@@ -36,8 +43,11 @@ func Login(clientURL, email, password string) (KratosLoginClient, error) {
 			PasswordIdentifier: &email,
 		},
 	}
-	login, _, err := client.FrontendApi.UpdateLoginFlow(ctx).UpdateLoginFlowBody(body).Flow(flow.GetId()).Execute()
+	login, hr, err := client.FrontendApi.UpdateLoginFlow(ctx).UpdateLoginFlowBody(body).Flow(flow.GetId()).Execute()
 	if err != nil {
+		if hr.StatusCode == http.StatusBadRequest {
+			return nil, ErrInvalidCreds
+		}
 		return nil, err
 	}
 
@@ -59,9 +69,5 @@ func (k kratosLogin) HttpGet(url string) (*http.Response, error) {
 		return nil, err
 	}
 	req.Header.Set("X-Session-Token", k.GetSessionToken())
-	res, err := client.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	return res, err
+	return client.Do(req)
 }
