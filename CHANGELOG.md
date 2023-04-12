@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
+### Added
+-  Added support for downloading cli config to remove dashboard dependency for pctl usage [hiteshwani29](https://github.com/hiteshwani29)
 
 ## [0.1.3] - 2023-02-24
 ### Fixed

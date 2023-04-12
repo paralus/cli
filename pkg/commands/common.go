@@ -122,8 +122,12 @@ func (g *GlobalOptions) Run(cmd *cobra.Command, _ []string) error {
 	cliCtx.Debug = isDebug
 	cliCtx.StructuredOutput = isStructuredOutput
 
-	log.GetLogger().Debugf("Prerun")
+	if cmd.CommandPath() == "pctl config download" {
+		// Skip config preruns for config download
+		return nil
+	}
 
+	log.GetLogger().Debugf("Prerun")
 	// Log the context
 	cliCtx.Log("Context: ")
 	err = config.InitConfig(cliCtx)

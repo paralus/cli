@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 
+	"github.com/paralus/cli/pkg/commands"
 	"github.com/paralus/cli/pkg/config"
 	"github.com/paralus/cli/pkg/context"
 	"github.com/paralus/cli/pkg/exit"
@@ -141,6 +142,7 @@ func init() {
 		ConfigShowCmd,
 		ConfigSetCmd,
 		// ConfigCheckCmd,
+		newConfigDownloadCmd(commands.NewDownloadConfigOptions(log.GetLogger())),
 	)
 	ConfigSetCmd.AddCommand(ConfigSetProjectCmd)
 }
