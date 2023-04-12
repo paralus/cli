@@ -10,8 +10,9 @@ func newConfigDownloadCmd(o commands.CmdOptions) *cobra.Command {
 	// cmd represents the get command
 	cmd := &cobra.Command{
 		Use:   "download",
-		Short: "Download CLI config.",
-		Long: `Download CLI config.
+		Short: "Download CLI config",
+		Long: `Download CLI config using local user credentials.
+
 Examples:
 	# Download a CLI config from http://console.paralus.local (provide user credentials when asked)
 	pctl config download http://console.paralus.local
