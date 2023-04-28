@@ -10,10 +10,12 @@ CLI tool to interact with Paralus.
 
 You can download the config using below command (RECOMMENDED)
 
+```
 pctl config download http://console.paralus.local
 Enter Email: admin@paralus.local
 Enter Password: 
 CLI config stored at `/home/.paralus/cli/config.json`
+```
 
 OR 
 
