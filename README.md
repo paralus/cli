@@ -8,6 +8,15 @@ CLI tool to interact with Paralus.
 
 `export PATH=$PATH:/usr/local/bin/pctl`
 
+You can download the config using below command (RECOMMENDED)
+
+pctl config download http://console.paralus.local
+Enter Email: admin@paralus.local
+Enter Password: 
+CLI config stored at `/home/.paralus/cli/config.json`
+
+OR 
+
 Download the config from Paralus dashboard (*My Tools -> Download CLI Config*), this should be placed in the default directory under `$HOME/.paralus/cli`. *Create the directory if it doesn't exist.*
 
 Sample configuration file looks like below:
