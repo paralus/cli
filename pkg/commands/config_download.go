@@ -8,7 +8,6 @@ import (
 	"net/url"
 	"os"
 	"path"
-	"syscall"
 
 	"github.com/paralus/cli/pkg/kratos"
 	"github.com/paralus/cli/pkg/log"
@@ -67,7 +66,7 @@ func (o *DownloadConfigsOptions) Run(cmd *cobra.Command, args []string) error {
 		fmt.Scanf("%s", &o.email)
 
 		fmt.Print("Enter Password: ")
-		bytePassword, err := term.ReadPassword(syscall.Stdin)
+		bytePassword, err := term.ReadPassword(int(os.Stdin.Fd()))
 		if err != nil {
 			return err
 		}
