@@ -9,13 +9,14 @@ import (
 	"github.com/paralus/cli/pkg/log"
 )
 
-/* This function exits the pctl program. In case 'exit' is not set,
-   nothing will be printed to the console. The return code of
-   program is set to zero.
+/*
+This function exits the pctl program. In case 'exit' is not set,
+nothing will be printed to the console. The return code of program is
+set to zero.
 
-   When 'exit' is set, the exit message will be printed to
-   the console before the program exits with the return code
-   set in the 'exit' structure.
+When 'exit' is set, the exit message will be printed to the console
+before the program exits with the return code set in the 'exit'
+structure.
 */
 func Exit() {
 	e := exit.Get()
