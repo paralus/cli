@@ -1,49 +1,56 @@
-name: goreleaser
+name: GoReleaser
 
 on:
   push:
+    branches: [ main ]
     tags: [ 'v*.*.*' ]
-    
+
 permissions:
   contents: write
 
 jobs:
 
-  goreleaser:
+  release:
     strategy:
       matrix:
-        go-version: [1.17.x]
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
-    permissions:
-      contents: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: 0 # It is required for GoReleaser to work properly.
 
+      # This is needed if you use fields like TagBody, TagSubject or
+      # TagContents in your templates.
       - name: Fetch all tags
         run: git fetch --force --tags
 
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: ${{ matrix.go-version }}
+          # Getting go version from the go.mod file
+          go-version-file: 'go.mod'
 
-      - name: vendor packages
-        run: go mod tidy -compat=1.17 && go mod vendor
+      - run: go version
 
       # Sanity check before publishing
       - name: Test all
         run: go test -v ./...
+
+      - name: Set goreleaser snapshot env
+        run: if [[ $GITHUB_REF != refs/tags/v* ]]; then echo "goreleaser_snapshot=--snapshot"; fi >> $GITHUB_ENV
+
+      - name: Read variables
+        run: |
+          echo "goreleaser_snapshot=${{ env.goreleaser_snapshot }}"
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@f82d6c1c344bcacabba2c841718984797f664a6b # V4.2.0
         with:
           distribution: goreleaser
           version: latest
-          args: release --rm-dist
+          args: release --clean ${{ env.goreleaser_snapshot }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
