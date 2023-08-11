@@ -1,45 +1,28 @@
 module github.com/paralus/cli
 
-go 1.17
-
-require github.com/spf13/cobra v1.3.0
-
-require go.uber.org/zap v1.21.0
-
-require github.com/tidwall/gjson v1.14.0
-
-require (
-	github.com/oliveagle/jsonpath v0.0.0-20180606110733-2e52cf6e6852
-	github.com/segmentio/encoding v0.3.4
-	gopkg.in/yaml.v2 v2.4.0
-)
-
-require github.com/go-openapi/runtime v0.23.1
+go 1.20
 
 require (
 	github.com/ghodss/yaml v1.0.0
+	github.com/go-openapi/runtime v0.23.1
 	github.com/levigross/grequests v0.0.0-20190908174114-253788527a1a
-)
-
-require (
 	github.com/liggitt/tabwriter v0.0.0-20181228230101-89fcab3d43de
-	github.com/spacemonkeygo/httpsig v0.0.0-20181218213338-2605ae379e47
-	github.com/stretchr/testify v1.7.0
-	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
-)
-
-require (
 	github.com/mitchellh/go-homedir v1.1.0
-	github.com/spf13/viper v1.10.1
-)
-
-require github.com/olekukonko/tablewriter v0.0.5
-
-require (
+	github.com/olekukonko/tablewriter v0.0.5
+	github.com/oliveagle/jsonpath v0.0.0-20180606110733-2e52cf6e6852
 	github.com/ory/kratos-client-go v0.11.1
 	github.com/paralus/paralus v0.1.10-0.20230127131419-80f7a148b0b6
+	github.com/segmentio/encoding v0.3.4
+	github.com/spacemonkeygo/httpsig v0.0.0-20181218213338-2605ae379e47
+	github.com/spf13/cobra v1.3.0
 	github.com/spf13/pflag v1.0.5
+	github.com/spf13/viper v1.10.1
+	github.com/stretchr/testify v1.7.0
+	github.com/tidwall/gjson v1.14.0
+	go.uber.org/zap v1.21.0
 	golang.org/x/term v0.6.0
+	gopkg.in/yaml.v2 v2.4.0
+	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
 )
 
 require (
