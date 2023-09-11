@@ -49,7 +49,7 @@ jobs:
           echo "goreleaser_snapshot=${{ env.goreleaser_snapshot }}"
 
       - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@336e29918d653399e599bfca99fadc1d7ffbc9f7 # V4.3.0
+        uses: goreleaser/goreleaser-action@5fdedb94abba051217030cc86d4523cf3f02243d # V4.6.0
         with:
           distribution: goreleaser
           version: latest
