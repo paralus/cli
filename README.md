@@ -1,4 +1,6 @@
 # Paralus cli
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fparalus%2Fcli.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fparalus%2Fcli?ref=badge_shield)
+
 
 CLI tool to interact with Paralus.
 
@@ -60,3 +62,7 @@ The easiest way to start is to look at existing issues and see if there’s some
 Once you decide on an issue, please comment on it so that all of us know that you’re on it.
 
 If you’re looking to add a new feature, raise a [new issue](https://github.com/paralus/cli/issues) and start a discussion with the community. Engage with the maintainers of the project and work your way through.
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fparalus%2Fcli.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fparalus%2Fcli?ref=badge_large)
