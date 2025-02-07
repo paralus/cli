@@ -14,21 +14,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func refCheck(ids interface{}) (string, error) {
-	if idsArray, ok := ids.([]interface{}); ok {
-		if len(idsArray) == 1 {
-			if id, ok := idsArray[0].(string); ok {
-				return id, nil
-			} else {
-				return "", fmt.Errorf("ref id is not of a string type")
-			}
-		} else {
-			return "", fmt.Errorf("ref object matches more than one element")
-		}
-	}
-	return "", fmt.Errorf("ref object is not an array")
-}
-
 func GetProjectIdFromFlagAndConfig(cmd *cobra.Command) (string, error) {
 	projectName, err := cmd.Flags().GetString("project")
 	if err != nil {
@@ -90,15 +75,10 @@ func GetProjectIdByNameInConfig(config *Config, name string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	filter := fmt.Sprintf("$.results[?(@.name == '%s')].id", name)
+	filter := fmt.Sprintf("$.metadata.id")
 	res, err := jsonpath.JsonPathLookup(obj, filter)
 	if err == nil {
-		id, err := refCheck(res)
-		if err != nil {
-			log.GetLogger().Debugf("ref check failed %s", err)
-		} else {
-			return id, nil
-		}
+		return res.(string), nil
 	} else {
 		log.GetLogger().Debugf("ref looked up name failed %s", err)
 	}
