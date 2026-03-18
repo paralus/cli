@@ -69,7 +69,7 @@ func CreateUser(usr *userv3.User) error {
 	uri := "/auth/v3/users"
 	resp, err := auth.AuthAndRequest(uri, "POST", usr)
 	if err != nil {
-		return err
+		return fmt.Errorf("user creation failed: %v", err)
 	}
 	var ur userv3.User
 	if err := json.Unmarshal([]byte(resp), &ur); err != nil {
